@@ -1,6 +1,8 @@
 import React from "react";
 
-const Main = () => {
+const Main = (props) => {
+  // eslint-disable-next-line react/prop-types
+  const {title, genre, releaseDate} = props;
 
   return (
     <div>
@@ -34,10 +36,10 @@ const Main = () => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">Fantastic Beasts: The Crimes of Grindelwald</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">Drama</span>
-                <span className="movie-card__year">2014</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{releaseDate}</span>
               </p>
 
               <div className="movie-card__buttons">
