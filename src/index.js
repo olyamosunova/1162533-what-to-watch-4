@@ -1,14 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-
-const MovieDescription = {
-  TITLE: `The Grand Budapest Hotel`,
-  GENRE: `Drama`,
-  RELEASE_DATE: 2014,
-};
-
-const MOVIES_TITLES = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
+import {MovieDescription, MOVIES_TITLES} from "./mock/movies";
 
 ReactDOM.render(
     <App title={MovieDescription.TITLE}
