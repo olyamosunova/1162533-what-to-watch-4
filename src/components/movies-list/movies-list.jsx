@@ -9,10 +9,10 @@ class MoviesList extends PureComponent {
     this.state = {
       activeMovieCardId: null,
     };
-    this._handleMouseOver = this._handleMouseOver.bind(this);
+    this._handleMouseEnter = this._handleMouseEnter.bind(this);
   }
 
-  _handleMouseOver(id) {
+  _handleMouseEnter(id) {
     this.setState({activeMovieCardId: id});
   }
 
@@ -26,7 +26,7 @@ class MoviesList extends PureComponent {
             key={movie.id}
             movieInformation={movie}
             onMovieTitleClick={onMovieTitleClick}
-            onMovieHover={this._handleMouseOver}
+            onMovieHover={this._handleMouseEnter}
           />
         ))};
       </div>

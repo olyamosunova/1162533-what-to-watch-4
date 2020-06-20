@@ -4,8 +4,6 @@ const MovieDescription = {
   RELEASE_DATE: 2014,
 };
 
-const MOVIES_TITLES = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
-
 const MoviesList = [
   {
     id: 1,
@@ -49,4 +47,4 @@ const MoviesList = [
   },
 ];
 
-export {MovieDescription, MOVIES_TITLES, MoviesList};
+export {MovieDescription, MoviesList};
