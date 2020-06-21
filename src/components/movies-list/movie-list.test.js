@@ -1,14 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import MoviesList from "./movies-list.jsx";
 
-const MovieDescription = {
-  TITLE: `The Grand Budapest Hotel`,
-  GENRE: `Drama`,
-  RELEASE_DATE: 2014,
-};
-
-const MoviesList = [
+const Movies = [
   {
     id: 1,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -51,13 +45,11 @@ const MoviesList = [
   },
 ];
 
-it(`Render App`, () => {
+it(`Should MoviesList render correctly`, () => {
   const tree = renderer
-    .create(<App
-      title={MovieDescription.TITLE}
-      genre={MovieDescription.GENRE}
-      releaseDate={MovieDescription.RELEASE_DATE}
-      movies={MoviesList}
+    .create(<MoviesList
+      movies={Movies}
+      onMovieTitleClick={() => {}}
     />)
     .toJSON();
 
