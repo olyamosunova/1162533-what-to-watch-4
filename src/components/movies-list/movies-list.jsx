@@ -28,7 +28,7 @@ class MoviesList extends PureComponent {
             onMovieTitleClick={onMovieTitleClick}
             onMovieHover={this._handleMouseEnter}
           />
-        ))};
+        ))}
       </div>
     );
   }

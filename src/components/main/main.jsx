@@ -4,12 +4,12 @@ import MoviesList from "../movies-list/movies-list.jsx";
 
 const Main = (props) => {
   const {
-    title,
-    genre,
-    releaseDate,
+    promoMovie,
     movies,
     onMovieTitleClick
   } = props;
+
+  const {title, genre, releaseDate} = promoMovie;
 
   return (
     <React.Fragment>
@@ -134,9 +134,11 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
+  promoMovie: PropTypes.shape({
+    TITLE: PropTypes.string.isRequired,
+    GENRE: PropTypes.string.isRequired,
+    RELEASE_DATE: PropTypes.number.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
