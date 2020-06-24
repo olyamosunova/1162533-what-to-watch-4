@@ -2,10 +2,12 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 
-const MovieDescription = {
+const PromoMovie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
   RELEASE_DATE: 2014,
+  POSTER: `the-grand-budapest-hotel-poster.jpg`,
+  COVER: `bg-the-grand-budapest-hotel.jpg`,
 };
 
 const MoviesList = [
@@ -54,9 +56,7 @@ const MoviesList = [
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(<Main
-      title={MovieDescription.TITLE}
-      genre={MovieDescription.GENRE}
-      releaseDate={MovieDescription.RELEASE_DATE}
+      promoMovie={PromoMovie}
       movies={MoviesList}
       onMovieTitleClick={() => {}}
     />)

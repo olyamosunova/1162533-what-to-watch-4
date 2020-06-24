@@ -3,10 +3,12 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
 
-const MovieDescription = {
+const PromoMovie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
   RELEASE_DATE: 2014,
+  POSTER: `the-grand-budapest-hotel-poster.jpg`,
+  COVER: `bg-the-grand-budapest-hotel.jpg`,
 };
 
 const MoviesList = [
@@ -61,9 +63,7 @@ it(`Should movie title be clicked`, () => {
 
   const main = shallow(
       <Main
-        title={MovieDescription.TITLE}
-        genre={MovieDescription.GENRE}
-        releaseDate={MovieDescription.RELEASE_DATE}
+        promoMovie={PromoMovie}
         movies={MoviesList}
         onMovieTitleClick={onMovieTitleClick}
       />

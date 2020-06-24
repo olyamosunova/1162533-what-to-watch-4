@@ -1,16 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import MoviePage from "./movie-page.jsx";
 
-const PromoMovie = {
-  TITLE: `The Grand Budapest Hotel`,
-  GENRE: `Drama`,
-  RELEASE_DATE: 2014,
-  POSTER: `the-grand-budapest-hotel-poster.jpg`,
-  COVER: `bg-the-grand-budapest-hotel.jpg`,
-};
-
-const MoviesList = [
+const Movies = [
   {
     id: 1,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -70,12 +62,12 @@ const MovieDescriptions = {
   STARRING: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
 };
 
-it(`Render App`, () => {
+it(`Should MoviePage render correctly`, () => {
   const tree = renderer
-    .create(<App
-      promoMovie={PromoMovie}
+    .create(<MoviePage
       movieDescription={MovieDescriptions}
-      movies={MoviesList}
+      movies={Movies}
+      onMovieTitleClick={() => {}}
     />)
     .toJSON();
 
