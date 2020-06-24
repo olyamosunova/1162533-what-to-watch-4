@@ -2,6 +2,8 @@ const PromoMovie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
   RELEASE_DATE: 2014,
+  POSTER: `the-grand-budapest-hotel-poster.jpg`,
+  COVER: `bg-the-grand-budapest-hotel.jpg`,
 };
 
 const MoviesList = [
