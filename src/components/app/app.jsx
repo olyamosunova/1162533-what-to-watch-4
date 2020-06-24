@@ -30,7 +30,7 @@ class App extends PureComponent {
           <Main
             promoMovie={promoMovie}
             movies={movies}
-            onMovieTitleClick={this._movieClickHandler}
+            onMovieClick={this._movieClickHandler}
           />
         );
       case `movie`:
@@ -38,7 +38,7 @@ class App extends PureComponent {
           <MoviePage
             movieDescription={movieDescription}
             movies={movies}
-            onMovieTitleClick={this._movieClickHandler}
+            onMovieClick={this._movieClickHandler}
           />
         );
     }
@@ -58,7 +58,7 @@ class App extends PureComponent {
             <MoviePage
               movieDescription={movieDescription}
               movies={movies}
-              onMovieTitleClick={this._movieClickHandler}
+              onMovieClick={this._movieClickHandler}
             />
           </Route>
         </Switch>

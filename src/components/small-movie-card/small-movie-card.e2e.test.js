@@ -19,7 +19,7 @@ it(`when user hover movie card`, () => {
   const smallMovieCard = shallow(
       <SmallMovieCard
         movieInformation={movie}
-        onMovieTitleClick={() => {
+        onMovieClick={() => {
         }}
         onMovieHover={onMovieHover}
       />
@@ -29,4 +29,21 @@ it(`when user hover movie card`, () => {
 
   expect(onMovieHover).toHaveBeenCalledTimes(1);
   expect(onMovieHover.mock.calls.length).toBe(movie.id);
+});
+
+it(`when user click title movie card`, () => {
+  const onMovieClick = jest.fn();
+
+  const smallMovieCard = shallow(
+      <SmallMovieCard
+        movieInformation={movie}
+        onMovieClick={onMovieClick}
+        onMovieHover={() => {}}
+      />
+  );
+
+  smallMovieCard.find(`.small-movie-card__link`).simulate(`click`);
+
+  expect(onMovieClick.mock.calls.length).toBe(movie.id);
+  expect(onMovieClick).toBeCalledWith(`movie`);
 });

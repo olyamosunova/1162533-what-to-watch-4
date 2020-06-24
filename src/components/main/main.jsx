@@ -6,7 +6,7 @@ const Main = (props) => {
   const {
     promoMovie,
     movies,
-    onMovieTitleClick
+    onMovieClick,
   } = props;
 
   const {TITLE, GENRE, RELEASE_DATE, COVER, POSTER} = promoMovie;
@@ -107,7 +107,7 @@ const Main = (props) => {
 
           <MoviesList
             movies={movies}
-            onMovieTitleClick={onMovieTitleClick}
+            onMovieClick={onMovieClick}
           />
 
           <div className="catalog__more">
@@ -148,7 +148,7 @@ Main.propTypes = {
         poster: PropTypes.string.isRequired,
       })
   ).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
 };
 
 export default Main;

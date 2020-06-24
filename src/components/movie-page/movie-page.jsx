@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 
 const MoviePage = (props) => {
-  const {movieDescription, movies, onMovieTitleClick} = props;
+  const {movieDescription, movies, onMovieClick} = props;
   const {TITLE, GENRE, RELEASE_DATE, POSTER, COVER, RATING, RATING_LEVEL, RATING_COUNT, DESCRIPTION, DIRECTOR, STARRING} = movieDescription;
 
   return (
@@ -107,7 +107,7 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={movies} onMovieTitleClick={onMovieTitleClick}/>
+          <MoviesList movies={movies} onMovieClick={onMovieClick}/>
         </section>
 
         <footer className="page-footer">
@@ -151,5 +151,5 @@ MoviePage.propTypes = {
         poster: PropTypes.string.isRequired,
       })
   ).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
 };

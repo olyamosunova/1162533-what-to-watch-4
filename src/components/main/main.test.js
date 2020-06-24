@@ -58,7 +58,7 @@ it(`Should Main render correctly`, () => {
     .create(<Main
       promoMovie={PromoMovie}
       movies={MoviesList}
-      onMovieTitleClick={() => {}}
+      onMovieClick={() => {}}
     />)
     .toJSON();
 

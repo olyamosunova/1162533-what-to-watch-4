@@ -49,7 +49,7 @@ it(`Should MoviesList render correctly`, () => {
   const tree = renderer
     .create(<MoviesList
       movies={Movies}
-      onMovieTitleClick={() => {}}
+      onMovieClick={() => {}}
     />)
     .toJSON();
 

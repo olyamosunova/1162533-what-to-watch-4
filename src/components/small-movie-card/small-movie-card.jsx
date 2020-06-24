@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SmallMovieCard = (props) => {
-  const {movieInformation, onMovieTitleClick, onMovieHover} = props;
+  const {movieInformation, onMovieClick, onMovieHover} = props;
   const {id, title, poster} = movieInformation;
 
   function _onMovieClickHandler() {
-    onMovieTitleClick(`movie`);
+    onMovieClick(`movie`);
   }
 
   return (
@@ -42,7 +42,7 @@ SmallMovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
   }).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
   onMovieHover: PropTypes.func.isRequired,
 };
 
