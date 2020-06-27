@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 
 const MoviePage = (props) => {
-  const {movieDescription, movies, onMovieClick} = props;
-  const {TITLE, GENRE, RELEASE_DATE, POSTER, COVER, RATING, RATING_LEVEL, RATING_COUNT, DESCRIPTION, DIRECTOR, STARRING} = movieDescription;
+  const {movie, movies, onMovieClick} = props;
+  const {promoMovie, rating, ratingLevel, ratingCount, description, director, starring} = movie;
+  const {title, genre, releaseDate, poster, cover} = promoMovie;
 
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${COVER}`} alt={TITLE}/>
+            <img src={`img/${cover}`} alt={title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -34,10 +35,10 @@ const MoviePage = (props) => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{TITLE}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{GENRE}</span>
-                <span className="movie-card__year">{RELEASE_DATE}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{releaseDate}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -62,7 +63,7 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${POSTER}`} alt="The Grand Budapest Hotel poster" width="218"
+              <img src={`img/${poster}`} alt="The Grand Budapest Hotel poster" width="218"
                 height="327"/>
             </div>
 
@@ -82,21 +83,21 @@ const MoviePage = (props) => {
               </nav>
 
               <div className="movie-rating">
-                <div className="movie-rating__score">{RATING}</div>
+                <div className="movie-rating__score">{rating}</div>
                 <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{RATING_LEVEL}</span>
-                  <span className="movie-rating__count">{RATING_COUNT} ratings</span>
+                  <span className="movie-rating__level">{ratingLevel}</span>
+                  <span className="movie-rating__count">{ratingCount} ratings</span>
                 </p>
               </div>
 
               <div className="movie-card__text">
-                {DESCRIPTION.map((text, i) => (
+                {description.map((text, i) => (
                   <p key={i}>{text}</p>
                 ))}
 
-                <p className="movie-card__director"><strong>Director: {DIRECTOR}</strong></p>
+                <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-                <p className="movie-card__starring"><strong>Starring: {STARRING}</strong></p>
+                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
               </div>
             </div>
           </div>
@@ -131,24 +132,38 @@ const MoviePage = (props) => {
 export default MoviePage;
 
 MoviePage.propTypes = {
-  movieDescription: PropTypes.shape({
-    TITLE: PropTypes.string.isRequired,
-    GENRE: PropTypes.string.isRequired,
-    RELEASE_DATE: PropTypes.number.isRequired,
-    POSTER: PropTypes.string.isRequired,
-    COVER: PropTypes.string.isRequired,
-    RATING: PropTypes.number.isRequired,
-    RATING_LEVEL: PropTypes.string.isRequired,
-    RATING_COUNT: PropTypes.number.isRequired,
-    DESCRIPTION: PropTypes.array.isRequired,
-    DIRECTOR: PropTypes.string.isRequired,
-    STARRING: PropTypes.string.isRequired,
-  }).isRequired,
+  movie: PropTypes.shape({
+    promoMovie: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      releaseDate: PropTypes.number.isRequired,
+      poster: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+    }),
+    rating: PropTypes.number.isRequired,
+    ratingLevel: PropTypes.string.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.array.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.string.isRequired,
+  }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        description: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.string.isRequired,
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,

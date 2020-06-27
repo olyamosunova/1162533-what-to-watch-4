@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SmallMovieCard = (props) => {
-  const {movieInformation, onMovieClick, onMovieHover} = props;
-  const {id, title, poster} = movieInformation;
-
-  function _onMovieClickHandler() {
-    onMovieClick(`movie`);
-  }
+  const {promoMovie, onMovieClick, onMovieHover} = props;
+  const {id, title, poster} = promoMovie;
 
   return (
     <article
@@ -18,14 +14,18 @@ const SmallMovieCard = (props) => {
     >
       <div
         className="small-movie-card__image"
-        onClick={_onMovieClickHandler}
+        onClick={() => {
+          onMovieClick(id);
+        }}
       >
         <img src={`img/${poster}`} alt={title}
           width="280" height="175"/>
       </div>
       <h3 className="small-movie-card__title">
         <a
-          onClick={_onMovieClickHandler}
+          onClick={() => {
+            onMovieClick(id);
+          }}
           className="small-movie-card__link"
           href="movie-page.html"
         >
@@ -37,7 +37,7 @@ const SmallMovieCard = (props) => {
 };
 
 SmallMovieCard.propTypes = {
-  movieInformation: PropTypes.shape({
+  promoMovie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,

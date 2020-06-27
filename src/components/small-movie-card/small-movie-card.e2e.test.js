@@ -2,12 +2,8 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import SmallMovieCard from "./small-movie-card";
-
-const movie = {
-  id: 1,
-  title: `Fantastic Beasts: The Crimes of Grindelwald`,
-  poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-};
+import {movie} from "../../mock/testData";
+const {promoMovie} = movie;
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -18,7 +14,7 @@ it(`when user hover movie card`, () => {
 
   const smallMovieCard = shallow(
       <SmallMovieCard
-        movieInformation={movie}
+        promoMovie={promoMovie}
         onMovieClick={() => {
         }}
         onMovieHover={onMovieHover}
@@ -27,8 +23,7 @@ it(`when user hover movie card`, () => {
 
   smallMovieCard.find(`.small-movie-card`).simulate(`mouseEnter`);
 
-  expect(onMovieHover).toHaveBeenCalledTimes(1);
-  expect(onMovieHover.mock.calls.length).toBe(movie.id);
+  expect(onMovieHover.mock.calls[0][0]).toBe(promoMovie.id);
 });
 
 it(`when user click title movie card`, () => {
@@ -36,7 +31,7 @@ it(`when user click title movie card`, () => {
 
   const smallMovieCard = shallow(
       <SmallMovieCard
-        movieInformation={movie}
+        promoMovie={promoMovie}
         onMovieClick={onMovieClick}
         onMovieHover={() => {}}
       />
@@ -44,6 +39,5 @@ it(`when user click title movie card`, () => {
 
   smallMovieCard.find(`.small-movie-card__link`).simulate(`click`);
 
-  expect(onMovieClick.mock.calls.length).toBe(movie.id);
-  expect(onMovieClick).toBeCalledWith(`movie`);
+  expect(onMovieClick.mock.calls[0][0]).toBe(promoMovie.id);
 });

@@ -9,44 +9,43 @@ class App extends PureComponent {
     super(props);
 
     this.state = {
-      activePage: `main`,
+      activeMovie: null,
     };
 
     this._movieClickHandler = this._movieClickHandler.bind(this);
   }
-  _movieClickHandler(activePage) {
+  _movieClickHandler(id) {
     this.setState({
-      activePage
+      activeMovie: id,
     });
   }
 
   _renderApp() {
-    const activePage = this.state.activePage;
-    const {promoMovie, movieDescription, movies} = this.props;
+    const {activeMovie} = this.state;
+    const {indexMovie, movies} = this.props;
 
-    switch (activePage) {
-      case `main`:
-        return (
-          <Main
-            promoMovie={promoMovie}
-            movies={movies}
-            onMovieClick={this._movieClickHandler}
-          />
-        );
-      case `movie`:
-        return (
-          <MoviePage
-            movieDescription={movieDescription}
-            movies={movies}
-            onMovieClick={this._movieClickHandler}
-          />
-        );
+    if (activeMovie) {
+      const currentMovie = movies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
+      return (
+        <MoviePage
+          movie={currentMovie}
+          movies={movies}
+          onMovieClick={this._movieClickHandler}
+        />
+      );
     }
-    return null;
+
+    return (
+      <Main
+        indexMovie={indexMovie}
+        movies={movies}
+        onMovieClick={this._movieClickHandler}
+      />
+    );
   }
 
   render() {
-    const {movieDescription, movies} = this.props;
+    const {movies} = this.props;
 
     return (
       <BrowserRouter>
@@ -56,7 +55,6 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-movie-page">
             <MoviePage
-              movieDescription={movieDescription}
               movies={movies}
               onMovieClick={this._movieClickHandler}
             />
@@ -68,31 +66,29 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  promoMovie: PropTypes.shape({
-    TITLE: PropTypes.string.isRequired,
-    GENRE: PropTypes.string.isRequired,
-    RELEASE_DATE: PropTypes.number.isRequired,
-    COVER: PropTypes.string.isRequired,
-    POSTER: PropTypes.string.isRequired,
-  }).isRequired,
-  movieDescription: PropTypes.shape({
-    TITLE: PropTypes.string.isRequired,
-    GENRE: PropTypes.string.isRequired,
-    RELEASE_DATE: PropTypes.number.isRequired,
-    POSTER: PropTypes.string.isRequired,
-    COVER: PropTypes.string.isRequired,
-    RATING: PropTypes.number.isRequired,
-    RATING_LEVEL: PropTypes.string.isRequired,
-    RATING_COUNT: PropTypes.number.isRequired,
-    DESCRIPTION: PropTypes.array.isRequired,
-    DIRECTOR: PropTypes.string.isRequired,
-    STARRING: PropTypes.string.isRequired,
+  indexMovie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        description: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.string.isRequired,
       })
   ).isRequired,
 };

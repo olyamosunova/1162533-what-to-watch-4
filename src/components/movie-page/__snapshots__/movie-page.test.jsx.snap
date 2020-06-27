@@ -12,8 +12,8 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="The Grand Budapest Hotel"
-          src="img/bg-the-grand-budapest-hotel.jpg"
+          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
         />
       </div>
       <h1
@@ -72,7 +72,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Fantastic Beasts: The Crimes of Grindelwald
           </h2>
           <p
             className="movie-card__meta"
@@ -80,12 +80,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              Fantasy
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              2018
             </span>
           </p>
           <div
@@ -147,7 +147,7 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
             width="218"
           />
         </div>
@@ -198,7 +198,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              8.9
+              6.6
             </div>
             <p
               className="movie-rating__meta"
