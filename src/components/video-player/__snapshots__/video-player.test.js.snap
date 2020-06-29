@@ -3,9 +3,11 @@
 exports[`Should VideoPlayer render correctly 1`] = `
 <video
   height="100%"
-  poster="img/undefined"
+  poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
   width="100%"
 >
-  <source />
+  <source
+    src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+  />
 </video>
 `;
