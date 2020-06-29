@@ -10,6 +10,7 @@ it(`Should SmallMovieCard render correctly`, () => {
       promoMovie={promoMovie}
       onMovieClick={() => {}}
       onMovieHover={() => {}}
+      isPlaying={false}
     />)
     .toJSON();
 

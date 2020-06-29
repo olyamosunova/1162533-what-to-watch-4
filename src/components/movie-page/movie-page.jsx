@@ -140,6 +140,7 @@ MoviePage.propTypes = {
       releaseDate: PropTypes.number.isRequired,
       poster: PropTypes.string.isRequired,
       cover: PropTypes.string.isRequired,
+      previewVideo: PropTypes.string.isRequired,
     }),
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,

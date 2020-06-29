@@ -13,11 +13,26 @@ class MoviesList extends PureComponent {
   }
 
   _handleMouseEnter(id) {
-    this.setState({activeMovieCardId: id});
+    clearTimeout(this._timeout);
+
+    if (id) {
+      this._timeout = setTimeout(() => {
+        this.setState({
+          activeMovieCardId: id,
+        });
+      }, 1000);
+
+      return;
+    }
+
+    this.setState({
+      activeMovieCardId: null,
+    });
   }
 
   render() {
     const {movies, onMovieClick} = this.props;
+    const {activeMovieCardId} = this.state;
 
     return (
       <div className="catalog__movies-list">
@@ -27,6 +42,7 @@ class MoviesList extends PureComponent {
             promoMovie={promoMovie}
             onMovieClick={onMovieClick}
             onMovieHover={this._handleMouseEnter}
+            isPlaying={activeMovieCardId === promoMovie.id}
           />
         ))}
       </div>
@@ -44,6 +60,7 @@ MoviesList.propTypes = {
           releaseDate: PropTypes.number.isRequired,
           poster: PropTypes.string.isRequired,
           cover: PropTypes.string.isRequired,
+          previewVideo: PropTypes.string.isRequired,
         }),
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,

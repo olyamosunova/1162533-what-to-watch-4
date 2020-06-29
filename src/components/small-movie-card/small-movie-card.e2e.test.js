@@ -18,6 +18,7 @@ it(`when user hover movie card`, () => {
         onMovieClick={() => {
         }}
         onMovieHover={onMovieHover}
+        isPlaying={false}
       />
   );
 
@@ -34,6 +35,7 @@ it(`when user click title movie card`, () => {
         promoMovie={promoMovie}
         onMovieClick={onMovieClick}
         onMovieHover={() => {}}
+        isPlaying={false}
       />
   );
 
