@@ -4,18 +4,18 @@ import MoviesList from "../movies-list/movies-list.jsx";
 
 const Main = (props) => {
   const {
-    title,
-    genre,
-    releaseDate,
+    indexMovie,
     movies,
-    onMovieTitleClick
+    onMovieClick,
   } = props;
+
+  const {title, genre, releaseDate, cover, poster} = indexMovie;
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={`img/${cover}`} alt="The Grand Budapest Hotel"/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -39,7 +39,7 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={`img/${poster}`} alt={title} width="218" height="327"/>
             </div>
 
             <div className="movie-card__desc">
@@ -107,7 +107,7 @@ const Main = (props) => {
 
           <MoviesList
             movies={movies}
-            onMovieTitleClick={onMovieTitleClick}
+            onMovieClick={onMovieClick}
           />
 
           <div className="catalog__more">
@@ -134,17 +134,32 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
+  indexMovie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        description: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.string.isRequired,
       })
   ).isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
 };
 
 export default Main;

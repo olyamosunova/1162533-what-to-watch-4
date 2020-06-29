@@ -1,12 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-import {indexMovie, Movies} from "../../mock/testData";
+import MoviePage from "./movie-page.jsx";
+import {movie, Movies} from "../../mock/testData";
 
-it(`Should Main render correctly`, () => {
+it(`Should MoviePage render correctly`, () => {
   const tree = renderer
-    .create(<Main
-      indexMovie={indexMovie}
+    .create(<MoviePage
+      movie={movie}
       movies={Movies}
       onMovieClick={() => {}}
     />)
