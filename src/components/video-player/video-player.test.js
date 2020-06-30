@@ -1,16 +1,16 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SmallMovieCard from "./small-movie-card";
+import VideoPlayer from "./video-player";
 import {movie} from "../../mock/testData";
 const {promoMovie} = movie;
+const {poster, previewVideo} = promoMovie;
 
-it(`Should SmallMovieCard render correctly`, () => {
+it(`Should VideoPlayer render correctly`, () => {
   const tree = renderer
-    .create(<SmallMovieCard
-      promoMovie={promoMovie}
-      onMovieClick={() => {}}
-      onMovieHover={() => {}}
+    .create(<VideoPlayer
       isPlaying={false}
+      previewVideo={previewVideo}
+      poster={poster}
     />)
     .toJSON();
 
