@@ -2,11 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
+import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
+import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
+import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick} = props;
+  const {movie, movies, onMovieClick, renderTabs, activeTab} = props;
   const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
@@ -17,6 +20,23 @@ const MoviePage = (props) => {
       }
       return null;
     }).slice(0, SIMILAR_FILM_COUNT);
+  };
+
+  const _renderTabsInformation = () => {
+    switch (activeTab) {
+      case `Overview`:
+        return <MoviePageOverview
+          movie={movie}
+        />;
+      case `Details`:
+        return <MoviePageDetails
+          movie={movie}
+        />;
+      case `Reviews`:
+        return <MoviePageReviews movie={movie} />;
+    }
+
+    return null;
   };
 
   return (
@@ -83,8 +103,8 @@ const MoviePage = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <Tabs />
-
+              {renderTabs()}
+              {_renderTabsInformation()}
             </div>
           </div>
         </div>

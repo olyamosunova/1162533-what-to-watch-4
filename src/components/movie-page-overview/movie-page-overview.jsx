@@ -6,7 +6,7 @@ const MoviePageOverview = (props) => {
   const {rating, ratingLevel, ratingCount, description, director, starring} = movie;
 
   return (
-    <React.Component>
+    <React.Fragment>
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
@@ -34,7 +34,7 @@ const MoviePageOverview = (props) => {
           </strong>
         </p>
       </div>
-    </React.Component>
+    </React.Fragment>
   );
 };
 
@@ -56,6 +56,14 @@ MoviePageOverview.propTypes = {
     description: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          message: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }))
   }),
 };
 

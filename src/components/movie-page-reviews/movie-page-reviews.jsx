@@ -5,28 +5,29 @@ const MoviePageReviews = (props) => {
   const {movie} = props;
   const {reviews} = movie;
 
-  const _renderReview = (review) => {
-    const {message, rating, author, date} = review;
+  const _renderReview = () => {
     return (
-      <div className="review">
-        <blockquote className="review__quote">
-          <p className="review__text">{message}</p>
+      reviews.map((review) => (
+        <div className="review" key={review.id}>
+          <blockquote className="review__quote">
+            <p className="review__text">{review.message}</p>
 
-          <footer className="review__details">
-            <cite className="review__author">{author}</cite>
-            <time className="review__date" dateTime="2016-12-24">{date}</time>
-          </footer>
-        </blockquote>
+            <footer className="review__details">
+              <cite className="review__author">{review.author}</cite>
+              <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+            </footer>
+          </blockquote>
 
-        <div className="review__rating">{rating}</div>
-      </div>
+          <div className="review__rating">{review.rating}</div>
+        </div>
+      ))
     );
   };
 
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {reviews.map((review) => _renderReview(review))}
+        {_renderReview()}
       </div>
     </div>
   );
@@ -52,6 +53,7 @@ MoviePageReviews.propTypes = {
     starring: PropTypes.array.isRequired,
     reviews: PropTypes.arrayOf(
         PropTypes.shape({
+          id: PropTypes.number.isRequired,
           message: PropTypes.string.isRequired,
           rating: PropTypes.number.isRequired,
           author: PropTypes.string.isRequired,

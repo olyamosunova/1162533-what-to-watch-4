@@ -1,38 +1,34 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {TABS} from "../../const";
 
-export default class Tabs extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeTab: `Overview`,
-    };
-  }
-
-  _renderTab() {
-    const {activeTab} = this.state;
+const Tabs = (props) => {
+  const _renderTab = () => {
+    const {activeTab, onTabClick} = props;
 
     return TABS.map((tab, i) => (
       <li
         className={`movie-nav__item ${activeTab === tab ? `movie-nav__item--active` : ``}`}
         key={tab + i}
+        onClick={() => onTabClick(tab)}
       >
         <a href="#" className="movie-nav__link">{tab}</a>
       </li>
     ));
-  }
+  };
 
-  render() {
-    return (
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {this._renderTab()}
-        </ul>
-      </nav>
-    );
-  }
+  return (
+    <nav className="movie-nav movie-card__nav">
+      <ul className="movie-nav__list">
+        {_renderTab()}
+      </ul>
+    </nav>
+  );
 };
 
-Tabs.propTypes = {};
+Tabs.propTypes = {
+  activeTab: PropTypes.string.isRequired,
+  onTabClick: PropTypes.func.isRequired
+};
+
+export default Tabs;

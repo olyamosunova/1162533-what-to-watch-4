@@ -3,6 +3,9 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import withTabs from "../../hocs/with-tabs.jsx";
+
+const MoviePageWrapped = withTabs(MoviePage);
 
 class App extends PureComponent {
   constructor(props) {
@@ -14,6 +17,7 @@ class App extends PureComponent {
 
     this._movieClickHandler = this._movieClickHandler.bind(this);
   }
+
   _movieClickHandler(id) {
     this.setState({
       activeMovie: id,
@@ -26,8 +30,9 @@ class App extends PureComponent {
 
     if (activeMovie) {
       const currentMovie = movies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
+
       return (
-        <MoviePage
+        <MoviePageWrapped
           movie={currentMovie}
           movies={movies}
           onMovieClick={this._movieClickHandler}
@@ -54,7 +59,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-movie-page">
-            <MoviePage
+            <MoviePageWrapped
               movies={movies}
               onMovieClick={this._movieClickHandler}
             />
