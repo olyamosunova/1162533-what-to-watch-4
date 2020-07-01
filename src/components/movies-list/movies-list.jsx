@@ -12,6 +12,10 @@ class MoviesList extends PureComponent {
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._timeout);
+  }
+
   _handleMouseEnter(id) {
     clearTimeout(this._timeout);
 
