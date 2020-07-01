@@ -96,6 +96,15 @@ App.propTypes = {
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              message: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            })
+        )
       })
   ).isRequired,
 };

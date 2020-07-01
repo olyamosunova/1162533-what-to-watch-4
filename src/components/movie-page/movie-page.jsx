@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
-import Tabs from "../tabs/tabs.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
@@ -151,9 +150,19 @@ MoviePage.propTypes = {
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
+    runTime: PropTypes.string.isRequired,
     description: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          message: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        })
+    )
   }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -164,14 +173,27 @@ MoviePage.propTypes = {
           releaseDate: PropTypes.number.isRequired,
           poster: PropTypes.string.isRequired,
           cover: PropTypes.string.isRequired,
+          previewVideo: PropTypes.string.isRequired,
         }),
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
+        runTime: PropTypes.string.isRequired,
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              message: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            })
+        )
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };

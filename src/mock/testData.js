@@ -26,6 +26,50 @@ const movie = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
     `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+  reviews: [
+    {
+      id: 1,
+      message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+      rating: 8.9,
+      author: `Kate Muir`,
+      date: `December 24, 2016`,
+    },
+    {
+      id: 2,
+      message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+      rating: 8.0,
+      author: `Bill Goodykoontz`,
+      date: `November 18, 2015`,
+    },
+    {
+      id: 3,
+      message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+      rating: 8.0,
+      author: `Amanda Greever`,
+      date: `November 18, 2015`,
+    },
+    {
+      id: 4,
+      message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+      rating: 7.2,
+      author: `Matthew Lickona`,
+      date: `December 20, 2016`,
+    },
+    {
+      id: 5,
+      message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+      rating: 7.6,
+      author: `Paula Fleri-Soler`,
+      date: `December 20, 2016`,
+    },
+    {
+      id: 6,
+      message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+      rating: 7.6,
+      author: `Paula Fleri-Soler`,
+      date: `December 20, 2016`,
+    },
+  ],
 };
 
 const Movies = [
@@ -42,6 +86,7 @@ const Movies = [
     rating: 6.6,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -49,6 +94,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -63,6 +152,7 @@ const Movies = [
     rating: 8.0,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -70,6 +160,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -84,6 +218,7 @@ const Movies = [
     rating: 7.1,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -91,6 +226,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -105,6 +284,7 @@ const Movies = [
     rating: 7.6,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -112,6 +292,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -126,6 +350,7 @@ const Movies = [
     rating: 7.5,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -133,6 +358,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -147,6 +416,7 @@ const Movies = [
     rating: 7.4,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -154,6 +424,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -169,6 +483,7 @@ const Movies = [
     rating: 7.8,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -176,6 +491,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
   {
     promoMovie: {
@@ -190,6 +549,7 @@ const Movies = [
     rating: 6.2,
     ratingLevel: `Very good`,
     ratingCount: 240,
+    runTime: `1h 39m`,
     description: [
       `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
       `Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
@@ -197,6 +557,50 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    reviews: [
+      {
+        id: 1,
+        message: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        rating: 8.9,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+      },
+      {
+        id: 2,
+        message: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+        rating: 8.0,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 3,
+        message: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+        rating: 8.0,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+      },
+      {
+        id: 4,
+        message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+        rating: 7.2,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 5,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+      {
+        id: 6,
+        message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+        rating: 7.6,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+      },
+    ],
   },
 ];
 

@@ -9,6 +9,8 @@ it(`Should MoviePage render correctly`, () => {
       movie={movie}
       movies={Movies}
       onMovieClick={() => {}}
+      renderTabs={() => {}}
+      activeTab={`Overview`}
     />)
     .toJSON();
 
