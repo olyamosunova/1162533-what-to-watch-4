@@ -3,14 +3,21 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 
-const SAME_MOVIE_MAX_COUNT = 4;
+const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
   const {movie, movies, onMovieClick} = props;
   const {promoMovie, rating, ratingLevel, ratingCount, description, director, starring} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
-  const sameMovies = movies.filter((sameMovie) => sameMovie.promoMovie.genre === genre).slice(0, SAME_MOVIE_MAX_COUNT);
+  const getSimilarMovies = (currentGenre, films, id) => {
+    return films.filter((film) => {
+      if (id !== film.promoMovie.id) {
+        return film.promoMovie.genre === currentGenre;
+      }
+      return null;
+    }).slice(0, SIMILAR_FILM_COUNT);
+  };
 
   return (
     <React.Fragment>
@@ -101,7 +108,7 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={sameMovies} onMovieClick={onMovieClick}/>
+          <MoviesList movies={getSimilarMovies(genre, movies, movie.promoMovie.id)} onMovieClick={onMovieClick}/>
         </section>
 
         <footer className="page-footer">
