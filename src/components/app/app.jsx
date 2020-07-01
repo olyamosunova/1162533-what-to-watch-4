@@ -87,9 +87,10 @@ App.propTypes = {
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
+        runTime: PropTypes.string.isRequired,
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
-        starring: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
       })
   ).isRequired,
 };

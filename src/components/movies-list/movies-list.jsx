@@ -71,7 +71,7 @@ MoviesList.propTypes = {
         ratingCount: PropTypes.number.isRequired,
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
-        starring: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,

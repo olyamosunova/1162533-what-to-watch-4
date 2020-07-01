@@ -7,7 +7,7 @@ const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
   const {movie, movies, onMovieClick} = props;
-  const {promoMovie, rating, ratingLevel, ratingCount, description, director, starring} = movie;
+  const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
   const getSimilarMovies = (currentGenre, films, id) => {
@@ -75,30 +75,16 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}`} alt="The Grand Budapest Hotel poster" width="218"
+              <img
+                src={`img/${poster}`}
+                alt="The Grand Budapest Hotel poster"
+                width="218"
                 height="327"/>
             </div>
 
             <div className="movie-card__desc">
               <Tabs />
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{ratingLevel}</span>
-                  <span className="movie-rating__count">{ratingCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                {description.map((text, i) => (
-                  <p key={i}>{text}</p>
-                ))}
-
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-              </div>
             </div>
           </div>
         </div>
@@ -147,7 +133,7 @@ MoviePage.propTypes = {
     ratingCount: PropTypes.number.isRequired,
     description: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
-    starring: PropTypes.string.isRequired,
+    starring: PropTypes.array.isRequired,
   }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -164,7 +150,7 @@ MoviePage.propTypes = {
         ratingCount: PropTypes.number.isRequired,
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
-        starring: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
