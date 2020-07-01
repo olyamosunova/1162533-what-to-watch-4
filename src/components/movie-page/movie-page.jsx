@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
+import Tabs from "../tabs/tabs.jsx";
 
 const MoviePage = (props) => {
   const {movie, movies, onMovieClick} = props;
@@ -69,17 +70,7 @@ const MoviePage = (props) => {
 
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
+                <Tabs />
               </nav>
 
               <div className="movie-rating">
