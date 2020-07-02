@@ -16,9 +16,9 @@ const MoviePageDetails = (props) => {
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
-            {starring.map((star) => {
+            {starring.map((star, i) => {
               return (
-                <React.Fragment key={star}>
+                <React.Fragment key={star + i}>
                   {star} <br />
                 </React.Fragment>
               );

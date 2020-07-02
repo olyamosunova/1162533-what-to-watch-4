@@ -5,7 +5,7 @@ const MoviePageReviews = (props) => {
   const {movie} = props;
   const {reviews} = movie;
 
-  const _renderReview = () => {
+  const _renderReviews = () => {
     return (
       reviews.map((review) => (
         <div className="review" key={review.id}>
@@ -27,7 +27,7 @@ const MoviePageReviews = (props) => {
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {_renderReview()}
+        {_renderReviews()}
       </div>
     </div>
   );

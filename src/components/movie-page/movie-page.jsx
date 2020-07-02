@@ -4,6 +4,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
+import {TabsName} from "../../const";
 
 const SIMILAR_FILM_COUNT = 4;
 
@@ -23,15 +24,15 @@ const MoviePage = (props) => {
 
   const _renderTabsInformation = () => {
     switch (activeTab) {
-      case `Overview`:
+      case TabsName.OVERVIEW:
         return <MoviePageOverview
           movie={movie}
         />;
-      case `Details`:
+      case TabsName.DETAILS:
         return <MoviePageDetails
           movie={movie}
         />;
-      case `Reviews`:
+      case TabsName.REVIEWS:
         return <MoviePageReviews movie={movie} />;
     }
 

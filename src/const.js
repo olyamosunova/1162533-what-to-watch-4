@@ -1,1 +1,7 @@
-export const TABS = [`Overview`, `Details`, `Reviews`];
+export const TabsName = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`,
+};
+
+export const TABS = Object.values(TabsName);
