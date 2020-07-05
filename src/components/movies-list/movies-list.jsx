@@ -1,6 +1,9 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {GenreNames} from "../../const";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import {getFilteredFilms} from "../../reducer";
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -33,7 +36,6 @@ class MoviesList extends PureComponent {
       activeMovieCardId: null,
     });
   }
-
   render() {
     const {movies, onMovieClick} = this.props;
     const {activeMovieCardId} = this.state;
@@ -85,6 +87,21 @@ MoviesList.propTypes = {
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
+  genre: PropTypes.string,
 };
 
-export default MoviesList;
+const mapStateToProps = (state, props) => {
+  const {genre = GenreNames.ALL} = props;
+
+  let movies = state.films;
+
+  if (genre !== GenreNames.ALL) {
+    movies = getFilteredFilms(genre);
+  }
+
+  return {
+    movies
+  };
+};
+export {MoviesList};
+export default connect(mapStateToProps)(MoviesList);

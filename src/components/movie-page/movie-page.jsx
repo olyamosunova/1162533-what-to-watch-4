@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
@@ -13,14 +14,15 @@ const MoviePage = (props) => {
   const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
-  const getSimilarMovies = (currentGenre, films, id) => {
-    return films.filter((film) => {
-      if (id !== film.promoMovie.id) {
-        return film.promoMovie.genre === currentGenre;
-      }
-      return null;
-    }).slice(0, SIMILAR_FILM_COUNT);
-  };
+  // const getSimilarMovies = (currentGenre, films, id) => {
+  //   return films.filter((film) => {
+  //     if (id !== film.promoMovie.id) {
+  //       return film.promoMovie.genre === currentGenre;
+  //     }
+  //     return null;
+  //   }).slice(0, SIMILAR_FILM_COUNT);
+  // };
+
 
   const _renderTabsInformation = () => {
     switch (activeTab) {
@@ -114,7 +116,10 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={getSimilarMovies(genre, movies, movie.promoMovie.id)} onMovieClick={onMovieClick}/>
+          <MoviesList
+            onMovieClick={onMovieClick}
+            genre={genre}
+          />
         </section>
 
         <footer className="page-footer">
@@ -134,8 +139,6 @@ const MoviePage = (props) => {
     </React.Fragment>
   );
 };
-
-export default MoviePage;
 
 MoviePage.propTypes = {
   movie: PropTypes.shape({
@@ -165,36 +168,9 @@ MoviePage.propTypes = {
         })
     )
   }),
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.string.isRequired,
-        description: PropTypes.array.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              message: PropTypes.string.isRequired,
-              rating: PropTypes.number.isRequired,
-              author: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
-            })
-        )
-      })
-  ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
+
+export default MoviePage;

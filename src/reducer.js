@@ -1,58 +1,53 @@
-import {extend} from "./utils.js";
 import {MoviesList} from "./mock/movies";
+import {extend} from "./utils.js";
 import {GenreNames} from "./const";
 
 const initialState = {
-  genre: GenreNames.ALL,
-  movies: MoviesList,
+  activeGenre: GenreNames.ALL,
+  films: MoviesList,
 };
 
-const ActionType = {
+const ActionTypes = {
   CHANGE_GENRE: `CHANGE_GENRE`,
-  FILTERED_MOVIES: `FILTERED_MOVIES`,
+  FILTERED_FILMS: `FILTERED_FILMS`,
 };
 
 const ActionCreator = {
   changeGenre: (genre)=>({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre
+    type: ActionTypes.CHANGE_GENRE,
+    payload: genre,
   }),
-
-  filteredFilms: ()=>({
-    type: ActionType.FILTERED_MOVIES,
-    payload: null
+  filteredFilms: (genre)=>({
+    type: ActionTypes.FILTERED_FILMS,
+    payload: getFilteredFilms(genre),
   })
 };
 
-const getMoviesByGenre = (genre) => {
-  const allMovies = initialState.movies;
+const getFilteredFilms = (genre) => {
+  const allFilms = initialState.films;
 
   if (genre === GenreNames.ALL) {
-    return allMovies;
+    return allFilms;
   }
 
-  const filteredMovies = allMovies.filter(({promoMovie}) => promoMovie.genre === genre);
-  return filteredMovies;
+  const filteredFilms = allFilms.filter(({promoMovie}) => promoMovie.genre === genre);
+
+  return filteredFilms;
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_GENRE:
+    case ActionTypes.CHANGE_GENRE:
       return extend(state, {
-        genre: action.payload,
+        genre: action.payload
       });
-
-    case ActionType.FILTERED_MOVIES:
-      const filteredFilms = getMoviesByGenre(state.genre);
-
+    case ActionTypes.FILTERED_FILMS:
+      const filteredFilms = getFilteredFilms(state.genre, initialState.films);
       return extend(state, {
-        movies: filteredFilms,
+        films: filteredFilms
       });
-
-    default:
-      return state;
   }
+  return state;
 };
 
-
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionTypes, ActionCreator, getFilteredFilms};

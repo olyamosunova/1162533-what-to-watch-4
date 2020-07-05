@@ -343,7 +343,7 @@ const MoviesList = [
       title: `What We Do in the Shadows`,
       poster: `what-we-do-in-the-shadows.jpg`,
       cover: `what-we-do-in-the-shadows.jpg`,
-      genre: `Comedy`,
+      genre: `Comedies`,
       releaseDate: 2014,
       previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
