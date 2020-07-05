@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import {GenreNames} from "../../const";
+import {getFilteredMovies} from "../../reducer";
+import {connect} from "react-redux";
 
 const Main = (props) => {
   const {
     indexMovie,
     onMovieClick,
+    movies,
   } = props;
 
   const {title, genre, releaseDate, cover, poster} = indexMovie;
@@ -75,6 +79,7 @@ const Main = (props) => {
           <GenresList />
 
           <MoviesList
+            movies={movies}
             onMovieClick={onMovieClick}
           />
 
@@ -109,7 +114,50 @@ Main.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
   }).isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+          previewVideo: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        runTime: PropTypes.string.isRequired,
+        description: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              message: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            })
+        )
+      })
+  ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state, props) => {
+  const {activeGenre = GenreNames.ALL} = props;
+
+  let movies = state.movies;
+
+  if (activeGenre !== GenreNames.ALL) {
+    movies = getFilteredMovies(activeGenre);
+  }
+
+  return {
+    movies
+  };
+};
+export {Main};
+export default connect(mapStateToProps)(Main);

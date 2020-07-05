@@ -4,7 +4,7 @@ import {GenreNames} from "./const";
 
 const initialState = {
   activeGenre: GenreNames.ALL.multiple,
-  films: MoviesList,
+  movies: MoviesList,
 };
 
 const ActionTypes = {
@@ -17,37 +17,37 @@ const ActionCreator = {
     type: ActionTypes.CHANGE_GENRE,
     payload: genre,
   }),
-  filteredFilms: (genre)=>({
+  filteredMovies: (genre)=>({
     type: ActionTypes.FILTERED_FILMS,
-    payload: getFilteredFilms(genre),
+    payload: getFilteredMovies(genre),
   })
 };
 
-const getFilteredFilms = (genre) => {
-  const allFilms = initialState.films;
+const getFilteredMovies = (genre) => {
+  const allMovies = initialState.movies;
 
-  if (genre === GenreNames.ALL.single) {
-    return allFilms;
+  if (genre === GenreNames.ALL.multiple) {
+    return allMovies;
   }
 
-  const filteredFilms = allFilms.filter(({promoMovie}) => promoMovie.genre === genre);
+  const filteredMovies = allMovies.filter(({promoMovie}) => promoMovie.genre === genre);
 
-  return filteredFilms;
+  return filteredMovies;
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.CHANGE_GENRE:
       return extend(state, {
-        genre: action.payload
+        activeGenre: action.payload
       });
     case ActionTypes.FILTERED_FILMS:
-      const filteredFilms = getFilteredFilms(state.genre, initialState.films);
+      const filteredMovies = getFilteredMovies(state.activeGenre, initialState.movies);
       return extend(state, {
-        films: filteredFilms
+        movies: filteredMovies
       });
   }
   return state;
 };
 
-export {reducer, ActionTypes, ActionCreator, getFilteredFilms};
+export {reducer, ActionTypes, ActionCreator, getFilteredMovies};

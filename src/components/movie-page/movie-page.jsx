@@ -14,14 +14,15 @@ const MoviePage = (props) => {
   const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
-  // const getSimilarMovies = (currentGenre, films, id) => {
-  //   return films.filter((film) => {
-  //     if (id !== film.promoMovie.id) {
-  //       return film.promoMovie.genre === currentGenre;
-  //     }
-  //     return null;
-  //   }).slice(0, SIMILAR_FILM_COUNT);
-  // };
+  const getSimilarMovies = (currentGenre, films, id) => {
+    const similarMovies = films.filter((film) => {
+      if (id !== film.promoMovie.id && film.promoMovie.genre === currentGenre) {
+        return film;
+      }
+      return null;
+    }).slice(0, SIMILAR_FILM_COUNT);
+    return similarMovies;
+  };
 
 
   const _renderTabsInformation = () => {
@@ -117,6 +118,7 @@ const MoviePage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <MoviesList
+            movies={getSimilarMovies(genre, movies, movie.promoMovie.id)}
             onMovieClick={onMovieClick}
             genre={genre}
           />
@@ -168,9 +170,42 @@ MoviePage.propTypes = {
         })
     )
   }),
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+          previewVideo: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        runTime: PropTypes.string.isRequired,
+        description: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              message: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            })
+        )
+      })),
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);
