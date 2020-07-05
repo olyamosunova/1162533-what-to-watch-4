@@ -3,7 +3,7 @@ import {extend} from "./utils.js";
 import {GenreNames} from "./const";
 
 const initialState = {
-  activeGenre: GenreNames.ALL,
+  activeGenre: GenreNames.ALL.multiple,
   films: MoviesList,
 };
 
@@ -26,7 +26,7 @@ const ActionCreator = {
 const getFilteredFilms = (genre) => {
   const allFilms = initialState.films;
 
-  if (genre === GenreNames.ALL) {
+  if (genre === GenreNames.ALL.single) {
     return allFilms;
   }
 

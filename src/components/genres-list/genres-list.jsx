@@ -9,21 +9,16 @@ const GenresList = (props) => {
   const genres = Object.values(GenreNames);
 
   function _renderGenres() {
-    return genres.map((genreTitle, i) => {
+    return genres.map(({single, multiple}) => {
       return (
         <li
-          className={`catalog__genres-item ${genreTitle === activeGenre ? `catalog__genres-item--active` : ``}`}
-          key={genreTitle}
+          className={`catalog__genres-item ${multiple === activeGenre ? `catalog__genres-item--active` : ``}`}
+          key={multiple}
+          onClick={()=>{
+            onClick(single);
+          }}
         >
-          <a
-            href="#"
-            className="catalog__genres-link"
-            onClick={()=>{
-              onClick(genreTitle);
-            }}
-          >
-            {genreTitle}
-          </a>
+          <a href="#" className="catalog__genres-link">{multiple}</a>
         </li>
       );
     });
