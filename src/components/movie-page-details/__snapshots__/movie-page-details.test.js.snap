@@ -75,7 +75,9 @@ exports[`Should MoviePageDetails render correctly 1`] = `
       </strong>
       <span
         className="movie-card__details-value"
-      />
+      >
+        1h 39m
+      </span>
     </p>
     <p
       className="movie-card__details-item"
@@ -88,7 +90,7 @@ exports[`Should MoviePageDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Fantasy
+        Drama
       </span>
     </p>
     <p
@@ -102,7 +104,7 @@ exports[`Should MoviePageDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        2018
+        2015
       </span>
     </p>
   </div>

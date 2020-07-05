@@ -1,9 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {GenreNames} from "../../const";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
-import {getFilteredMovies} from "../../reducer";
 
 class MoviesList extends PureComponent {
   constructor(props) {
