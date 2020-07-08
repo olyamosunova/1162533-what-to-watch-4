@@ -1,10 +1,12 @@
 import {MoviesList} from "./mock/movies";
 import {extend} from "./utils.js";
 import {GenreNames} from "./const";
+import {getGenresList} from "./utils";
 
 const initialState = {
   activeGenre: GenreNames.ALL,
   movies: MoviesList,
+  genres: getGenresList(MoviesList),
 };
 
 const ActionTypes = {

@@ -11,10 +11,10 @@ const Main = (props) => {
     indexMovie,
     onMovieClick,
     movies,
+    genres,
   } = props;
 
   const {title, genre, releaseDate, cover, poster} = indexMovie;
-
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -76,7 +76,7 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList />
+          <GenresList genres={genres} />
 
           <MoviesList
             movies={movies}
@@ -144,6 +144,7 @@ Main.propTypes = {
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 const mapStateToProps = (state, props) => {
