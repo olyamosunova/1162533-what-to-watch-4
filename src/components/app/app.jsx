@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.jsx";
+import {connect} from "react-redux";
 
 const MoviePageWrapped = withTabs(MoviePage);
 
@@ -26,7 +27,7 @@ class App extends PureComponent {
 
   _renderApp() {
     const {activeMovie} = this.state;
-    const {indexMovie, movies} = this.props;
+    const {indexMovie, movies, genres} = this.props;
 
     if (activeMovie) {
       const currentMovie = movies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
@@ -34,7 +35,6 @@ class App extends PureComponent {
       return (
         <MoviePageWrapped
           movie={currentMovie}
-          movies={movies}
           onMovieClick={this._movieClickHandler}
         />
       );
@@ -42,15 +42,14 @@ class App extends PureComponent {
 
     return (
       <Main
+        genres={genres}
         indexMovie={indexMovie}
-        movies={movies}
         onMovieClick={this._movieClickHandler}
       />
     );
   }
 
   render() {
-    const {movies} = this.props;
 
     return (
       <BrowserRouter>
@@ -60,7 +59,6 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-movie-page">
             <MoviePageWrapped
-              movies={movies}
               onMovieClick={this._movieClickHandler}
             />
           </Route>
@@ -107,6 +105,13 @@ App.propTypes = {
         )
       })
   ).isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+  genres: state.genres,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

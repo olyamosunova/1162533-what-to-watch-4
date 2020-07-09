@@ -33,7 +33,6 @@ class MoviesList extends PureComponent {
       activeMovieCardId: null,
     });
   }
-
   render() {
     const {movies, onMovieClick} = this.props;
     const {activeMovieCardId} = this.state;
@@ -85,6 +84,7 @@ MoviesList.propTypes = {
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string,
 };
 
 export default MoviesList;

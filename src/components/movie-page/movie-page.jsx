@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
@@ -14,13 +15,15 @@ const MoviePage = (props) => {
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
   const getSimilarMovies = (currentGenre, films, id) => {
-    return films.filter((film) => {
-      if (id !== film.promoMovie.id) {
-        return film.promoMovie.genre === currentGenre;
+    const similarMovies = films.filter((film) => {
+      if (id !== film.promoMovie.id && film.promoMovie.genre === currentGenre) {
+        return film;
       }
       return null;
     }).slice(0, SIMILAR_FILM_COUNT);
+    return similarMovies;
   };
+
 
   const _renderTabsInformation = () => {
     switch (activeTab) {
@@ -114,7 +117,11 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={getSimilarMovies(genre, movies, movie.promoMovie.id)} onMovieClick={onMovieClick}/>
+          <MoviesList
+            movies={getSimilarMovies(genre, movies, movie.promoMovie.id)}
+            onMovieClick={onMovieClick}
+            genre={genre}
+          />
         </section>
 
         <footer className="page-footer">
@@ -134,8 +141,6 @@ const MoviePage = (props) => {
     </React.Fragment>
   );
 };
-
-export default MoviePage;
 
 MoviePage.propTypes = {
   movie: PropTypes.shape({
@@ -192,9 +197,15 @@ MoviePage.propTypes = {
               date: PropTypes.string.isRequired,
             })
         )
-      })
-  ).isRequired,
+      })),
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);
