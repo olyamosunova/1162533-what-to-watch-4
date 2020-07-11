@@ -2,8 +2,6 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
-const MAX_COUNT_CARDS = 8;
-
 class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
@@ -39,11 +37,9 @@ class MoviesList extends PureComponent {
     const {movies, onMovieClick} = this.props;
     const {activeMovieCardId} = this.state;
 
-    const showedMovies = movies.slice(0, MAX_COUNT_CARDS);
-
     return (
       <div className="catalog__movies-list">
-        {showedMovies.map(({promoMovie}) => (
+        {movies.map(({promoMovie}) => (
           <SmallMovieCard
             key={promoMovie.id}
             promoMovie={promoMovie}

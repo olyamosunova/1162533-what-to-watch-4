@@ -1,109 +1,135 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import ShowMore from "../show-more/show-more.jsx";
-import {GenreNames} from "../../const";
-import {getFilteredMovies} from "../../reducer";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import {ActionCreator} from "../../reducer";
 import {connect} from "react-redux";
 
-const Main = (props) => {
-  const {
-    indexMovie,
-    onMovieClick,
-    movies,
-    genres,
-  } = props;
+const SHOWED_MOVIES_COUNT = 8;
 
-  const {title, genre, releaseDate, cover, poster} = indexMovie;
-  return (
-    <React.Fragment>
-      <section className="movie-card">
-        <div className="movie-card__bg">
-          <img src={`img/${cover}`} alt="The Grand Budapest Hotel"/>
-        </div>
+class Main extends PureComponent {
+  constructor(props) {
+    super(props);
 
-        <h1 className="visually-hidden">WTW</h1>
+    this.state = {
+      shownMoviesCount: SHOWED_MOVIES_COUNT,
+    };
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+    this._handleShowMoreButtonClick = this._handleShowMoreButtonClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeGenre !== this.props.activeGenre) {
+      this.setState({
+        shownMoviesCount: SHOWED_MOVIES_COUNT,
+      });
+    }
+  }
+
+  _handleShowMoreButtonClick() {
+    this.setState((prevState) => ({shownMoviesCount: prevState.shownMoviesCount + SHOWED_MOVIES_COUNT}));
+  }
+
+  render() {
+    const {indexMovie, onMovieClick, genres, activeGenre, onClick, filteredMovies} = this.props;
+    const {title, genre, releaseDate, cover, poster} = indexMovie;
+    const {shownMoviesCount} = this.state;
+
+    this._showedMovies = filteredMovies.slice(0, shownMoviesCount);
+
+    const isHideShowMoreButton = shownMoviesCount >= filteredMovies.length ? true : false;
+
+    return (
+      <React.Fragment>
+        <section className="movie-card">
+          <div className="movie-card__bg">
+            <img src={`img/${cover}`} alt="The Grand Budapest Hotel"/>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
-        </header>
+          <h1 className="visually-hidden">WTW</h1>
 
-        <div className="movie-card__wrap">
-          <div className="movie-card__info">
-            <div className="movie-card__poster">
-              <img src={`img/${poster}`} alt={title} width="218" height="327"/>
+          <header className="page-header movie-card__head">
+            <div className="logo">
+              <a className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </a>
             </div>
 
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseDate}</span>
-              </p>
+            <div className="user-block">
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              </div>
+            </div>
+          </header>
 
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+          <div className="movie-card__wrap">
+            <div className="movie-card__info">
+              <div className="movie-card__poster">
+                <img src={`img/${poster}`} alt={title} width="218" height="327"/>
+              </div>
+
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{title}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{releaseDate}</span>
+                </p>
+
+                <div className="movie-card__buttons">
+                  <button className="btn btn--play movie-card__button" type="button">
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+                  <button className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <GenresList genres={genres} />
-
-          <MoviesList
-            movies={movies}
-            onMovieClick={onMovieClick}
-          />
-
-          <ShowMore />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+        <div className="page-content">
+          <section className="catalog">
+            <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
-      </div>
-    </React.Fragment>
-  );
-};
+            <GenresList genres={genres} activeGenre={activeGenre} onClick={onClick} />
+
+            <MoviesList
+              movies={this._showedMovies}
+              onMovieClick={onMovieClick}
+            />
+
+            {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={this._handleShowMoreButtonClick} />}
+
+          </section>
+
+          <footer className="page-footer">
+            <div className="logo">
+              <a className="logo__link logo__link--light">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </a>
+            </div>
+
+            <div className="copyright">
+              <p>© 2019 What to watch Ltd.</p>
+            </div>
+          </footer>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
 
 Main.propTypes = {
   indexMovie: PropTypes.shape({
@@ -113,7 +139,11 @@ Main.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(
+  onMovieClick: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  filteredMovies: PropTypes.arrayOf(
       PropTypes.shape({
         promoMovie: PropTypes.shape({
           id: PropTypes.number.isRequired,
@@ -142,22 +172,25 @@ Main.propTypes = {
         )
       })
   ).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
+};
+
+GenresList.propTypes = {
+  activeGenre: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-const mapStateToProps = (state, props) => {
-  const {activeGenre = GenreNames.ALL} = props;
+const mapStateToProps = (state) => ({
+  activeGenre: state.activeGenre,
+  genres: state.genres,
+  filteredMovies: state.filteredMovies,
+});
 
-  let movies = state.movies;
-
-  if (activeGenre !== GenreNames.ALL) {
-    movies = getFilteredMovies(activeGenre);
+const mapDispatchToProps = (dispatch) => ({
+  onClick(activeGenre) {
+    dispatch(ActionCreator.changeGenre(activeGenre));
+    dispatch(ActionCreator.filteredMovies(activeGenre));
   }
-
-  return {
-    movies
-  };
-};
+});
 export {Main};
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -13,7 +13,6 @@ it(`render GenresList`, () => {
         <GenresList
           activeGenre={GenreNames.ALL}
           onClick={()=>{}}
-          movies={Movies}
           genres={genres}
         />)
     .toJSON();

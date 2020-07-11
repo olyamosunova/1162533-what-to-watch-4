@@ -23,7 +23,7 @@ it(`Should Main render correctly`, () => {
         <Provider store={store}>
           <Main
             indexMovie={indexMovie}
-            movies={Movies}
+            filteredMovies={Movies}
             onMovieClick={() => {}}
             genres={genres}
           />
