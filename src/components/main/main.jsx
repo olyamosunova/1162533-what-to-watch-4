@@ -174,12 +174,6 @@ Main.propTypes = {
   ).isRequired,
 };
 
-GenresList.propTypes = {
-  activeGenre: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};
-
 const mapStateToProps = (state) => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
