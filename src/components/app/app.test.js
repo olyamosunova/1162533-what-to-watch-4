@@ -15,7 +15,7 @@ const mockStore = configureStore([]);
 it(`Render App`, () => {
   const store = mockStore({
     activeGenre: GenreNames.ALL,
-    movies: Movies,
+    filteredMovies: Movies,
     genres,
   });
 
@@ -24,7 +24,7 @@ it(`Render App`, () => {
         <Provider store={store}>
           <App
             indexMovie={indexMovie}
-            movies={Movies}
+            filteredMovies={Movies}
             genres={genres}
           />
         </Provider>, {

@@ -27,10 +27,10 @@ class App extends PureComponent {
 
   _renderApp() {
     const {activeMovie} = this.state;
-    const {indexMovie, movies, genres} = this.props;
+    const {indexMovie, filteredMovies, genres} = this.props;
 
     if (activeMovie) {
-      const currentMovie = movies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
+      const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
       return (
         <MoviePageWrapped
@@ -42,6 +42,7 @@ class App extends PureComponent {
 
     return (
       <Main
+        filteredMovies={filteredMovies}
         genres={genres}
         indexMovie={indexMovie}
         onMovieClick={this._movieClickHandler}
@@ -76,7 +77,7 @@ App.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(
+  filteredMovies: PropTypes.arrayOf(
       PropTypes.shape({
         promoMovie: PropTypes.shape({
           id: PropTypes.number.isRequired,
@@ -109,7 +110,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  filteredMovies: state.filteredMovies,
   genres: state.genres,
 });
 

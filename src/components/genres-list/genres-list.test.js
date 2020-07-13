@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {GenresList} from "./genres-list.jsx";
+import GenresList from "./genres-list.jsx";
 import {GenreNames} from "./../../const.js";
 import {Movies} from "../../mock/testData";
 import {getGenresList} from "../../utils";
@@ -13,7 +13,6 @@ it(`render GenresList`, () => {
         <GenresList
           activeGenre={GenreNames.ALL}
           onClick={()=>{}}
-          movies={Movies}
           genres={genres}
         />)
     .toJSON();

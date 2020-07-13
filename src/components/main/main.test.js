@@ -14,7 +14,7 @@ const genres = getGenresList(Movies);
 it(`Should Main render correctly`, () => {
   const store = mockStore({
     activeGenre: GenreNames.ALL,
-    movies: Movies,
+    filteredMovies: Movies,
     genres,
   });
 
@@ -22,9 +22,11 @@ it(`Should Main render correctly`, () => {
     .create(
         <Provider store={store}>
           <Main
+            activeGenre={GenreNames.ALL}
             indexMovie={indexMovie}
-            movies={Movies}
+            filteredMovies={Movies}
             onMovieClick={() => {}}
+            onClick={() => {}}
             genres={genres}
           />
         </Provider>, {
