@@ -1,41 +1,24 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.jsx";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
+const App = (props) => {
+  const {indexMovie, filteredMovies, genres, activeMovie, onMovieClick} = props;
+  const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
-    this.state = {
-      activeMovie: null,
-    };
-
-    this._movieClickHandler = this._movieClickHandler.bind(this);
-  }
-
-  _movieClickHandler(id) {
-    this.setState({
-      activeMovie: id,
-    });
-  }
-
-  _renderApp() {
-    const {activeMovie} = this.state;
-    const {indexMovie, filteredMovies, genres} = this.props;
-
-    if (activeMovie) {
-      const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
-
+  const _renderApp = () => {
+    if (currentMovie) {
       return (
         <MoviePageWrapped
           movie={currentMovie}
-          onMovieClick={this._movieClickHandler}
+          onMovieClick={onMovieClick}
         />
       );
     }
@@ -45,29 +28,26 @@ class App extends PureComponent {
         filteredMovies={filteredMovies}
         genres={genres}
         indexMovie={indexMovie}
-        onMovieClick={this._movieClickHandler}
+        onMovieClick={onMovieClick}
       />
     );
-  }
+  };
 
-  render() {
-
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-movie-page">
-            <MoviePageWrapped
-              onMovieClick={this._movieClickHandler}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {_renderApp()}
+        </Route>
+        <Route exact path="/dev-movie-page">
+          <MoviePageWrapped
+            onMovieClick={onMovieClick}
+          />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 App.propTypes = {
   indexMovie: PropTypes.shape({
@@ -107,12 +87,21 @@ App.propTypes = {
       })
   ).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  activeMovie: PropTypes.number.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filteredMovies: state.filteredMovies,
   genres: state.genres,
+  activeMovie: state.activeMovie,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieClick(id) {
+    dispatch(ActionCreator.changeActiveMovie(id));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
