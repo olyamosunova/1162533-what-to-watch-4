@@ -3,18 +3,22 @@ import {extend} from "./utils.js";
 import {GenreNames} from "./const";
 import {getGenresList} from "./utils";
 
+const SHOWED_MOVIES_MAX = 8;
+
 const initialState = {
   activeGenre: GenreNames.ALL,
   movies: MoviesList,
   genres: getGenresList(MoviesList),
   filteredMovies: MoviesList,
   activeMovie: -1,
+  showedMoviesCount: SHOWED_MOVIES_MAX,
 };
 
 const ActionTypes = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   FILTERED_FILMS: `FILTERED_FILMS`,
   CHANGE_ACTIVE_MOVIE: `CHANGE_ACTIVE_MOVIE`,
+  INCREMENT_SHOWED_MOVIES: `INCREMENT_SHOWED_MOVIES`,
 };
 
 const ActionCreator = {
@@ -33,6 +37,9 @@ const ActionCreator = {
   changeActiveMovie: (id) => ({
     type: ActionTypes.CHANGE_ACTIVE_MOVIE,
     payload: id,
+  }),
+  incrementShownMoviesCount: () => ({
+    type: ActionTypes.INCREMENT_SHOWED_MOVIES,
   }),
 };
 
@@ -53,6 +60,7 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.CHANGE_GENRE:
       return extend(state, {
         activeGenre: action.payload,
+        showedMoviesCount: SHOWED_MOVIES_MAX,
       });
     case ActionTypes.FILTERED_FILMS:
       return extend(state, {
@@ -61,6 +69,10 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.CHANGE_ACTIVE_MOVIE:
       return extend(state, {
         activeMovie: action.payload,
+      });
+    case ActionTypes.INCREMENT_SHOWED_MOVIES:
+      return extend(state, {
+        showedMoviesCount: state.showedMoviesCount + SHOWED_MOVIES_MAX,
       });
   }
   return state;

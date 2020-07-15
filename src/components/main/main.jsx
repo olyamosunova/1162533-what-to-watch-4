@@ -6,39 +6,18 @@ import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {ActionCreator} from "../../reducer";
 import {connect} from "react-redux";
 
-const SHOWED_MOVIES_COUNT = 8;
-
 class Main extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      shownMoviesCount: SHOWED_MOVIES_COUNT,
-    };
-
-    this._handleShowMoreButtonClick = this._handleShowMoreButtonClick.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.activeGenre !== this.props.activeGenre) {
-      this.setState({
-        shownMoviesCount: SHOWED_MOVIES_COUNT,
-      });
-    }
-  }
-
-  _handleShowMoreButtonClick() {
-    this.setState((prevState) => ({shownMoviesCount: prevState.shownMoviesCount + SHOWED_MOVIES_COUNT}));
   }
 
   render() {
-    const {indexMovie, onMovieClick, genres, activeGenre, onClick, filteredMovies} = this.props;
+    const {indexMovie, onMovieClick, genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick} = this.props;
     const {title, genre, releaseDate, cover, poster} = indexMovie;
-    const {shownMoviesCount} = this.state;
 
-    this._showedMovies = filteredMovies.slice(0, shownMoviesCount);
+    const showedMovies = [...filteredMovies].splice(0, showedMoviesCount);
 
-    const isHideShowMoreButton = shownMoviesCount >= filteredMovies.length ? true : false;
+    const isHideShowMoreButton = showedMoviesCount >= filteredMovies.length ? true : false;
 
     return (
       <React.Fragment>
@@ -104,11 +83,11 @@ class Main extends PureComponent {
             <GenresList genres={genres} activeGenre={activeGenre} onClick={onClick} />
 
             <MoviesList
-              movies={this._showedMovies}
+              movies={showedMovies}
               onMovieClick={onMovieClick}
             />
 
-            {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={this._handleShowMoreButtonClick} />}
+            {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />}
 
           </section>
 
@@ -172,18 +151,24 @@ Main.propTypes = {
         )
       })
   ).isRequired,
+  showedMoviesCount: PropTypes.number.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
   filteredMovies: state.filteredMovies,
+  showedMoviesCount: state.showedMoviesCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(activeGenre) {
     dispatch(ActionCreator.changeGenre(activeGenre));
     dispatch(ActionCreator.filteredMovies(activeGenre));
+  },
+  onShowMoreButtonClick() {
+    dispatch(ActionCreator.incrementShownMoviesCount());
   }
 });
 export {Main};
