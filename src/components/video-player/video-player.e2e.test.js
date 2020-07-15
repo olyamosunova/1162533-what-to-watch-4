@@ -13,7 +13,7 @@ Enzyme.configure({
 });
 
 it(`The component has a playback state`, () => {
-  const expectedState = {isPlaying: true};
+  window.HTMLMediaElement.prototype.load = () => {};
 
   const videoPlayer = mount(
       <VideoPlayer
@@ -22,13 +22,15 @@ it(`The component has a playback state`, () => {
         isPlaying={true}
       />
   );
-  const state = videoPlayer.state();
-  expect(state).toMatchObject(expectedState);
+  const {_videoRef} = videoPlayer.instance();
+  jest.spyOn(_videoRef.current, `load`);
+  videoPlayer.instance().componentDidMount();
+
+  videoPlayer.setProps({isPlaying: false});
+  expect(_videoRef.current.load).toHaveBeenCalledTimes(1);
 });
 
 it(`The component has a pause state`, () => {
-  const expectedState = {isPlaying: false};
-
   const videoPlayer = mount(
       <VideoPlayer
         poster={video.poster}
@@ -37,7 +39,9 @@ it(`The component has a pause state`, () => {
       />
   );
 
-  const state = videoPlayer.state();
+  jest.spyOn(videoPlayer.instance(), `onPlay`);
+  videoPlayer.instance().componentDidMount();
 
-  expect(state).toMatchObject(expectedState);
+  videoPlayer.setProps({isPlaying: true});
+  expect(videoPlayer.instance().onPlay).toHaveBeenCalledTimes(1);
 });

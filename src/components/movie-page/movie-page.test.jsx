@@ -11,7 +11,11 @@ it(`Should MoviePage render correctly`, () => {
       onMovieClick={() => {}}
       renderTabs={() => {}}
       activeTab={`Overview`}
-    />)
+    />, {
+      createNodeMock: ()=>{
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -18,6 +18,7 @@ it(`Render App`, () => {
     filteredMovies: Movies,
     genres,
     activeMovie: -1,
+    showedMoviesCount: 8,
   });
 
   const tree = renderer

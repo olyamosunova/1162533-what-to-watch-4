@@ -10,6 +10,7 @@ it(`Returns initial state at application start`, ()=>{
     genres: getGenresList(Movies),
     filteredMovies: Movies,
     activeMovie: -1,
+    showedMoviesCount: 8,
   });
 });
 
@@ -20,6 +21,7 @@ it(`Change genre`, ()=>{
     genres: getGenresList(Movies),
     filteredMovies: Movies,
     activeMovie: -1,
+    showedMoviesCount: 8,
   }, {
     type: ActionTypes.CHANGE_GENRE,
     payload: GenreNames.DRAMAS,
@@ -29,6 +31,7 @@ it(`Change genre`, ()=>{
     genres: getGenresList(Movies),
     filteredMovies: Movies,
     activeMovie: -1,
+    showedMoviesCount: 8,
   });
 });
 

@@ -9,9 +9,13 @@ it(`Should SmallMovieCard render correctly`, () => {
     .create(<SmallMovieCard
       promoMovie={promoMovie}
       onMovieClick={() => {}}
-      onMovieHover={() => {}}
       isPlaying={false}
-    />)
+      onMouseEnter={() => {}}
+      onMouseLeave={() => {}}
+    />, {
+      createNodeMock: ()=>{
+        return {};
+      }})
     .toJSON();
 
   expect(tree).toMatchSnapshot();

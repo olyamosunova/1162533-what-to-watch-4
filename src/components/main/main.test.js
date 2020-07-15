@@ -16,6 +16,7 @@ it(`Should Main render correctly`, () => {
     activeGenre: GenreNames.ALL,
     filteredMovies: Movies,
     genres,
+    showedMoviesCount: 8,
   });
 
   const tree = renderer
@@ -28,6 +29,8 @@ it(`Should Main render correctly`, () => {
             onMovieClick={() => {}}
             onClick={() => {}}
             genres={genres}
+            showedMoviesCount={8}
+            onShowMoreButtonClick={()=>{}}
           />
         </Provider>, {
           createNodeMock: ()=>{
