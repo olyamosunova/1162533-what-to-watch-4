@@ -1,57 +1,25 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import withPlayingCard from "../../hocs/with-playing-card/with-playing-card.jsx";
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const SmallMovieCardWrapped = withPlayingCard(SmallMovieCard);
 
-    this.state = {
-      activeMovieCardId: null,
-    };
-    this._handleMouseEnter = this._handleMouseEnter.bind(this);
-  }
+const MoviesList = (props) => {
+  const {movies, onMovieClick} = props;
 
-  componentWillUnmount() {
-    clearTimeout(this._timeout);
-  }
-
-  _handleMouseEnter(id) {
-    clearTimeout(this._timeout);
-
-    if (id) {
-      this._timeout = setTimeout(() => {
-        this.setState({
-          activeMovieCardId: id,
-        });
-      }, 1000);
-
-      return;
-    }
-
-    this.setState({
-      activeMovieCardId: null,
-    });
-  }
-  render() {
-    const {movies, onMovieClick} = this.props;
-    const {activeMovieCardId} = this.state;
-
-    return (
-      <div className="catalog__movies-list">
-        {movies.map(({promoMovie}) => (
-          <SmallMovieCard
-            key={promoMovie.id}
-            promoMovie={promoMovie}
-            onMovieClick={onMovieClick}
-            onMovieHover={this._handleMouseEnter}
-            isPlaying={activeMovieCardId === promoMovie.id}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {movies.map(({promoMovie}) => (
+        <SmallMovieCardWrapped
+          key={promoMovie.id}
+          promoMovie={promoMovie}
+          onMovieClick={onMovieClick}
+        />
+      ))}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
@@ -84,7 +52,6 @@ MoviesList.propTypes = {
       })
   ).isRequired,
   onMovieClick: PropTypes.func.isRequired,
-  activeGenre: PropTypes.string,
 };
 
 export default MoviesList;

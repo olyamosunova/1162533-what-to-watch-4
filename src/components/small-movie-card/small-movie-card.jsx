@@ -3,22 +3,14 @@ import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
 const SmallMovieCard = (props) => {
-  const {promoMovie, onMovieClick, onMovieHover, isPlaying} = props;
+  const {promoMovie, onMovieClick, isPlaying, onMouseEnter, onMouseLeave} = props;
   const {id, title, poster, previewVideo} = promoMovie;
-
-  const _onShowPreviewVideo = () => {
-    onMovieHover(id);
-  };
-
-  const _onClosePreviewVideo = () => {
-    onMovieHover();
-  };
 
   return (
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseEnter={_onShowPreviewVideo}
-      onMouseLeave={_onClosePreviewVideo}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       onClick={() => {
         onMovieClick(id);
       }}
@@ -27,7 +19,7 @@ const SmallMovieCard = (props) => {
         <VideoPlayer
           isPlaying={isPlaying}
           poster={poster}
-          previewVideo={previewVideo} />
+          previewVideo={previewVideo}/>
       </div>
       <h3 className="small-movie-card__title">
         <a
@@ -52,8 +44,9 @@ SmallMovieCard.propTypes = {
     previewVideo: PropTypes.string.isRequired,
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
-  onMovieHover: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
 };
 
 export default SmallMovieCard;
