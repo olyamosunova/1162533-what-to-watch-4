@@ -16,6 +16,7 @@ const store = mockStore({
   activeGenre: GenreNames.ALL,
   filteredMovies: Movies,
   genres,
+  showedMoviesCount: 8,
 });
 
 Enzyme.configure({
@@ -34,6 +35,8 @@ it(`Should movie title be clicked`, () => {
           onMovieClick={onMovieClick}
           onClick={() => {}}
           genres={genres}
+          showedMoviesCount={8}
+          onShowMoreButtonClick={()=>{}}
         />
       </Provider>
   );

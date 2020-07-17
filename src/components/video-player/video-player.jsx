@@ -5,24 +5,31 @@ class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isPlaying: props.isPlaying,
-    };
-
     this._videoRef = createRef();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
+    const video = this._videoRef.current;
+    video.muted = true;
+  }
+
+  onPlay() {
+    const video = this._videoRef.current;
+
+    const videoPlay = () => {
+      video.play();
+    };
+
+    this._videoTimer = setTimeout(videoPlay, 1000);
+  }
+
+  componentDidUpdate() {
     const video = this._videoRef.current;
 
     if (this.props.isPlaying) {
-      video.muted = true;
-      video.play();
+      this.onPlay();
     } else {
-      video.pause();
-    }
-
-    if ((this.props.isPlaying === false) && (prevProps.isPlaying === true)) {
+      clearTimeout(this._videoTimer);
       video.load();
     }
   }
