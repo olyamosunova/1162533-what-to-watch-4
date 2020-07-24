@@ -19,6 +19,7 @@ it(`Render App`, () => {
     genres,
     activeMovie: -1,
     showedMoviesCount: 8,
+    playingMovie: Movies[0],
   });
 
   const tree = renderer
@@ -30,6 +31,7 @@ it(`Render App`, () => {
             genres={genres}
             activeMovie={-1}
             onMovieClick={() => {}}
+            playingMovie={Movies[0]}
           />
         </Provider>, {
           createNodeMock: ()=>{
