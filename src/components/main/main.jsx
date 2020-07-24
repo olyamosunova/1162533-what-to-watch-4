@@ -12,8 +12,9 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {indexMovie, onMovieClick, genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick} = this.props;
-    const {title, genre, releaseDate, cover, poster} = indexMovie;
+    const {movie, onMovieClick, genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick, onPlayClick} = this.props;
+    const {promoMovie} = movie;
+    const {title, genre, releaseDate, cover, poster} = promoMovie;
 
     const showedMovies = [...filteredMovies].splice(0, showedMoviesCount);
 
@@ -58,7 +59,13 @@ class Main extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
+                  <button
+                    className="btn btn--play movie-card__button"
+                    type="button"
+                    onClick={() => {
+                      onPlayClick(movie);
+                    }}
+                  >
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
@@ -111,13 +118,6 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  indexMovie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-  }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   activeGenre: PropTypes.string.isRequired,
@@ -151,15 +151,45 @@ Main.propTypes = {
         )
       })
   ).isRequired,
+  movie: PropTypes.shape({
+    promoMovie: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      releaseDate: PropTypes.number.isRequired,
+      poster: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      previewVideo: PropTypes.string.isRequired,
+    }),
+    rating: PropTypes.number.isRequired,
+    ratingLevel: PropTypes.string.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    runTime: PropTypes.string.isRequired,
+    description: PropTypes.array.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.array.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          message: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        })
+    )
+  }).isRequired,
   showedMoviesCount: PropTypes.number.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  movies: state.movies,
   activeGenre: state.activeGenre,
   genres: state.genres,
   filteredMovies: state.filteredMovies,
   showedMoviesCount: state.showedMoviesCount,
+  movie: state.movies[0],
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -169,6 +199,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onShowMoreButtonClick() {
     dispatch(ActionCreator.incrementShownMoviesCount());
+  },
+  onPlayClick(movie) {
+    dispatch(ActionCreator.chooseMovieToWatch(movie));
   }
 });
 export {Main};

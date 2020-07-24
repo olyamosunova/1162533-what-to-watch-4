@@ -18,11 +18,11 @@ const App = (props) => {
   const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
   const _renderApp = () => {
-    if (currentMovie) {
-      if (playingMovie) {
-        return <BigVideoPlayerWrapped movie={playingMovie}/>;
-      }
+    if (playingMovie) {
+      return <BigVideoPlayerWrapped movie={playingMovie}/>;
+    }
 
+    if (currentMovie) {
       return (
         <MoviePageWrapped
           movie={currentMovie}

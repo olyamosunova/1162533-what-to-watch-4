@@ -81,7 +81,7 @@ const MoviePage = (props) => {
                 <button
                   className="btn btn--play movie-card__button"
                   type="button"
-                  onClick={()=>{
+                  onClick={() => {
                     onPlayClick(movie);
                   }}
                 >
