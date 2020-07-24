@@ -6,11 +6,12 @@ import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import {TabsName} from "../../const";
+import {ActionCreator} from "../../reducer";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab} = props;
+  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick} = props;
   const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
@@ -77,7 +78,13 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={()=>{
+                    onPlayClick(movie);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -201,11 +208,18 @@ MoviePage.propTypes = {
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onPlayClick(movie) {
+    dispatch(ActionCreator.chooseMovieToWatch(movie));
+  }
+});
+
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
