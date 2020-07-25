@@ -12,6 +12,7 @@ const initialState = {
   filteredMovies: MoviesList,
   activeMovie: -1,
   showedMoviesCount: SHOWED_MOVIES_MAX,
+  playingMovie: null,
 };
 
 const ActionTypes = {
@@ -19,6 +20,7 @@ const ActionTypes = {
   FILTERED_FILMS: `FILTERED_FILMS`,
   CHANGE_ACTIVE_MOVIE: `CHANGE_ACTIVE_MOVIE`,
   INCREMENT_SHOWED_MOVIES: `INCREMENT_SHOWED_MOVIES`,
+  CHOOSE_MOVIE_TO_WATCH: `CHOOSE_MOVIE_TO_WATCH`,
 };
 
 const ActionCreator = {
@@ -41,6 +43,10 @@ const ActionCreator = {
   incrementShownMoviesCount: () => ({
     type: ActionTypes.INCREMENT_SHOWED_MOVIES,
   }),
+  chooseMovieToWatch: (movie)=>({
+    type: ActionTypes.CHOOSE_MOVIE_TO_WATCH,
+    payload: movie,
+  })
 };
 
 const getFilteredMovies = (movies, genre) => {
@@ -73,6 +79,10 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.INCREMENT_SHOWED_MOVIES:
       return extend(state, {
         showedMoviesCount: state.showedMoviesCount + SHOWED_MOVIES_MAX,
+      });
+    case ActionTypes.CHOOSE_MOVIE_TO_WATCH:
+      return extend(state, {
+        playingMovie: action.payload
       });
   }
   return state;
