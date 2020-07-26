@@ -18,3 +18,29 @@ export const GenreNames = {
   SCI_FI: `Sci-Fi`,
   THRILLERS: `Thrillers`,
 };
+
+export const SCORE_NAME = {
+  BAD: {
+    name: `Bad`,
+    min: 0,
+    max: 3,
+  },
+  NORMAL: {
+    name: `Normal`,
+    min: 3,
+    max: 5,
+  },
+  GOOD: {
+    name: `Good`,
+    min: 5,
+    max: 8,
+  },
+  VERY_GOOD: {
+    name: `Very good`,
+    min: 8,
+    max: 10,
+  },
+  AWESOME: {
+    name: `Awesome`,
+  },
+};

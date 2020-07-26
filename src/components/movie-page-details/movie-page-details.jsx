@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {formatMovieDuration} from "../../utils";
 
 const MoviePageDetails = (props) => {
   const {movie} = props;
@@ -30,7 +31,7 @@ const MoviePageDetails = (props) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Run Time</strong>
-          <span className="movie-card__details-value">{runTime}</span>
+          <span className="movie-card__details-value">{formatMovieDuration(runTime)}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Genre</strong>
@@ -59,18 +60,10 @@ MoviePageDetails.propTypes = {
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
+    runTime: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        }))
   }),
 };
 

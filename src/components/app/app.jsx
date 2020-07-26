@@ -6,6 +6,7 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/states/states";
+import {Operations} from "../../reducer/data/data";
 import BigVideoPlayer from "../big-video-player/big-video-player.jsx";
 import withPlayer from "../../hocs/with-player/with-player.jsx";
 import {getFilteredMovies, getGenres} from "../../reducer/data/selectors";
@@ -74,18 +75,9 @@ App.propTypes = {
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
         runTime: PropTypes.number.isRequired,
-        description: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              message: PropTypes.string.isRequired,
-              rating: PropTypes.number.isRequired,
-              author: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
-            })
-        )
       })
   ).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -104,19 +96,10 @@ App.propTypes = {
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
+    runTime: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        })
-    )
   }),
 };
 
@@ -130,6 +113,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onMovieClick(id) {
     dispatch(ActionCreator.changeActiveMovie(id));
+    dispatch(Operations.loadReviews(id));
   }
 });
 

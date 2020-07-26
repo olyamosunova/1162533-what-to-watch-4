@@ -12,6 +12,8 @@ export const getGenres = createSelector(
     }
 );
 
+export const getReviews = (state) => state[NameSpace.DATA].reviews;
+
 export const getMovie = (state) => state[NameSpace.DATA].movies[0];
 
 export const getFilteredMovies = createSelector(

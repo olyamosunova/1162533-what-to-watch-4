@@ -4,7 +4,6 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {ActionCreator} from "../../reducer/states/states";
-import {ActionCreatorByData} from "../../reducer/data/data";
 import {connect} from "react-redux";
 import {getGenres, getFilteredMovies} from "../../reducer/data/selectors";
 import {getActiveGenre, getShowedMoviesCount} from "../../reducer/states/selectors";
@@ -78,18 +77,9 @@ Main.propTypes = {
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
         runTime: PropTypes.number.isRequired,
-        description: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              message: PropTypes.string.isRequired,
-              rating: PropTypes.number.isRequired,
-              author: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
-            })
-        )
       })
   ).isRequired,
   showedMoviesCount: PropTypes.number.isRequired,
@@ -106,7 +96,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onClick(activeGenre) {
     dispatch(ActionCreator.changeGenre(activeGenre));
-    dispatch(ActionCreatorByData.filteredMovies(activeGenre));
   },
   onShowMoreButtonClick() {
     dispatch(ActionCreator.incrementShownMoviesCount());

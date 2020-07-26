@@ -10,7 +10,7 @@ const PromoMovie = (props) => {
       id: 1,
       title: `Fantastic Beasts: The Crimes of Grindelwald`,
       poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-      cover: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      cover: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
       genre: `Fantasy`,
       releaseDate: 2018,
       previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -77,7 +77,7 @@ const PromoMovie = (props) => {
   return (
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src={`img/${cover}`} alt="The Grand Budapest Hotel"/>
+        <img src={cover} alt="The Grand Budapest Hotel"/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -156,15 +156,6 @@ PromoMovie.propTypes = {
     description: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        })
-    )
   }),
   onPlayClick: PropTypes.func.isRequired,
 };

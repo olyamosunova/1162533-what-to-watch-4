@@ -92,7 +92,7 @@ const withPlayer = (Component) =>{
         <video
           src={previewVideo}
           className="player__video"
-          poster={`img/${poster}`}
+          poster={poster}
           autoPlay={true}
           loop={false}
           ref={this._videoRef}
@@ -115,19 +115,10 @@ const withPlayer = (Component) =>{
       rating: PropTypes.number.isRequired,
       ratingLevel: PropTypes.string.isRequired,
       ratingCount: PropTypes.number.isRequired,
-      runTime: PropTypes.string.isRequired,
-      description: PropTypes.array.isRequired,
+      runTime: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
       director: PropTypes.string.isRequired,
       starring: PropTypes.array.isRequired,
-      reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            message: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-            author: PropTypes.string.isRequired,
-            date: PropTypes.string.isRequired,
-          })
-      ).isRequired,
     }).isRequired,
   };
 

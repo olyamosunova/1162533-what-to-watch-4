@@ -1,14 +1,16 @@
 import {extend} from "../../utils";
-import {createMovie} from "../../adapters/adapters";
+import {createMovie, createReview} from "../../adapters/adapters";
 
 const initialState = {
   movies: [],
   genres: [],
   filteredMovies: [],
+  reviews: [],
 };
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
   GET_GENRES: `GET_GENRES`,
   GET_FILTERED_MOVIES: `GET_FILTERED_MOVIES`,
 };
@@ -19,7 +21,13 @@ const ActionCreatorByData = {
       type: ActionType.LOAD_MOVIES,
       payload: movies,
     };
-  }
+  },
+  loadReviews: (reviews) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +44,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         filteredMovies: action.payload,
       });
+    case ActionType.LOAD_REVIEWS:
+      return extend(state, {
+        reviews: action.payload,
+      });
   }
 
   return state;
@@ -46,6 +58,12 @@ const Operations = {
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadMovies(response.data.map((movie) => createMovie(movie))));
+      });
+  },
+  loadReviews: (id) => (dispatch, getState, api) => {
+    return api.get(`/comments/${id}`)
+      .then((response) => {
+        dispatch(ActionCreatorByData.loadReviews(response.data.map((review) => createReview(review))));
       });
   },
 };

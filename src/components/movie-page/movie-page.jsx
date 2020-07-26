@@ -7,12 +7,12 @@ import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import {TabsName} from "../../const";
 import {ActionCreator} from "../../reducer/states/states";
-import {getMovies} from "../../reducer/data/selectors";
+import {getMovies, getReviews} from "../../reducer/data/selectors";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick} = props;
+  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews} = props;
   const {promoMovie} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
@@ -38,7 +38,7 @@ const MoviePage = (props) => {
           movie={movie}
         />;
       case TabsName.REVIEWS:
-        return <MoviePageReviews movie={movie} />;
+        return <MoviePageReviews reviews={reviews} />;
     }
 
     return null;
@@ -49,7 +49,7 @@ const MoviePage = (props) => {
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${cover}`} alt={title}/>
+            <img src={cover} alt={title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -164,19 +164,10 @@ MoviePage.propTypes = {
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
+    runTime: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        })
-    )
   }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -192,28 +183,29 @@ MoviePage.propTypes = {
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.string.isRequired,
-        description: PropTypes.array.isRequired,
+        runTime: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              message: PropTypes.string.isRequired,
-              rating: PropTypes.number.isRequired,
-              author: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
-            })
-        )
       })),
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        message: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
+  reviews: getReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

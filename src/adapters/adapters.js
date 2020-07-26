@@ -1,3 +1,5 @@
+import {getScore} from "../utils";
+
 export const createMovie = (movie) => {
   return {
     promoMovie: {
@@ -11,11 +13,21 @@ export const createMovie = (movie) => {
     },
     videoLink: movie.video_link,
     rating: movie.rating,
-    ratingLevel: `Very good`,
+    ratingLevel: getScore(movie.rating),
     ratingCount: movie.scores_count,
     runTime: movie.run_time,
     description: movie.description,
     director: movie.director,
     starring: movie.starring,
+  };
+};
+
+export const createReview = (review) => {
+  return {
+    id: review.id,
+    message: review.comment,
+    rating: review.rating,
+    author: review.user.name,
+    date: review.date,
   };
 };
