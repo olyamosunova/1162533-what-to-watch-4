@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getMovies} from "../../reducer/data/selectors";
+// import {getMovies} from "../../reducer/data/selectors";
 import {ActionCreator} from "../../reducer/states/states";
 
 const PromoMovie = (props) => {
@@ -169,9 +169,9 @@ PromoMovie.propTypes = {
   onPlayClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  movie: getMovies(state)[0],
-});
+// const mapStateToProps = (state) => ({
+//   movie: getMovies(state)[0],
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
