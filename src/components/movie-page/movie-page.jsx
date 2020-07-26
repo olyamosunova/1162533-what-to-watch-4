@@ -6,7 +6,8 @@ import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import {TabsName} from "../../const";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/states/states";
+import {getMovies} from "../../reducer/data/selectors";
 
 const SIMILAR_FILM_COUNT = 4;
 
@@ -106,7 +107,7 @@ const MoviePage = (props) => {
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
               <img
-                src={`img/${poster}`}
+                src={poster}
                 alt="The Grand Budapest Hotel poster"
                 width="218"
                 height="327"/>
@@ -212,7 +213,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getMovies(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

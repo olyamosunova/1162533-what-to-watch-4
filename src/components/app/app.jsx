@@ -5,16 +5,18 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.jsx";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/states/states";
 import BigVideoPlayer from "../big-video-player/big-video-player.jsx";
 import withPlayer from "../../hocs/with-player/with-player.jsx";
+import {getFilteredMovies, getGenres} from "../../reducer/data/selectors";
+import {getActiveMovie, getPlayingMovie} from "../../reducer/states/selectors";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 
 const MoviePageWrapped = withTabs(MoviePage);
 
 const App = (props) => {
-  const {indexMovie, filteredMovies, genres, activeMovie, onMovieClick, playingMovie} = props;
+  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie} = props;
   const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
   const _renderApp = () => {
@@ -35,7 +37,6 @@ const App = (props) => {
       <Main
         filteredMovies={filteredMovies}
         genres={genres}
-        indexMovie={indexMovie}
         onMovieClick={onMovieClick}
       />
     );
@@ -58,13 +59,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  indexMovie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-  }).isRequired,
   filteredMovies: PropTypes.arrayOf(
       PropTypes.shape({
         promoMovie: PropTypes.shape({
@@ -79,7 +73,7 @@ App.propTypes = {
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
         description: PropTypes.array.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
@@ -127,10 +121,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filteredMovies: state.filteredMovies,
-  genres: state.genres,
-  activeMovie: state.activeMovie,
-  playingMovie: state.playingMovie,
+  filteredMovies: getFilteredMovies(state),
+  genres: getGenres(state),
+  activeMovie: getActiveMovie(state),
+  playingMovie: getPlayingMovie(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
