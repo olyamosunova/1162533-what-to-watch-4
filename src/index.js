@@ -17,6 +17,7 @@ const store = createStore(
         applyMiddleware(thunk.withExtraArgument(api))
     ));
 
+store.dispatch(Operations.loadPromoMovieCard());
 store.dispatch(Operations.loadMovies());
 
 ReactDOM.render(

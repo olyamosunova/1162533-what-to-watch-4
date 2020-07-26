@@ -23,6 +23,7 @@ class Main extends PureComponent {
     return (
       <React.Fragment>
         <PromoMovie />
+
         <div className="page-content">
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>

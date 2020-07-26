@@ -5,6 +5,8 @@ import {getActiveGenre} from "../states/selectors";
 
 export const getMovies = (state) => state[NameSpace.DATA].movies;
 
+export const getPromoMovie = (state) => state[NameSpace.DATA].promoMovieCard;
+
 export const getGenres = createSelector(
     getMovies,
     (movies) => {
@@ -13,8 +15,6 @@ export const getGenres = createSelector(
 );
 
 export const getReviews = (state) => state[NameSpace.DATA].reviews;
-
-export const getMovie = (state) => state[NameSpace.DATA].movies[0];
 
 export const getFilteredMovies = createSelector(
     getMovies,
