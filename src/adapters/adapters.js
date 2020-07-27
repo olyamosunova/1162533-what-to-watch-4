@@ -11,6 +11,7 @@ export const createMovie = (movie) => {
       releaseDate: movie.released,
       previewVideo: movie.preview_video_link,
     },
+    backgroundColor: movie.background_color,
     previewImage: movie.preview_image,
     videoLink: movie.video_link,
     rating: movie.rating,

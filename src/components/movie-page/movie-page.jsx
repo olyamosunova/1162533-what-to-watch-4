@@ -13,7 +13,7 @@ const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
   const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews} = props;
-  const {promoMovie} = movie;
+  const {promoMovie, backgroundColor} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
   const getSimilarMovies = (currentGenre, films, id) => {
@@ -46,7 +46,7 @@ const MoviePage = (props) => {
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{backgroundColor: `${backgroundColor}`}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={cover} alt={title}/>
@@ -161,6 +161,7 @@ MoviePage.propTypes = {
       cover: PropTypes.string.isRequired,
       previewVideo: PropTypes.string.isRequired,
     }),
+    backgroundColor: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
@@ -180,6 +181,7 @@ MoviePage.propTypes = {
           cover: PropTypes.string.isRequired,
           previewVideo: PropTypes.string.isRequired,
         }),
+        backgroundColor: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
