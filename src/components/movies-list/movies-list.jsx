@@ -10,10 +10,10 @@ const MoviesList = (props) => {
 
   return (
     <div className="catalog__movies-list">
-      {movies.map(({promoMovie}) => (
+      {movies.map((movie) => (
         <SmallMovieCardWrapped
-          key={promoMovie.id}
-          promoMovie={promoMovie}
+          key={movie.promoMovie.id}
+          movie={movie}
           onMovieClick={onMovieClick}
         />
       ))}
