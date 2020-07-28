@@ -3,11 +3,8 @@ import renderer from "react-test-renderer";
 import BigVideoPlayer from "./big-video-player.jsx";
 import configureStore from "redux-mock-store";
 import {GenreNames} from "../../const";
-import {Movies} from "../../mock/testData";
-import {getGenresList} from "../../utils";
+import {Movies, genres} from "../../mock/testData";
 import {Provider} from "react-redux";
-
-const genres = getGenresList(Movies);
 
 const mockStore = configureStore([]);
 
@@ -32,6 +29,7 @@ it(`render BigVideoPlayer with video play`, () => {
             onPlayClick={()=>{}}
             onPauseClick={()=>{}}
             onFullScreenClick={()=>{}}
+            isFullScreenMode={false}
           >
             <video />
           </BigVideoPlayer>
@@ -65,6 +63,7 @@ it(`render BigVideoPlayer with video pause`, () => {
             onPlayClick={()=>{}}
             onPauseClick={()=>{}}
             onFullScreenClick={()=>{}}
+            isFullScreenMode={false}
           >
             <video />
           </BigVideoPlayer>

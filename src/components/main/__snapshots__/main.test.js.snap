@@ -10,7 +10,7 @@ Array [
     >
       <img
         alt="The Grand Budapest Hotel"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        src="macbeth.jpg"
       />
     </div>
     <h1
@@ -69,9 +69,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="Fantastic Beasts: The Crimes of Grindelwald"
+            alt="Macbeth"
             height="327"
-            src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+            src="macbeth.jpg"
             width="218"
           />
         </div>
@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Fantastic Beasts: The Crimes of Grindelwald
+            Macbeth
           </h2>
           <p
             className="movie-card__meta"
@@ -89,12 +89,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Fantasy
+              Drama
             </span>
             <span
               className="movie-card__year"
             >
-              2018
+              2015
             </span>
           </p>
           <div
@@ -155,39 +155,6 @@ Array [
         className="catalog__genres-list"
       >
         <li
-          className="catalog__genres-item catalog__genres-item--active"
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            All genres
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Fantasy
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Music
-          </a>
-        </li>
-        <li
           className="catalog__genres-item "
           onClick={[Function]}
         >
@@ -217,7 +184,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Vestern
+            Western
           </a>
         </li>
       </ul>
@@ -235,7 +202,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -266,7 +233,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/bohemian-rhapsody.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -297,7 +264,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/macbeth.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -328,7 +295,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/aviator.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -359,7 +326,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/we-need-to-talk-about-kevin.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -390,7 +357,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/what-we-do-in-the-shadows.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -421,7 +388,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/revenant.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -452,7 +419,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/johnny-english.jpg"
+              poster=""
               width="100%"
             >
               <source

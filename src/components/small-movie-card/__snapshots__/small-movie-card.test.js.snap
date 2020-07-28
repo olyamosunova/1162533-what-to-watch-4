@@ -12,7 +12,7 @@ exports[`Should SmallMovieCard render correctly 1`] = `
   >
     <video
       height="100%"
-      poster="img/macbeth.jpg"
+      poster=""
       width="100%"
     >
       <source

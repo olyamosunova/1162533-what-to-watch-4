@@ -190,10 +190,6 @@ MoviePage.propTypes = {
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
       })),
-  onMovieClick: PropTypes.func.isRequired,
-  renderTabs: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -201,8 +197,11 @@ MoviePage.propTypes = {
         rating: PropTypes.number.isRequired,
         author: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
+      })),
+  onMovieClick: PropTypes.func.isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

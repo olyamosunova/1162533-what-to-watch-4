@@ -1,22 +1,16 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Main} from "./main.jsx";
-import {genres, Movies, movie} from "../../mock/testData";
+import PromoMovie from "./promo-movie";
+import {movie} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
 
 const mockStore = configureStore([]);
 
-it(`Should Main render correctly`, () => {
+it(`Should PromoMovie render correctly`, () => {
   const store = mockStore({
-    [NameSpace.STATES]: {
-      activeGenre: `All genres`,
-      showedMoviesCount: 8,
-    },
     [NameSpace.DATA]: {
-      filteredMovies: Movies,
-      genres,
       promoMovieCard: movie,
     },
   });
@@ -24,14 +18,8 @@ it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <Main
-            activeGenre={`All genres`}
-            genres={genres}
-            filteredMovies={Movies}
-            showedMoviesCount={8}
-            onMovieClick={() => {}}
-            onClick={() => {}}
-            onShowMoreButtonClick={()=>{}}
+          <PromoMovie
+            onPlayClick={() => {}}
           />
         </Provider>, {
           createNodeMock: ()=>{
