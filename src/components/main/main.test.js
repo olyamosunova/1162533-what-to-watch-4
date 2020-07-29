@@ -19,6 +19,9 @@ it(`Should Main render correctly`, () => {
       genres,
       promoMovieCard: movie,
     },
+    [NameSpace.USER]: {
+      authorizationStatus: `NO_AUTH`,
+    },
   });
 
   const tree = renderer

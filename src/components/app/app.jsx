@@ -11,13 +11,17 @@ import BigVideoPlayer from "../big-video-player/big-video-player.jsx";
 import withPlayer from "../../hocs/with-player/with-player.jsx";
 import {getFilteredMovies, getGenres} from "../../reducer/data/selectors";
 import {getActiveMovie, getPlayingMovie} from "../../reducer/states/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {Operations as UserOperations} from "../../reducer/user/user";
+import SignIn from "../sign-in/sign-in.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 
 const MoviePageWrapped = withTabs(MoviePage);
 
 const App = (props) => {
-  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie} = props;
+  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie, authorizationStatus, login} = props;
   const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
   const _renderApp = () => {
@@ -30,6 +34,22 @@ const App = (props) => {
         <MoviePageWrapped
           movie={currentMovie}
           onMovieClick={onMovieClick}
+        />
+      );
+    }
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return (
+        <Main
+          filteredMovies={filteredMovies}
+          genres={genres}
+          onMovieClick={onMovieClick}
+        />
+      );
+    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      return (
+        <SignIn
+          onSubmit={login}
         />
       );
     }
@@ -53,6 +73,9 @@ const App = (props) => {
           <MoviePageWrapped
             onMovieClick={onMovieClick}
           />
+        </Route>
+        <Route exact path="/dev-auth">
+          <SignIn onSubmit={login} />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -101,6 +124,8 @@ App.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
   }),
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -108,13 +133,17 @@ const mapStateToProps = (state) => ({
   genres: getGenres(state),
   activeMovie: getActiveMovie(state),
   playingMovie: getPlayingMovie(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onMovieClick(id) {
     dispatch(ActionCreator.changeActiveMovie(id));
     dispatch(Operations.loadReviews(id));
-  }
+  },
+  login(authData) {
+    dispatch(UserOperations.login(authData));
+  },
 });
 
 export {App};

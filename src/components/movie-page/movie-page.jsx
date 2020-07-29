@@ -5,14 +5,16 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
+import Header from "../header/header.jsx";
 import {TabsName} from "../../const";
 import {ActionCreator} from "../../reducer/states/states";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews} = props;
+  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews, authorizationStatus, userData} = props;
   const {promoMovie, backgroundColor} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
@@ -54,21 +56,7 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </div>
-          </header>
+          <Header authorizationStatus={authorizationStatus} userData={userData} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -202,11 +190,20 @@ MoviePage.propTypes = {
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   reviews: getReviews(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -16,6 +16,7 @@ it(`Render App`, () => {
     activeMovie: -1,
     showedMoviesCount: 8,
     playingMovie: Movies[0],
+    authorizationStatus: `NO_AUTH`,
   });
 
   const tree = renderer
@@ -27,6 +28,8 @@ it(`Render App`, () => {
             activeMovie={-1}
             onMovieClick={() => {}}
             playingMovie={Movies[0]}
+            authorizationStatus={`NO_AUTH`}
+            login={() => {}}
           />
         </Provider>, {
           createNodeMock: ()=>{

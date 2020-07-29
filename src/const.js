@@ -44,3 +44,8 @@ export const SCORE_NAME = {
     name: `Awesome`,
   },
 };
+
+export const AuthorizationStatus = {
+  NO_AUTH: `NO_AUTH`,
+  AUTH: `AUTH`,
+};

@@ -255,4 +255,11 @@ const reviews = [{
   date: ``,
 }];
 
-export {movie, Movies, reviews, genres};
+const userData = {
+  id: 0,
+  email: `vesan@mail.ru`,
+  name: `Lola`,
+  avatarUrl: ``,
+};
+
+export {movie, Movies, reviews, genres, userData};

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PromoMovie from "./promo-movie";
-import {movie} from "../../mock/testData";
+import {movie, userData} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
@@ -12,6 +12,10 @@ it(`Should PromoMovie render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       promoMovieCard: movie,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `NO_AUTH`,
+      userData,
     },
   });
 

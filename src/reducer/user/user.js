@@ -1,14 +1,20 @@
-const AuthorizationStatus = {
-  NO_AUTH: `NO_AUTH`,
-  AUTH: `AUTH`,
-};
+import {extend} from "../../utils";
+import {AuthorizationStatus} from "../../const";
+import {createUser} from "../../adapters/adapters";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  userData: {
+    id: 0,
+    email: ``,
+    name: ``,
+    avatarUrl: ``,
+  },
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_USER_DATA: `GET_USER_DATA`,
 };
 
 const ActionCreator = {
@@ -18,17 +24,50 @@ const ActionCreator = {
       payload: status,
     };
   },
+  getUserData: (userData) => {
+    return {
+      type: ActionType.GET_USER_DATA,
+      payload: userData,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
-      return Object.assign({}, state, {
-        authorizationStatus: action.payload,
+      return extend(state, {
+        authorizationStatus: action.payload
+      });
+    case ActionType.GET_USER_DATA:
+      return extend(state, {
+        userData: action.payload,
       });
   }
 
   return state;
 };
 
-export {reducer, ActionCreator, ActionType, AuthorizationStatus};
+const Operations = {
+  checkAuth: () => (dispatch, getState, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getUserData(createUser(response.data)));
+      })
+      .catch(() => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      });
+  },
+
+  login: (authData) => (dispatch, getState, api) => {
+    return api.post(`/login`, {
+      email: authData.login,
+      password: authData.password,
+    })
+      .then(() => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      });
+  },
+};
+
+export {reducer, ActionCreator, ActionType, AuthorizationStatus, Operations};
