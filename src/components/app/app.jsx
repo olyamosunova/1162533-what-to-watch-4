@@ -14,14 +14,15 @@ import {getActiveMovie, getPlayingMovie} from "../../reducer/states/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from "../sign-in/sign-in.jsx";
-import {AuthorizationStatus} from "../../reducer/user/user";
+import {CurrentPage} from "../../const";
+import {getCurrentPage} from "../../reducer/states/selectors";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 
 const MoviePageWrapped = withTabs(MoviePage);
 
 const App = (props) => {
-  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie, authorizationStatus, login} = props;
+  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie, currentPage, login} = props;
   const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
   const _renderApp = () => {
@@ -29,38 +30,31 @@ const App = (props) => {
       return <BigVideoPlayerWrapped movie={playingMovie}/>;
     }
 
-    if (currentMovie) {
-      return (
-        <MoviePageWrapped
-          movie={currentMovie}
-          onMovieClick={onMovieClick}
-        />
-      );
+    switch (currentPage) {
+      case CurrentPage.PLAYER:
+        return <BigVideoPlayerWrapped movie={playingMovie}/>;
+      case CurrentPage.DETAIL:
+        return (
+          <MoviePageWrapped
+            movie={currentMovie}
+            onMovieClick={onMovieClick}
+          />
+        );
+      case CurrentPage.LOGIN:
+        return (
+          <SignIn
+            onSubmit={login}
+          />
+        );
+      default:
+        return (
+          <Main
+            filteredMovies={filteredMovies}
+            genres={genres}
+            onMovieClick={onMovieClick}
+          />
+        );
     }
-
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <Main
-          filteredMovies={filteredMovies}
-          genres={genres}
-          onMovieClick={onMovieClick}
-        />
-      );
-    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return (
-        <SignIn
-          onSubmit={login}
-        />
-      );
-    }
-
-    return (
-      <Main
-        filteredMovies={filteredMovies}
-        genres={genres}
-        onMovieClick={onMovieClick}
-      />
-    );
   };
 
   return (
@@ -126,6 +120,7 @@ App.propTypes = {
   }),
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -134,10 +129,12 @@ const mapStateToProps = (state) => ({
   activeMovie: getActiveMovie(state),
   playingMovie: getPlayingMovie(state),
   authorizationStatus: getAuthorizationStatus(state),
+  currentPage: getCurrentPage(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onMovieClick(id) {
+    dispatch(ActionCreator.changePage(CurrentPage.DETAIL));
     dispatch(ActionCreator.changeActiveMovie(id));
     dispatch(Operations.loadReviews(id));
   },

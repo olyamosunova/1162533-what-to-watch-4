@@ -1,5 +1,5 @@
 import {reducer, ActionType} from "./states";
-import {GenreNames} from "../../const";
+import {CurrentPage, GenreNames} from "../../const";
 import {movie} from "../../mock/testData";
 
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -8,6 +8,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     activeMovie: -1,
     showedMoviesCount: 8,
     playingMovie: null,
+    currentPage: CurrentPage.MAIN,
   });
 });
 
@@ -23,7 +24,7 @@ it(`Reducer should change genre`, () => {
   });
 });
 
-it(`Reducer should change genre`, () => {
+it(`Reducer should change active movie`, () => {
   expect(reducer({
     activeMovie: -1
   }, {
@@ -34,7 +35,7 @@ it(`Reducer should change genre`, () => {
   });
 });
 
-it(`Reducer should increment showed movie`, () => {
+it(`Reducer should showed movies`, () => {
   expect(reducer({
     showedMoviesCount: 8,
   }, {
@@ -45,7 +46,7 @@ it(`Reducer should increment showed movie`, () => {
   });
 });
 
-it(`Reducer should increment showed movie`, () => {
+it(`Reducer should video movie`, () => {
   expect(reducer({
     playingMovie: null,
   }, {
@@ -53,5 +54,16 @@ it(`Reducer should increment showed movie`, () => {
     payload: movie,
   })).toEqual({
     playingMovie: movie,
+  });
+});
+
+it(`Reducer should current page`, () => {
+  expect(reducer({
+    currentPage: CurrentPage.MAIN,
+  }, {
+    type: ActionType.CHANGE_PAGE,
+    payload: CurrentPage.LOGIN,
+  })).toEqual({
+    currentPage: CurrentPage.LOGIN,
   });
 });

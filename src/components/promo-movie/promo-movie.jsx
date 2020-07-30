@@ -5,9 +5,10 @@ import {ActionCreator} from "../../reducer/states/states";
 import {getPromoMovie} from "../../reducer/data/selectors";
 import Header from "../header/header.jsx";
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import {CurrentPage} from "../../const";
 
 const PromoMovie = (props) => {
-  const {promoMovieCard, onPlayClick, authorizationStatus, userData} = props;
+  const {promoMovieCard, onPlayClick, authorizationStatus, userData, onLoginClick} = props;
   const {promoMovie} = promoMovieCard;
   const {title, genre, releaseDate, cover, poster} = promoMovie;
   return (
@@ -18,7 +19,7 @@ const PromoMovie = (props) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header authorizationStatus={authorizationStatus} userData={userData} />
+      <Header authorizationStatus={authorizationStatus} userData={userData} onLoginClick={onLoginClick} />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -78,6 +79,7 @@ PromoMovie.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -89,6 +91,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
     dispatch(ActionCreator.chooseMovieToWatch(movie));
+  },
+  onLoginClick(evt) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
   }
 });
 

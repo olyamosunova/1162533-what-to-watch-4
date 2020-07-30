@@ -50,6 +50,7 @@ exports[`Should PromoMovie render correctly 1`] = `
       <a
         className="user-block__link"
         href="sign-in.html"
+        onClick={[Function]}
       >
         Sign in
       </a>

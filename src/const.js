@@ -49,3 +49,10 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
   AUTH: `AUTH`,
 };
+
+export const CurrentPage = {
+  MAIN: `MAIN`,
+  DETAIL: `DETAIL`,
+  LOGIN: `LOGIN`,
+  PLAYER: `PLAYER`,
+};

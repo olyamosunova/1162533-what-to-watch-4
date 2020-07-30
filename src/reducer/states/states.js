@@ -1,5 +1,6 @@
 import {extend} from "../../utils";
 import {GenreNames} from "../../const";
+import {CurrentPage} from "../../const";
 
 const SHOWED_MOVIES_MAX = 8;
 
@@ -8,6 +9,7 @@ const initialState = {
   activeMovie: -1,
   showedMoviesCount: SHOWED_MOVIES_MAX,
   playingMovie: null,
+  currentPage: CurrentPage.MAIN,
 };
 
 const ActionType = {
@@ -15,6 +17,7 @@ const ActionType = {
   CHANGE_ACTIVE_MOVIE: `CHANGE_ACTIVE_MOVIE`,
   INCREMENT_SHOWED_MOVIES: `INCREMENT_SHOWED_MOVIES`,
   CHOOSE_MOVIE_TO_WATCH: `CHOOSE_MOVIE_TO_WATCH`,
+  CHANGE_PAGE: `CHANGE_PAGE`,
 };
 
 const ActionCreator = {
@@ -32,7 +35,13 @@ const ActionCreator = {
   chooseMovieToWatch: (movie) => ({
     type: ActionType.CHOOSE_MOVIE_TO_WATCH,
     payload: movie,
-  })
+  }),
+  changePage: (page) => {
+    return {
+      type: ActionType.CHANGE_PAGE,
+      payload: page
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,6 +62,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHOOSE_MOVIE_TO_WATCH:
       return extend(state, {
         playingMovie: action.payload
+      });
+    case ActionType.CHANGE_PAGE:
+      return extend(state, {
+        currentPage: action.payload
       });
   }
   return state;

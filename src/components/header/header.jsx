@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
 
 const Header = (props) => {
-  const {authorizationStatus, userData} = props;
+  const {authorizationStatus, userData, onLoginClick} = props;
 
   return (
     <header className="page-header movie-card__head">
@@ -24,6 +24,7 @@ const Header = (props) => {
         <a
           href="sign-in.html"
           className="user-block__link"
+          onClick={onLoginClick}
         >
           Sign in
         </a>
@@ -41,6 +42,7 @@ Header.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 export default Header;

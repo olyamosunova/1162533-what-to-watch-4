@@ -6,7 +6,7 @@ import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import Header from "../header/header.jsx";
-import {TabsName} from "../../const";
+import {CurrentPage, TabsName} from "../../const";
 import {ActionCreator} from "../../reducer/states/states";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
@@ -14,7 +14,7 @@ import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors"
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews, authorizationStatus, userData} = props;
+  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews, authorizationStatus, userData, onLoginClick} = props;
   const {promoMovie, backgroundColor} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
@@ -56,7 +56,7 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header authorizationStatus={authorizationStatus} userData={userData} />
+          <Header authorizationStatus={authorizationStatus} userData={userData} onLoginClick={onLoginClick} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -197,6 +197,7 @@ MoviePage.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -209,6 +210,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
     dispatch(ActionCreator.chooseMovieToWatch(movie));
+  },
+  onLoginClick(evt) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
   }
 });
 

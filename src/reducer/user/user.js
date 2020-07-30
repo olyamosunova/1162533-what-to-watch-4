@@ -1,6 +1,8 @@
 import {extend} from "../../utils";
 import {AuthorizationStatus} from "../../const";
 import {createUser} from "../../adapters/adapters";
+import {ActionCreator as ActionCreatorStates} from "../states/states";
+import {CurrentPage} from "../../const";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -64,8 +66,10 @@ const Operations = {
       email: authData.login,
       password: authData.password,
     })
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getUserData(createUser(response.data)));
+        dispatch(ActionCreatorStates.changePage(CurrentPage.MAIN));
       });
   },
 };
