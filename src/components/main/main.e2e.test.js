@@ -4,20 +4,16 @@ import Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {Main} from "./main.jsx";
-import {indexMovie, Movies} from "../../mock/testData";
+import {Movies, genres} from "../../mock/testData";
 import {GenreNames} from "../../const";
-import {getGenresList} from "../../utils";
 
 const mockStore = configureStore([]);
-
-const genres = getGenresList(Movies);
 
 const store = mockStore({
   activeGenre: GenreNames.ALL,
   filteredMovies: Movies,
   genres,
   showedMoviesCount: 8,
-  movie: Movies[0],
 });
 
 Enzyme.configure({
@@ -31,15 +27,12 @@ it(`Should movie title be clicked`, () => {
       <Provider store={store}>
         <Main
           activeGenre={GenreNames.ALL}
-          indexMovie={indexMovie}
           filteredMovies={Movies}
           onMovieClick={onMovieClick}
           onClick={() => {}}
           genres={genres}
           showedMoviesCount={8}
           onShowMoreButtonClick={()=>{}}
-          movie={Movies[0]}
-          onPlayClick={() => {}}
         />
       </Provider>
   );

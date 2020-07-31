@@ -5,39 +5,6 @@ exports[`render GenresList 1`] = `
   className="catalog__genres-list"
 >
   <li
-    className="catalog__genres-item catalog__genres-item--active"
-    onClick={[Function]}
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-    >
-      All genres
-    </a>
-  </li>
-  <li
-    className="catalog__genres-item "
-    onClick={[Function]}
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-    >
-      Fantasy
-    </a>
-  </li>
-  <li
-    className="catalog__genres-item "
-    onClick={[Function]}
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-    >
-      Music
-    </a>
-  </li>
-  <li
     className="catalog__genres-item "
     onClick={[Function]}
   >
@@ -67,7 +34,7 @@ exports[`render GenresList 1`] = `
       className="catalog__genres-link"
       href="#"
     >
-      Vestern
+      Western
     </a>
   </li>
 </ul>

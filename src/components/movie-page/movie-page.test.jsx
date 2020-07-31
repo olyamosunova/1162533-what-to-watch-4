@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {MoviePage} from "./movie-page.jsx";
-import {movie, Movies} from "../../mock/testData";
+import {movie, Movies, userData} from "../../mock/testData";
 
 it(`Should MoviePage render correctly`, () => {
   const tree = renderer
@@ -12,6 +12,8 @@ it(`Should MoviePage render correctly`, () => {
       renderTabs={() => {}}
       activeTab={`Overview`}
       onPlayClick={() => {}}
+      authorizationStatus={`NO_AUTH`}
+      userData={userData}
     />, {
       createNodeMock: ()=>{
         return {};

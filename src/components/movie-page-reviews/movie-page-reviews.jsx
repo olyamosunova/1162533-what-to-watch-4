@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {formatDateTime, formatReviewDate} from "../../utils";
 
 const MoviePageReviews = (props) => {
-  const {movie} = props;
-  const {reviews} = movie;
+  const {reviews} = props;
 
   const _renderReviews = () => {
     return (
@@ -14,7 +14,7 @@ const MoviePageReviews = (props) => {
 
             <footer className="review__details">
               <cite className="review__author">{review.author}</cite>
-              <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+              <time className="review__date" dateTime={formatDateTime(review.date)}>{formatReviewDate(review.date)}</time>
             </footer>
           </blockquote>
 
@@ -34,32 +34,14 @@ const MoviePageReviews = (props) => {
 };
 
 MoviePageReviews.propTypes = {
-  movie: PropTypes.shape({
-    promoMovie: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      previewVideo: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    ratingLevel: PropTypes.string.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        }))
-  }),
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        message: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      })),
 };
 
 export default MoviePageReviews;

@@ -77,7 +77,7 @@ const withPlayer = (Component) =>{
     render() {
       const {isPlaying, progress, timeLeft, isFullScreenMode} = this.state;
       const {movie} = this.props;
-      const {previewVideo, poster} = movie.promoMovie;
+      const {videoLink, previewImage} = movie;
 
       return <Component
         {...this.props}
@@ -90,9 +90,9 @@ const withPlayer = (Component) =>{
         isFullScreenMode={isFullScreenMode}
       >
         <video
-          src={previewVideo}
+          src={videoLink}
           className="player__video"
-          poster={`img/${poster}`}
+          poster={previewImage}
           autoPlay={true}
           loop={false}
           ref={this._videoRef}
@@ -112,22 +112,15 @@ const withPlayer = (Component) =>{
         cover: PropTypes.string.isRequired,
         previewVideo: PropTypes.string.isRequired,
       }),
+      previewImage: PropTypes.string.isRequired,
+      videoLink: PropTypes.string.isRequired,
       rating: PropTypes.number.isRequired,
       ratingLevel: PropTypes.string.isRequired,
       ratingCount: PropTypes.number.isRequired,
-      runTime: PropTypes.string.isRequired,
-      description: PropTypes.array.isRequired,
+      runTime: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
       director: PropTypes.string.isRequired,
       starring: PropTypes.array.isRequired,
-      reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            message: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-            author: PropTypes.string.isRequired,
-            date: PropTypes.string.isRequired,
-          })
-      ).isRequired,
     }).isRequired,
   };
 

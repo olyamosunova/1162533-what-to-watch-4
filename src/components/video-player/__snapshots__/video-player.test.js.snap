@@ -3,7 +3,7 @@
 exports[`Should VideoPlayer render correctly 1`] = `
 <video
   height="100%"
-  poster="img/macbeth.jpg"
+  poster="macbeth.jpg"
   width="100%"
 >
   <source

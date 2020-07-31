@@ -5,14 +5,17 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
-import {TabsName} from "../../const";
-import {ActionCreator} from "../../reducer";
+import Header from "../header/header.jsx";
+import {CurrentPage, TabsName} from "../../const";
+import {ActionCreator} from "../../reducer/states/states";
+import {getMovies, getReviews} from "../../reducer/data/selectors";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick} = props;
-  const {promoMovie} = movie;
+  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews, authorizationStatus, userData, onLoginClick} = props;
+  const {promoMovie, backgroundColor} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
 
   const getSimilarMovies = (currentGenre, films, id) => {
@@ -37,7 +40,7 @@ const MoviePage = (props) => {
           movie={movie}
         />;
       case TabsName.REVIEWS:
-        return <MoviePageReviews movie={movie} />;
+        return <MoviePageReviews reviews={reviews} />;
     }
 
     return null;
@@ -45,29 +48,15 @@ const MoviePage = (props) => {
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{backgroundColor: `${backgroundColor}`}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${cover}`} alt={title}/>
+            <img src={cover} alt={title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </div>
-          </header>
+          <Header authorizationStatus={authorizationStatus} userData={userData} onLoginClick={onLoginClick} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -106,7 +95,7 @@ const MoviePage = (props) => {
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
               <img
-                src={`img/${poster}`}
+                src={poster}
                 alt="The Grand Budapest Hotel poster"
                 width="218"
                 height="327"/>
@@ -160,22 +149,14 @@ MoviePage.propTypes = {
       cover: PropTypes.string.isRequired,
       previewVideo: PropTypes.string.isRequired,
     }),
+    backgroundColor: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     ratingLevel: PropTypes.string.isRequired,
     ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
+    runTime: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          message: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        })
-    )
   }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -188,36 +169,51 @@ MoviePage.propTypes = {
           cover: PropTypes.string.isRequired,
           previewVideo: PropTypes.string.isRequired,
         }),
+        backgroundColor: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         ratingLevel: PropTypes.string.isRequired,
         ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.string.isRequired,
-        description: PropTypes.array.isRequired,
+        runTime: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              message: PropTypes.string.isRequired,
-              rating: PropTypes.number.isRequired,
-              author: PropTypes.string.isRequired,
-              date: PropTypes.string.isRequired,
-            })
-        )
+      })),
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        message: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
       })),
   onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
+  }).isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getMovies(state),
+  reviews: getReviews(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
     dispatch(ActionCreator.chooseMovieToWatch(movie));
+  },
+  onLoginClick(evt) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
   }
 });
 

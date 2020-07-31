@@ -1,22 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
+import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
-import {IndexMovie, MoviesList} from "./mock/movies";
-import {reducer} from "./reducer.js";
+import reducer from "./reducer/reducer";
+import thunk from "redux-thunk";
+import {createAPI} from "./api/api";
+import {composeWithDevTools} from "redux-devtools-extension";
+import {Operations} from "./reducer/data/data";
+import {Operations as UserOperations} from "./reducer/user/user";
+import {ActionCreator} from "./reducer/user/user";
+import {AuthorizationStatus} from "./const";
+
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+};
+
+const api = createAPI(onUnauthorized);
 
 const store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
-);
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
+    ));
+
+store.dispatch(Operations.loadPromoMovieCard());
+store.dispatch(Operations.loadMovies());
+store.dispatch(UserOperations.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        indexMovie={IndexMovie}
-        movies={MoviesList}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

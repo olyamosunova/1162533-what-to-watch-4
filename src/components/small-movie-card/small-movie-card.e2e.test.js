@@ -3,7 +3,6 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import SmallMovieCard from "./small-movie-card";
 import {movie} from "../../mock/testData";
-const {promoMovie} = movie;
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -14,7 +13,7 @@ it(`when user hover movie card`, () => {
 
   const smallMovieCard = shallow(
       <SmallMovieCard
-        promoMovie={promoMovie}
+        movie={movie}
         onMovieClick={() => {
         }}
         isPlaying={false}
@@ -33,7 +32,7 @@ it(`when user leave movie card`, ()=>{
 
   const movieCard = shallow(
       <SmallMovieCard
-        promoMovie={promoMovie}
+        movie={movie}
         onMovieClick={() => {
         }}
         isPlaying={false}
@@ -53,7 +52,7 @@ it(`when user click title movie card`, () => {
 
   const smallMovieCard = shallow(
       <SmallMovieCard
-        promoMovie={promoMovie}
+        movie={movie}
         onMovieClick={onMovieClick}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
@@ -63,5 +62,5 @@ it(`when user click title movie card`, () => {
 
   smallMovieCard.find(`.small-movie-card__link`).simulate(`click`);
 
-  expect(onMovieClick.mock.calls[0][0]).toBe(promoMovie.id);
+  expect(onMovieClick.mock.calls[0][0]).toBe(movie.promoMovie.id);
 });

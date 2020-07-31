@@ -4,6 +4,11 @@ exports[`Should MoviePage render correctly 1`] = `
 Array [
   <section
     className="movie-card movie-card--full"
+    style={
+      Object {
+        "backgroundColor": "",
+      }
+    }
   >
     <div
       className="movie-card__hero"
@@ -13,7 +18,7 @@ Array [
       >
         <img
           alt="Macbeth"
-          src="img/macbeth.jpg"
+          src="macbeth.jpg"
         />
       </div>
       <h1
@@ -51,16 +56,12 @@ Array [
         <div
           className="user-block"
         >
-          <div
-            className="user-block__avatar"
+          <a
+            className="user-block__link"
+            href="sign-in.html"
           >
-            <img
-              alt="User avatar"
-              height="63"
-              src="img/avatar.jpg"
-              width="63"
-            />
-          </div>
+            Sign in
+          </a>
         </div>
       </header>
       <div
@@ -148,7 +149,7 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/macbeth.jpg"
+            src="macbeth.jpg"
             width="218"
           />
         </div>
@@ -182,12 +183,7 @@ Array [
           <div
             className="movie-card__text"
           >
-            <p>
-              In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.
-            </p>
-            <p>
-              Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.
-            </p>
+            
             <p
               className="movie-card__director"
             >
@@ -234,7 +230,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/macbeth.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -265,7 +261,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/aviator.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -296,7 +292,7 @@ Array [
           >
             <video
               height="100%"
-              poster="img/we-need-to-talk-about-kevin.jpg"
+              poster=""
               width="100%"
             >
               <source
@@ -313,37 +309,6 @@ Array [
               onClick={[Function]}
             >
               We need to talk about Kevin
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              height="100%"
-              poster="img/macbeth.jpg"
-              width="100%"
-            >
-              <source
-                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-              />
-            </video>
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
-            >
-              Macbeth
             </a>
           </h3>
         </article>
