@@ -16,6 +16,7 @@ import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from "../sign-in/sign-in.jsx";
 import {CurrentPage} from "../../const";
 import {getCurrentPage} from "../../reducer/states/selectors";
+import AddReview from "../add-review/add-review.jsx";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 
@@ -70,6 +71,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/dev-auth">
           <SignIn onSubmit={login} />
+        </Route>
+        <Route exact path="/dev-review">
+          <AddReview />
         </Route>
       </Switch>
     </BrowserRouter>

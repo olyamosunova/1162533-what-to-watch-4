@@ -56,5 +56,3 @@ export const CurrentPage = {
   LOGIN: `LOGIN`,
   PLAYER: `PLAYER`,
 };
-
-const indexPage = {};
