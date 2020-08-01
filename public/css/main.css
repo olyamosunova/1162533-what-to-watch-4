@@ -413,7 +413,9 @@ main {
   transition: opacity 0.2s; }
   .add-review__btn:hover {
     opacity: 0.5; }
-
+.add-review__btn:disabled {
+  opacity: 0.5;
+  cursor: default; }
 .breadcrumbs {
   margin: 0 20px; }
 

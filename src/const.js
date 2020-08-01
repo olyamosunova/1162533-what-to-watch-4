@@ -55,4 +55,17 @@ export const CurrentPage = {
   DETAIL: `DETAIL`,
   LOGIN: `LOGIN`,
   PLAYER: `PLAYER`,
+  ADD_REVIEW: `ADD_REVIEW`,
+};
+
+export const Review = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 400,
+};
+
+export const TEXTAREA_BACKGROUNDCOLOR = `rgba(0, 0, 0, 0.15)`;
+
+export const reviewSubmitButton = {
+  post: `Post`,
+  sending: `Sending...`,
 };

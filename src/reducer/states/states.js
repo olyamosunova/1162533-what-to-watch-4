@@ -18,28 +18,43 @@ const ActionType = {
   INCREMENT_SHOWED_MOVIES: `INCREMENT_SHOWED_MOVIES`,
   CHOOSE_MOVIE_TO_WATCH: `CHOOSE_MOVIE_TO_WATCH`,
   CHANGE_PAGE: `CHANGE_PAGE`,
+  ADD_REVIEW: `ADD_REVIEW`,
 };
 
 const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre,
-  }),
-  changeActiveMovie: (id) => ({
-    type: ActionType.CHANGE_ACTIVE_MOVIE,
-    payload: id,
-  }),
-  incrementShownMoviesCount: () => ({
-    type: ActionType.INCREMENT_SHOWED_MOVIES,
-  }),
-  chooseMovieToWatch: (movie) => ({
-    type: ActionType.CHOOSE_MOVIE_TO_WATCH,
-    payload: movie,
-  }),
+  changeGenre: (genre) => {
+    return {
+      type: ActionType.CHANGE_GENRE,
+      payload: genre,
+    };
+  },
+  changeActiveMovie: (id) => {
+    return {
+      type: ActionType.CHANGE_ACTIVE_MOVIE,
+      payload: id,
+    };
+  },
+  incrementShownMoviesCount: () => {
+    return {
+      type: ActionType.INCREMENT_SHOWED_MOVIES,
+    };
+  },
+  chooseMovieToWatch: (movie) => {
+    return {
+      type: ActionType.CHOOSE_MOVIE_TO_WATCH,
+      payload: movie,
+    };
+  },
   changePage: (page) => {
     return {
       type: ActionType.CHANGE_PAGE,
       payload: page
+    };
+  },
+  addReview: () => {
+    return {
+      type: ActionType.ADD_REVIEW,
+      payload: CurrentPage.ADD_REVIEW,
     };
   },
 };
@@ -66,6 +81,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_PAGE:
       return extend(state, {
         currentPage: action.payload
+      });
+    case ActionType.ADD_REVIEW:
+      return extend(state, {
+        currentPage: action.payload,
       });
   }
   return state;

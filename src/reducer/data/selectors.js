@@ -28,3 +28,5 @@ export const getFilteredMovies = createSelector(
 
       return filteredMovies;
     });
+
+export const getReviewPosting = (state) => state[NameSpace.DATA].isReviewPosting;
