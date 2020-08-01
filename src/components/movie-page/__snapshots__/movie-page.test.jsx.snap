@@ -59,6 +59,7 @@ Array [
           <a
             className="user-block__link"
             href="sign-in.html"
+            onClick={[Function]}
           >
             Sign in
           </a>
@@ -130,6 +131,7 @@ Array [
             <a
               className="btn movie-card__button"
               href="add-review.html"
+              onClick={[Function]}
             >
               Add review
             </a>

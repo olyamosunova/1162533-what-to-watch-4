@@ -14,6 +14,9 @@ it(`Should MoviePage render correctly`, () => {
       onPlayClick={() => {}}
       authorizationStatus={`NO_AUTH`}
       userData={userData}
+      onLoginClick={() => {}}
+      isSignedIn={true}
+      onAddReviewClick={() => {}}
     />, {
       createNodeMock: ()=>{
         return {};

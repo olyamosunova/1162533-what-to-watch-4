@@ -34,6 +34,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
       director: ``,
       starring: [],
     },
+    isReviewPosting: false,
   });
 });
 
