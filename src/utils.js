@@ -32,3 +32,8 @@ export const formatReviewDate = (date) => {
 export const formatMovieDuration = (duration) => {
   return moment.duration(duration, `minutes`).format(`h[h] m[m]`);
 };
+
+export const getMovieById = (movies, id) => {
+  return movies.find(({promoMovie}) => promoMovie.id === Number(id));
+};
+

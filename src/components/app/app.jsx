@@ -16,10 +16,12 @@ import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from "../sign-in/sign-in.jsx";
 import {CurrentPage} from "../../const";
 import {getCurrentPage} from "../../reducer/states/selectors";
+import AddReview from "../add-review/add-review.jsx";
+import withReview from "../../hocs/with-review/with-review.jsx";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
-
 const MoviePageWrapped = withTabs(MoviePage);
+const AddReviewWrapped = withReview(AddReview);
 
 const App = (props) => {
   const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie, currentPage, login} = props;
@@ -46,6 +48,10 @@ const App = (props) => {
             onSubmit={login}
           />
         );
+      case CurrentPage.ADD_REVIEW:
+        return (
+          <AddReviewWrapped />
+        );
       default:
         return (
           <Main
@@ -70,6 +76,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/dev-auth">
           <SignIn onSubmit={login} />
+        </Route>
+        <Route exact path="/dev-review">
+          <AddReviewWrapped />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,5 +1,7 @@
 import {extend} from "../../utils";
 import {createMovie, createReview} from "../../adapters/adapters";
+import {ActionCreator} from "../states/states";
+import {CurrentPage} from "../../const";
 
 const initialState = {
   movies: [],
@@ -25,6 +27,7 @@ const initialState = {
     director: ``,
     starring: [],
   },
+  isReviewPosting: false,
 };
 
 const ActionType = {
@@ -33,6 +36,7 @@ const ActionType = {
   LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`,
   GET_GENRES: `GET_GENRES`,
   GET_FILTERED_MOVIES: `GET_FILTERED_MOVIES`,
+  CHECK_REVIEW_POSTING: `CHECK_REVIEW_POSTING`,
 };
 
 const ActionCreatorByData = {
@@ -53,7 +57,11 @@ const ActionCreatorByData = {
       type: ActionType.LOAD_PROMO_MOVIE,
       payload: promoMovieCard,
     };
-  }
+  },
+  checkReviewPosting: (isReviewPosting) => ({
+    type: ActionType.CHECK_REVIEW_POSTING,
+    payload: isReviewPosting,
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -78,6 +86,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         promoMovieCard: action.payload,
       });
+    case ActionType.CHECK_REVIEW_POSTING:
+      return extend(state, {
+        isReviewPosting: action.payload,
+      });
   }
 
   return state;
@@ -100,6 +112,23 @@ const Operations = {
     return api.get(`/films/promo`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadPromoMovieCard(createMovie(response.data)));
+      });
+  },
+  postReview: (movieId, review) => (dispatch, getState, api) => {
+    dispatch(ActionCreatorByData.checkReviewPosting(true));
+    return api.post(`/comments/${movieId}`, {
+      rating: review.rating,
+      comment: review.comment,
+    })
+      .then(() => {
+        dispatch(ActionCreatorByData.checkReviewPosting(false));
+      })
+      .then(() => {
+        dispatch(Operations.loadReviews(movieId));
+        dispatch(ActionCreator.changePage(CurrentPage.DETAIL));
+      })
+      .catch(() => {
+        dispatch(ActionCreatorByData.checkReviewPosting(false));
       });
   },
 };

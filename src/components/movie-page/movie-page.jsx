@@ -10,13 +10,38 @@ import {CurrentPage, TabsName} from "../../const";
 import {ActionCreator} from "../../reducer/states/states";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import {AuthorizationStatus} from "../../const";
 
 const SIMILAR_FILM_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movie, movies, onMovieClick, renderTabs, activeTab, onPlayClick, reviews, authorizationStatus, userData, onLoginClick} = props;
+  const {
+    movie,
+    movies,
+    onMovieClick,
+    renderTabs,
+    activeTab,
+    onPlayClick,
+    reviews,
+    authorizationStatus,
+    userData,
+    onLoginClick,
+    isSignedIn,
+    onAddReviewClick
+  } = props;
+
   const {promoMovie, backgroundColor} = movie;
   const {title, genre, releaseDate, poster, cover} = promoMovie;
+
+  const addReviewButton = (
+    <a
+      href="add-review.html"
+      className="btn movie-card__button"
+      onClick={(evt) => {
+        evt.preventDefault();
+        onAddReviewClick();
+      }}>Add review</a>
+  );
 
   const getSimilarMovies = (currentGenre, films, id) => {
     const similarMovies = films.filter((film) => {
@@ -85,7 +110,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {isSignedIn && addReviewButton}
               </div>
             </div>
           </div>
@@ -198,6 +223,8 @@ MoviePage.propTypes = {
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   onLoginClick: PropTypes.func.isRequired,
+  onAddReviewClick: PropTypes.func.isRequired,
+  isSignedIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,6 +232,7 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   authorizationStatus: getAuthorizationStatus(state),
   userData: getUserData(state),
+  isSignedIn: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -214,7 +242,10 @@ const mapDispatchToProps = (dispatch) => ({
   onLoginClick(evt) {
     evt.preventDefault();
     dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
-  }
+  },
+  onAddReviewClick() {
+    dispatch(ActionCreator.addReview());
+  },
 });
 
 export {MoviePage};
