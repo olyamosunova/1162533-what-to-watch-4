@@ -30,3 +30,5 @@ export const getFilteredMovies = createSelector(
     });
 
 export const getReviewPosting = (state) => state[NameSpace.DATA].isReviewPosting;
+
+export const getReviewPostingError = (state) => state[NameSpace.DATA].isReviewPostingError;

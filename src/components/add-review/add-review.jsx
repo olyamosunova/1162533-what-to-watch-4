@@ -7,10 +7,12 @@ const AddReview = (props) => {
   const {
     activeMovie,
     isReviewPosting,
+    isReviewPostingError,
     onSubmitClick,
     onRatingChange,
     onReviewChange,
-    isSubmitDisabled
+    isSubmitDisabled,
+    isReviewLengthError
   } = props;
 
   const RATINGS_QUANTITY = 5;
@@ -18,6 +20,8 @@ const AddReview = (props) => {
 
   const {promoMovie, backgroundColor} = activeMovie;
   const {title, poster, cover} = promoMovie;
+
+  const boxShadow = isReviewLengthError ? `inset 1px 0 10px red` : ``;
 
   return (
     <section
@@ -96,7 +100,7 @@ const AddReview = (props) => {
           </div>
 
           <div className="add-review__text"
-            style={{backgroundColor: `${TEXTAREA_BACKGROUNDCOLOR}`}}
+            style={{backgroundColor: `${TEXTAREA_BACKGROUNDCOLOR}`, boxShadow: `${boxShadow}`}}
           >
             <textarea
               className="add-review__textarea"
@@ -114,12 +118,20 @@ const AddReview = (props) => {
                 type="submit"
                 disabled={isSubmitDisabled}
               >
-                {isReviewPosting ? reviewSubmitButton.sending : reviewSubmitButton.post}
+                {isReviewPosting ? reviewSubmitButton.posting : reviewSubmitButton.post}
               </button>
             </div>
 
           </div>
         </form>
+
+        {isReviewLengthError &&
+        <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>The length of the text should not be less than 50 characters and not be more than 400.</p>
+        }
+
+        {isReviewPostingError &&
+        <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>Error while submitting form data. Please, try again later.</p>
+        }
 
       </div>
 
@@ -148,10 +160,12 @@ AddReview.propTypes = {
     starring: PropTypes.array.isRequired,
   }),
   isReviewPosting: PropTypes.bool.isRequired,
+  isReviewPostingError: PropTypes.bool.isRequired,
   onSubmitClick: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewChange: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
+  isReviewLengthError: PropTypes.bool.isRequired,
 };
 
 export default AddReview;
