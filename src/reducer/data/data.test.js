@@ -35,6 +35,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
       starring: [],
     },
     isReviewPosting: false,
+    isReviewPostingError: false,
   });
 });
 

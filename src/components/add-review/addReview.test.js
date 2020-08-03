@@ -13,6 +13,8 @@ it(`render AddReview`, () => {
           onRatingChange={() => {}}
           onReviewChange={() => {}}
           isSubmitDisabled={true}
+          isReviewPostingError={false}
+          isReviewLengthError={false}
         />)
     .toJSON();
   expect(tree).toMatchSnapshot();

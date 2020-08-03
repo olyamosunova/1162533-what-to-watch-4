@@ -28,6 +28,7 @@ const initialState = {
     starring: [],
   },
   isReviewPosting: false,
+  isReviewPostingError: false,
 };
 
 const ActionType = {
@@ -37,6 +38,7 @@ const ActionType = {
   GET_GENRES: `GET_GENRES`,
   GET_FILTERED_MOVIES: `GET_FILTERED_MOVIES`,
   CHECK_REVIEW_POSTING: `CHECK_REVIEW_POSTING`,
+  CHECK_REVIEW_POSTING_ERROR: `CHECK_REVIEW_POSTING_ERROR`,
 };
 
 const ActionCreatorByData = {
@@ -61,6 +63,10 @@ const ActionCreatorByData = {
   checkReviewPosting: (isReviewPosting) => ({
     type: ActionType.CHECK_REVIEW_POSTING,
     payload: isReviewPosting,
+  }),
+  checkReviewPostingError: (isReviewPostingError) => ({
+    type: ActionType.CHECK_REVIEW_POSTING,
+    payload: isReviewPostingError,
   }),
 };
 
@@ -89,6 +95,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHECK_REVIEW_POSTING:
       return extend(state, {
         isReviewPosting: action.payload,
+      });
+    case ActionType.CHECK_REVIEW_POSTING_ERROR:
+      return extend(state, {
+        isReviewPostingError: action.payload,
       });
   }
 
@@ -122,6 +132,7 @@ const Operations = {
     })
       .then(() => {
         dispatch(ActionCreatorByData.checkReviewPosting(false));
+        dispatch(ActionCreatorByData.checkReviewPostingError(false));
       })
       .then(() => {
         dispatch(Operations.loadReviews(movieId));
@@ -129,6 +140,7 @@ const Operations = {
       })
       .catch(() => {
         dispatch(ActionCreatorByData.checkReviewPosting(false));
+        dispatch(ActionCreatorByData.checkReviewPostingError(true));
       });
   },
 };

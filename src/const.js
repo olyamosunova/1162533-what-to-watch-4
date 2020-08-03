@@ -67,5 +67,5 @@ export const TEXTAREA_BACKGROUNDCOLOR = `rgba(0, 0, 0, 0.15)`;
 
 export const reviewSubmitButton = {
   post: `Post`,
-  sending: `Sending...`,
+  posting: `Posting...`,
 };

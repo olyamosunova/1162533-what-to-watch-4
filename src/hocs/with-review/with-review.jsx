@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Review} from "../../const";
 import {connect} from 'react-redux';
 import {Operations as DataOperations} from "../../reducer/data/data";
-import {getMovies} from "../../reducer/data/selectors";
+import {getMovies, getReviewPostingError} from "../../reducer/data/selectors";
 import {getActiveMovie} from "../../reducer/states/selectors";
 import {getReviewPosting} from "../../reducer/data/selectors";
 import {getMovieById} from "../../utils";
@@ -21,6 +21,7 @@ const withReview = (Component) => {
         rating: 5,
         comment: ``,
         isSubmitDisabled: true,
+        isReviewLengthError: false,
       };
 
       this._handleSubmitClick = this._handleSubmitClick.bind(this);
@@ -39,7 +40,8 @@ const withReview = (Component) => {
 
       this.setState({
         comment: evt.target.value,
-        isSubmitDisabled: evt.target.value.length < Review.MIN_LENGTH || isReviewPosting,
+        isSubmitDisabled: evt.target.value.length < Review.MIN_LENGTH || evt.target.value.length > Review.MAX_LENGTH || isReviewPosting,
+        isReviewLengthError: evt.target.value.length < Review.MIN_LENGTH || evt.target.value.length > Review.MAX_LENGTH,
       });
     }
 
@@ -64,6 +66,7 @@ const withReview = (Component) => {
           onRatingChange={this._handleRatingChange}
           onReviewChange={this._handleReviewChange}
           isSubmitDisabled={this.state.isSubmitDisabled}
+          isReviewLengthError={this.state.isReviewLengthError}
         />
       );
     }
@@ -91,6 +94,7 @@ const withReview = (Component) => {
         })
     ),
     isReviewPosting: PropTypes.bool.isRequired,
+    isReviewPostingError: PropTypes.bool.isRequired,
     onReviewSubmit: PropTypes.func.isRequired,
     activeMovieId: PropTypes.number.isRequired,
   };
@@ -100,6 +104,7 @@ const withReview = (Component) => {
       activeMovieId: getActiveMovie(state),
       movies: getMovies(state),
       isReviewPosting: getReviewPosting(state),
+      isReviewPostingError: getReviewPostingError(state),
     };
   };
 
