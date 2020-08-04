@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Switch, Router} from "react-router-dom";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -18,6 +18,8 @@ import {CurrentPage} from "../../const";
 import {getCurrentPage} from "../../reducer/states/selectors";
 import AddReview from "../add-review/add-review.jsx";
 import withReview from "../../hocs/with-review/with-review.jsx";
+import history from "../../history";
+import {AppRoute} from "../../const";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 const MoviePageWrapped = withTabs(MoviePage);
@@ -64,24 +66,24 @@ const App = (props) => {
   };
 
   return (
-    <BrowserRouter>
+    <Router
+      history={history}
+    >
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.ROOT}>
           {_renderApp()}
         </Route>
-        <Route exact path="/movie-page">
-          <MoviePageWrapped
-            onMovieClick={onMovieClick}
-          />
-        </Route>
-        <Route exact path="/dev-auth">
+        <Route exact path={AppRoute.LOGIN}>
           <SignIn onSubmit={login} />
         </Route>
-        <Route exact path="/dev-review">
-          <AddReviewWrapped />
+        <Route>
+          <div>404 not found</div>
         </Route>
+        {/*<Route exact path={AppRoute.PLAYER}>*/}
+        {/*  <BigVideoPlayerWrapped movie={playingMovie}/>*/}
+        {/*</Route>*/}
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 

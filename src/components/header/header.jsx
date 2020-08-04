@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const";
 
 const Header = (props) => {
   const {authorizationStatus, userData, onLoginClick} = props;
@@ -21,13 +23,11 @@ const Header = (props) => {
           <img src={userData.avatarUrl} alt={userData.name} width="63" height="63"/>
         </div>}
         {authorizationStatus === AuthorizationStatus.NO_AUTH &&
-        <a
-          href="sign-in.html"
-          className="user-block__link"
-          onClick={onLoginClick}
-        >
+        <Link
+          to={AppRoute.LOGIN}
+          className="user-block__link">
           Sign in
-        </a>
+        </Link>
         }
       </div>
     </header>
