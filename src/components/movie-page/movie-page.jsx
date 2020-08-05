@@ -6,11 +6,14 @@ import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import Header from "../header/header.jsx";
-import {CurrentPage, TabsName} from "../../const";
+import {TabsName} from "../../const";
 import {ActionCreator} from "../../reducer/states/states";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../const";
+import MyListButton from "../my-list-button/my-list-button.jsx";
+import {Operations} from "../../reducer/data/data";
+import {getCurrentPage} from "../../reducer/states/selectors";
 
 const SIMILAR_FILM_COUNT = 4;
 
@@ -18,20 +21,22 @@ const MoviePage = (props) => {
   const {
     movie,
     movies,
-    onMovieClick,
     renderTabs,
     activeTab,
     onPlayClick,
     reviews,
-    authorizationStatus,
-    userData,
-    onLoginClick,
     isSignedIn,
-    onAddReviewClick
+    onAddReviewClick,
+    onMyListClick,
+    currentPage
   } = props;
 
-  const {promoMovie, backgroundColor} = movie;
-  const {title, genre, releaseDate, poster, cover} = promoMovie;
+  // const id = Number(props.routeProps.match.params.id);
+  // const movie = getMovieById(movies, id);
+
+
+  const {promoMovie, backgroundColor, isFavorite} = movie;
+  const {id, title, genre, releaseDate, poster, cover} = promoMovie;
 
   const addReviewButton = (
     <a
@@ -43,9 +48,9 @@ const MoviePage = (props) => {
       }}>Add review</a>
   );
 
-  const getSimilarMovies = (currentGenre, films, id) => {
+  const getSimilarMovies = (currentGenre, films, currentId) => {
     const similarMovies = films.filter((film) => {
-      if (id !== film.promoMovie.id && film.promoMovie.genre === currentGenre) {
+      if (currentId !== film.promoMovie.id && film.promoMovie.genre === currentGenre) {
         return film;
       }
       return null;
@@ -81,7 +86,7 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header authorizationStatus={authorizationStatus} userData={userData} onLoginClick={onLoginClick} />
+          <Header currentPage={currentPage} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -104,12 +109,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <MyListButton id={id} isFavorite={isFavorite} onMyListClick={onMyListClick} />
                 {isSignedIn && addReviewButton}
               </div>
             </div>
@@ -140,7 +140,6 @@ const MoviePage = (props) => {
 
           <MoviesList
             movies={getSimilarMovies(genre, movies, movie.promoMovie.id)}
-            onMovieClick={onMovieClick}
             genre={genre}
           />
         </section>
@@ -182,6 +181,7 @@ MoviePage.propTypes = {
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.array.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -202,6 +202,7 @@ MoviePage.propTypes = {
         description: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
       })),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
@@ -211,41 +212,34 @@ MoviePage.propTypes = {
         author: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
       })),
-  onMovieClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-  }).isRequired,
-  onLoginClick: PropTypes.func.isRequired,
   onAddReviewClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  movies: getMovies(state),
-  reviews: getReviews(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  userData: getUserData(state),
-  isSignedIn: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
-});
+const mapStateToProps = (state) => {
+  return {
+    movies: getMovies(state),
+    reviews: getReviews(state),
+    isSignedIn: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
+    currentPage: getCurrentPage(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
     dispatch(ActionCreator.chooseMovieToWatch(movie));
   },
-  onLoginClick(evt) {
-    evt.preventDefault();
-    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
-  },
   onAddReviewClick() {
     dispatch(ActionCreator.addReview());
   },
+  onMyListClick(movieId, status, isPromoMovie) {
+    dispatch(Operations.changeFlagIsFavorite(movieId, status, isPromoMovie));
+  }
 });
 
 export {MoviePage};

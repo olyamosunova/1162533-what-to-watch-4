@@ -1,27 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus, CurrentPage} from "../../const";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import {connect} from "react-redux";
 
 const Header = (props) => {
-  const {authorizationStatus, userData, onLoginClick} = props;
+  const {authorizationStatus, userData, currentPage} = props;
+
+  const headerTitle = currentPage === CurrentPage.MY_LIST ? `user-page__head` : `movie-card__head`;
 
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${headerTitle}`}>
       <div className="logo">
-        <a href="main.html" className="logo__link">
+        {<Link
+          className="logo__link"
+          to={AppRoute.ROOT}>
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>}
       </div>
+
+      {props.children}
 
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH &&
-        <div className="user-block__avatar">
+        <Link
+          className="user-block__avatar"
+          to={AppRoute.MY_LIST}
+          style={{display: `block`}}>
           <img src={userData.avatarUrl} alt={userData.name} width="63" height="63"/>
-        </div>}
+        </Link>}
         {authorizationStatus === AuthorizationStatus.NO_AUTH &&
         <Link
           to={AppRoute.LOGIN}
@@ -42,7 +53,15 @@ Header.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  onLoginClick: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    authorizationStatus: getAuthorizationStatus(state),
+    userData: getUserData(state),
+  };
+};
+
+export default connect(mapStateToProps)(Header);

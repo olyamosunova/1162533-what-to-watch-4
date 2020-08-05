@@ -29,6 +29,8 @@ const initialState = {
   },
   isReviewPosting: false,
   isReviewPostingError: false,
+  favoriteMovies: [],
+  isLoading: true,
 };
 
 const ActionType = {
@@ -39,6 +41,9 @@ const ActionType = {
   GET_FILTERED_MOVIES: `GET_FILTERED_MOVIES`,
   CHECK_REVIEW_POSTING: `CHECK_REVIEW_POSTING`,
   CHECK_REVIEW_POSTING_ERROR: `CHECK_REVIEW_POSTING_ERROR`,
+  UPDATE_MOVIE: `UPDATE_MOVIE`,
+  LOAD_FAVORITE_MOVIES: `LOAD_FAVORITE_MOVIES`,
+  FINISH_LOADING: `FINISH_LOADING`,
 };
 
 const ActionCreatorByData = {
@@ -67,6 +72,18 @@ const ActionCreatorByData = {
   checkReviewPostingError: (isReviewPostingError) => ({
     type: ActionType.CHECK_REVIEW_POSTING,
     payload: isReviewPostingError,
+  }),
+  updateMovie: (movie) => ({
+    type: ActionType.UPDATE_MOVIE,
+    payload: movie
+  }),
+  loadFavoriteMovies: (movies) => ({
+    type: ActionType.LOAD_FAVORITE_MOVIES,
+    payload: movies
+  }),
+  finishLoading: () => ({
+    type: ActionType.FINISH_LOADING,
+    payload: false,
   }),
 };
 
@@ -100,6 +117,27 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         isReviewPostingError: action.payload,
       });
+    case ActionType.UPDATE_MOVIE:
+      const newMovie = action.payload;
+      const allMovies = state.movies;
+
+      const movies = allMovies.map((movie) => {
+        if (movie.promoMovie.id === newMovie.promoMovie.id) {
+          movie = Object.assign({}, movie, {isFavorite: !movie.isFavorite});
+        }
+        return movie;
+      });
+      return extend(state, {
+        movies
+      });
+    case ActionType.LOAD_FAVORITE_MOVIES:
+      return extend(state, {
+        favoriteMovies: action.payload
+      });
+    case ActionType.FINISH_LOADING:
+      return extend(state, {
+        isLoading: action.payload,
+      });
   }
 
   return state;
@@ -110,6 +148,7 @@ const Operations = {
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadMovies(response.data.map((movie) => createMovie(movie))));
+        dispatch(ActionCreatorByData.finishLoading());
       });
   },
   loadReviews: (id) => (dispatch, getState, api) => {
@@ -142,6 +181,27 @@ const Operations = {
         dispatch(ActionCreatorByData.checkReviewPosting(false));
         dispatch(ActionCreatorByData.checkReviewPostingError(true));
       });
+  },
+  changeFlagIsFavorite: (movieId, status, isPromoMovie) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${movieId}/${status}`)
+        .then((response) => {
+          const movie = createMovie(response.data);
+
+          if (isPromoMovie) {
+            dispatch(ActionCreatorByData.loadPromoMovieCard(movie));
+          } else {
+            dispatch(ActionCreatorByData.updateMovie(movie));
+          }
+        });
+  },
+  loadFavoriteMovies: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+        .then((response) => {
+          if (response.data) {
+            const favoriteMovies = response.data.map((favoriteMovie) => createMovie(favoriteMovie));
+            dispatch(ActionCreatorByData.loadFavoriteMovies(favoriteMovies));
+          }
+        });
   },
 };
 

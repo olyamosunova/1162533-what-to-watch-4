@@ -9,7 +9,7 @@ import {ActionCreator} from "../../reducer/states/states";
 import {Operations} from "../../reducer/data/data";
 import BigVideoPlayer from "../big-video-player/big-video-player.jsx";
 import withPlayer from "../../hocs/with-player/with-player.jsx";
-import {getFilteredMovies, getGenres} from "../../reducer/data/selectors";
+import {getFilteredMovies, getGenres, getIsLoading, getMovies} from "../../reducer/data/selectors";
 import {getActiveMovie, getPlayingMovie} from "../../reducer/states/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {Operations as UserOperations} from "../../reducer/user/user";
@@ -20,13 +20,17 @@ import AddReview from "../add-review/add-review.jsx";
 import withReview from "../../hocs/with-review/with-review.jsx";
 import history from "../../history";
 import {AppRoute} from "../../const";
+import PrivateRoute from "../private-route/private-route.jsx";
+import FavoriteMovieList from "../favorite-movie-list/favorite-movie-list.jsx";
+import {getMovieById} from "../../utils";
+import Loader from "../loader/loader.jsx";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 
 const App = (props) => {
-  const {filteredMovies, genres, activeMovie, onMovieClick, playingMovie, currentPage, login} = props;
+  const {movies, isLoading, filteredMovies, genres, activeMovie, onMovieClick, playingMovie, currentPage, login, loadMovies} = props;
   const currentMovie = filteredMovies.filter(({promoMovie}) => promoMovie.id === activeMovie)[0];
 
   const _renderApp = () => {
@@ -41,7 +45,6 @@ const App = (props) => {
         return (
           <MoviePageWrapped
             movie={currentMovie}
-            onMovieClick={onMovieClick}
           />
         );
       case CurrentPage.LOGIN:
@@ -65,29 +68,78 @@ const App = (props) => {
     }
   };
 
+  const renderMoviePage = (match) => {
+    const id = Number(match.params.id);
+    return (
+      <MoviePageWrapped movies={movies} movie={getMovieById(movies, id)}/>
+    );
+  };
+
   return (
-    <Router
-      history={history}
-    >
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          {_renderApp()}
-        </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <SignIn onSubmit={login} />
-        </Route>
-        <Route>
-          <div>404 not found</div>
-        </Route>
-        {/*<Route exact path={AppRoute.PLAYER}>*/}
-        {/*  <BigVideoPlayerWrapped movie={playingMovie}/>*/}
-        {/*</Route>*/}
-      </Switch>
-    </Router>
+    <React.Fragment>
+      {!isLoading ?
+        <Router
+          history={history}
+        >
+          <Switch>
+            <Route exact path={AppRoute.ROOT}>
+              {_renderApp()}
+            </Route>
+            <Route exact path={AppRoute.LOGIN}>
+              <SignIn onSubmit={login} />
+            </Route>
+            <PrivateRoute
+              exact
+              path={AppRoute.REVIEW}
+              render={() => {
+                return <AddReviewWrapped />;
+              }}
+            />
+            <PrivateRoute
+              exact
+              path={AppRoute.MY_LIST}
+              render={(RouteProps) => {
+                loadMovies();
+                return <FavoriteMovieList RouteProps={RouteProps} />;
+              }}
+            />
+            <Route
+              exact path={`${AppRoute.MOVIE}/:id`}
+              render={({match}) => renderMoviePage(match)}
+            />
+            <Route>
+              <div>404 not found</div>
+            </Route>
+          </Switch>
+        </Router>
+        : <Loader />}
+    </React.Fragment>
+
+
   );
 };
 
 App.propTypes = {
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        promoMovie: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          genre: PropTypes.string.isRequired,
+          releaseDate: PropTypes.number.isRequired,
+          poster: PropTypes.string.isRequired,
+          cover: PropTypes.string.isRequired,
+          previewVideo: PropTypes.string.isRequired,
+        }),
+        rating: PropTypes.number.isRequired,
+        ratingLevel: PropTypes.string.isRequired,
+        ratingCount: PropTypes.number.isRequired,
+        runTime: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+      })
+  ).isRequired,
   filteredMovies: PropTypes.arrayOf(
       PropTypes.shape({
         promoMovie: PropTypes.shape({
@@ -132,15 +184,19 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   currentPage: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  loadMovies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  movies: getMovies(state),
   filteredMovies: getFilteredMovies(state),
   genres: getGenres(state),
   activeMovie: getActiveMovie(state),
   playingMovie: getPlayingMovie(state),
   authorizationStatus: getAuthorizationStatus(state),
   currentPage: getCurrentPage(state),
+  isLoading: getIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -151,6 +207,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperations.login(authData));
+  },
+  loadMovies() {
+    dispatch(Operations.loadFavoriteMovies());
   },
 });
 
