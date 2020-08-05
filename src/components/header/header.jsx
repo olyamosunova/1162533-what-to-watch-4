@@ -54,7 +54,7 @@ Header.propTypes = {
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   currentPage: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 const mapStateToProps = (state) => {
