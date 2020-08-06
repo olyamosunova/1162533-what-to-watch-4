@@ -10,7 +10,11 @@ const Tabs = (props) => {
       <li
         className={`movie-nav__item ${activeTab === tab ? `movie-nav__item--active` : ``}`}
         key={tab + i}
-        onClick={() => onTabClick(tab)}
+        onClick={(evt) => {
+          evt.preventDefault();
+
+          onTabClick(tab);
+        }}
       >
         <a href="#" className="movie-nav__link">{tab}</a>
       </li>

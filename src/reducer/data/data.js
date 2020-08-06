@@ -1,7 +1,6 @@
 import {extend} from "../../utils";
 import {createMovie, createReview} from "../../adapters/adapters";
-import {ActionCreator} from "../states/states";
-import {CurrentPage} from "../../const";
+import history from "../../history";
 
 const initialState = {
   movies: [],
@@ -28,7 +27,9 @@ const initialState = {
     starring: [],
   },
   isReviewPosting: false,
-  isReviewPostingError: false,
+  favoriteMovies: [],
+  isLoading: true,
+  isError: false,
 };
 
 const ActionType = {
@@ -38,7 +39,11 @@ const ActionType = {
   GET_GENRES: `GET_GENRES`,
   GET_FILTERED_MOVIES: `GET_FILTERED_MOVIES`,
   CHECK_REVIEW_POSTING: `CHECK_REVIEW_POSTING`,
-  CHECK_REVIEW_POSTING_ERROR: `CHECK_REVIEW_POSTING_ERROR`,
+  UPDATE_MOVIE: `UPDATE_MOVIE`,
+  LOAD_FAVORITE_MOVIES: `LOAD_FAVORITE_MOVIES`,
+  FINISH_LOADING: `FINISH_LOADING`,
+  CATCH_ERROR: `CATCH_ERROR`,
+  CLEAR_ERROR: `CLEAR_SENDING_ERROR`,
 };
 
 const ActionCreatorByData = {
@@ -64,10 +69,27 @@ const ActionCreatorByData = {
     type: ActionType.CHECK_REVIEW_POSTING,
     payload: isReviewPosting,
   }),
-  checkReviewPostingError: (isReviewPostingError) => ({
-    type: ActionType.CHECK_REVIEW_POSTING,
-    payload: isReviewPostingError,
+  updateMovie: (movie) => ({
+    type: ActionType.UPDATE_MOVIE,
+    payload: movie
   }),
+  loadFavoriteMovies: (movies) => ({
+    type: ActionType.LOAD_FAVORITE_MOVIES,
+    payload: movies
+  }),
+  finishLoading: () => ({
+    type: ActionType.FINISH_LOADING,
+    payload: false,
+  }),
+  catchError: () => ({
+    type: ActionType.CATCH_ERROR,
+    payload: true,
+  }),
+  clearError: () => ({
+    type: ActionType.CLEAR_ERROR,
+    payload: false,
+  }),
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -96,9 +118,34 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         isReviewPosting: action.payload,
       });
-    case ActionType.CHECK_REVIEW_POSTING_ERROR:
+    case ActionType.UPDATE_MOVIE:
+      const newMovie = action.payload;
+      const allMovies = state.movies;
+
+      const movies = allMovies.map((movie) => {
+        if (movie.promoMovie.id === newMovie.promoMovie.id) {
+          movie = Object.assign({}, movie, {isFavorite: !movie.isFavorite});
+        }
+        return movie;
+      });
       return extend(state, {
-        isReviewPostingError: action.payload,
+        movies
+      });
+    case ActionType.LOAD_FAVORITE_MOVIES:
+      return extend(state, {
+        favoriteMovies: action.payload
+      });
+    case ActionType.FINISH_LOADING:
+      return extend(state, {
+        isLoading: action.payload,
+      });
+    case ActionType.CATCH_ERROR:
+      return extend(state, {
+        isError: action.payload,
+      });
+    case ActionType.CLEAR_ERROR:
+      return extend(state, {
+        isError: action.payload,
       });
   }
 
@@ -110,18 +157,40 @@ const Operations = {
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadMovies(response.data.map((movie) => createMovie(movie))));
+        dispatch(ActionCreatorByData.finishLoading());
+      })
+      .catch(() => {
+        dispatch(ActionCreatorByData.catchError());
       });
   },
   loadReviews: (id) => (dispatch, getState, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadReviews(response.data.map((review) => createReview(review))));
+      })
+      .catch(() => {
+        dispatch(ActionCreatorByData.catchError());
       });
   },
   loadPromoMovieCard: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
         dispatch(ActionCreatorByData.loadPromoMovieCard(createMovie(response.data)));
+      })
+      .catch(() => {
+        dispatch(ActionCreatorByData.catchError());
+      });
+  },
+  loadFavoriteMovies: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        if (response.data) {
+          const favoriteMovies = response.data.map((favoriteMovie) => createMovie(favoriteMovie));
+          dispatch(ActionCreatorByData.loadFavoriteMovies(favoriteMovies));
+        }
+      })
+      .catch(() => {
+        dispatch(ActionCreatorByData.catchError());
       });
   },
   postReview: (movieId, review) => (dispatch, getState, api) => {
@@ -132,18 +201,35 @@ const Operations = {
     })
       .then(() => {
         dispatch(ActionCreatorByData.checkReviewPosting(false));
-        dispatch(ActionCreatorByData.checkReviewPostingError(false));
       })
       .then(() => {
         dispatch(Operations.loadReviews(movieId));
-        dispatch(ActionCreator.changePage(CurrentPage.DETAIL));
+        history.goBack();
       })
       .catch(() => {
         dispatch(ActionCreatorByData.checkReviewPosting(false));
-        dispatch(ActionCreatorByData.checkReviewPostingError(true));
+        dispatch(ActionCreatorByData.catchError());
       });
+  },
+  changeFlagIsFavorite: (movieId, status, isPromoMovie) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${movieId}/${status}`)
+        .then((response) => {
+          dispatch(ActionCreatorByData.checkReviewPosting(false));
+
+          const movie = createMovie(response.data);
+
+          if (isPromoMovie) {
+            dispatch(ActionCreatorByData.loadPromoMovieCard(movie));
+          } else {
+            dispatch(ActionCreatorByData.updateMovie(movie));
+          }
+        })
+        .catch(() => {
+          dispatch(ActionCreatorByData.checkReviewPosting(false));
+          dispatch(ActionCreatorByData.catchError());
+        });
   },
 };
 
 
-export {reducer, ActionType, ActionCreatorByData, Operations};
+export {reducer, ActionType, ActionCreatorByData, Operations, initialState};

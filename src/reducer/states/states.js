@@ -18,7 +18,6 @@ const ActionType = {
   INCREMENT_SHOWED_MOVIES: `INCREMENT_SHOWED_MOVIES`,
   CHOOSE_MOVIE_TO_WATCH: `CHOOSE_MOVIE_TO_WATCH`,
   CHANGE_PAGE: `CHANGE_PAGE`,
-  ADD_REVIEW: `ADD_REVIEW`,
 };
 
 const ActionCreator = {
@@ -51,12 +50,6 @@ const ActionCreator = {
       payload: page
     };
   },
-  addReview: () => {
-    return {
-      type: ActionType.ADD_REVIEW,
-      payload: CurrentPage.ADD_REVIEW,
-    };
-  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -81,10 +74,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_PAGE:
       return extend(state, {
         currentPage: action.payload
-      });
-    case ActionType.ADD_REVIEW:
-      return extend(state, {
-        currentPage: action.payload,
       });
   }
   return state;

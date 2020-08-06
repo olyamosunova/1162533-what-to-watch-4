@@ -5,6 +5,8 @@ import {movie, userData} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
+import {Router} from 'react-router-dom';
+import history from '../../history';
 
 const mockStore = configureStore([]);
 
@@ -21,11 +23,11 @@ it(`Should PromoMovie render correctly`, () => {
 
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <PromoMovie
-            onPlayClick={() => {}}
-          />
-        </Provider>, {
+        <Router history={history}>
+          <Provider store={store}>
+            <PromoMovie />
+          </Provider>
+        </Router>, {
           createNodeMock: ()=>{
             return {};
           }

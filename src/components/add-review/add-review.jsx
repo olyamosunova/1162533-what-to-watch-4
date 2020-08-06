@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {TEXTAREA_BACKGROUNDCOLOR, Review, reviewSubmitButton} from "../../const";
+import {TEXTAREA_BACKGROUNDCOLOR, Review, reviewSubmitButton, AppRoute} from "../../const";
+import Header from "../header/header.jsx";
+import {Link} from "react-router-dom";
 
 const AddReview = (props) => {
 
   const {
-    activeMovie,
+    movie,
+    isError,
     isReviewPosting,
-    isReviewPostingError,
     onSubmitClick,
     onRatingChange,
+    onFormChange,
     onReviewChange,
     isSubmitDisabled,
     isReviewLengthError
@@ -18,8 +21,8 @@ const AddReview = (props) => {
   const RATINGS_QUANTITY = 5;
   const isRadioDisabled = isReviewPosting ? true : false;
 
-  const {promoMovie, backgroundColor} = activeMovie;
-  const {title, poster, cover} = promoMovie;
+  const {promoMovie, backgroundColor} = movie;
+  const {id, title, poster, cover} = promoMovie;
 
   const boxShadow = isReviewLengthError ? `inset 1px 0 10px red` : ``;
 
@@ -35,32 +38,22 @@ const AddReview = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
+        <Header>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">{title}</a>
+                <Link
+                  className="breadcrumbs__link"
+                  to={`${AppRoute.MOVIE}/${id}`}>
+                  {title}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
               </li>
             </ul>
           </nav>
-
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
-        </header>
+        </Header>
 
         <div className="movie-card__poster movie-card__poster--small">
           <img src={poster} alt={title} width="218"
@@ -73,6 +66,7 @@ const AddReview = (props) => {
           action="#"
           className="add-review__form"
           onSubmit={onSubmitClick}
+          onChange={onFormChange}
         >
           <div className="rating">
             <div
@@ -129,7 +123,7 @@ const AddReview = (props) => {
         <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>The length of the text should not be less than 50 characters and not be more than 400.</p>
         }
 
-        {isReviewPostingError &&
+        {isError &&
         <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>Error while submitting form data. Please, try again later.</p>
         }
 
@@ -140,7 +134,7 @@ const AddReview = (props) => {
 };
 
 AddReview.propTypes = {
-  activeMovie: PropTypes.shape({
+  movie: PropTypes.shape({
     promoMovie: PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
@@ -160,12 +154,13 @@ AddReview.propTypes = {
     starring: PropTypes.array.isRequired,
   }),
   isReviewPosting: PropTypes.bool.isRequired,
-  isReviewPostingError: PropTypes.bool.isRequired,
   onSubmitClick: PropTypes.func.isRequired,
+  onFormChange: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewChange: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
   isReviewLengthError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 export default AddReview;

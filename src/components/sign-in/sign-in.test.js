@@ -2,6 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Router} from 'react-router-dom';
+import history from '../../history';
 import NameSpace from '../../reducer/name-space';
 import SignIn from './sign-in.jsx';
 
@@ -23,11 +25,13 @@ describe(`SignIn`, () => {
 
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <SignIn
-              onSubmit={() => {}}
-            />
-          </Provider>, {
+          <Router history={history}>
+            <Provider store={store}>
+              <SignIn
+                onSubmit={() => {}}
+              />
+            </Provider>
+          </Router>, {
             createNodeMock: () => {
               return {};
             }
@@ -53,11 +57,13 @@ describe(`SignIn`, () => {
 
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <SignIn
-              onSubmit={() => {}}
-            />
-          </Provider>, {
+          <Router history={history}>
+            <Provider store={store}>
+              <SignIn
+                onSubmit={() => {}}
+              />
+            </Provider>
+          </Router>, {
             createNodeMock: () => {
               return {};
             }

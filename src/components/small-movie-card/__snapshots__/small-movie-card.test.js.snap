@@ -3,33 +3,32 @@
 exports[`Should SmallMovieCard render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onClick={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <a
+    className="small-movie-card__link"
+    href="/films/1"
+    onClick={[Function]}
   >
-    <video
-      height="100%"
-      poster=""
-      width="100%"
+    <div
+      className="small-movie-card__image"
     >
-      <source
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-      />
-    </video>
-  </div>
-  <h3
-    className="small-movie-card__title"
-  >
-    <a
-      className="small-movie-card__link"
-      href="movie-page.html"
-      onClick={[Function]}
+      <video
+        height="100%"
+        poster=""
+        width="100%"
+      >
+        <source
+          src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+        />
+      </video>
+    </div>
+    <h3
+      className="small-movie-card__title"
     >
       Macbeth
-    </a>
-  </h3>
+    </h3>
+  </a>
 </article>
 `;

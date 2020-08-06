@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/states/states";
 import {getPromoMovie} from "../../reducer/data/selectors";
 import Header from "../header/header.jsx";
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
-import {CurrentPage} from "../../const";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const";
+import {Operations} from "../../reducer/data/data";
+import MyListButton from "../my-list-button/my-list-button.jsx";
 
 const PromoMovie = (props) => {
-  const {promoMovieCard, onPlayClick, authorizationStatus, userData, onLoginClick} = props;
-  const {promoMovie} = promoMovieCard;
-  const {title, genre, releaseDate, cover, poster} = promoMovie;
+  const {promoMovieCard, onMyListClick} = props;
+  const {promoMovie, isFavorite} = promoMovieCard;
+  const {id, title, genre, releaseDate, cover, poster} = promoMovie;
   return (
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -19,7 +20,7 @@ const PromoMovie = (props) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header authorizationStatus={authorizationStatus} userData={userData} onLoginClick={onLoginClick} />
+      <Header />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -35,24 +36,15 @@ const PromoMovie = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button
+              <Link
                 className="btn btn--play movie-card__button"
-                type="button"
-                onClick={() => {
-                  onPlayClick(promoMovieCard);
-                }}
-              >
+                to={`${AppRoute.MOVIE}/${id}/player`}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              </Link>
+              <MyListButton id={id} isFavorite={isFavorite} onMyListClick={onMyListClick} />
             </div>
           </div>
         </div>
@@ -64,38 +56,26 @@ const PromoMovie = (props) => {
 PromoMovie.propTypes = {
   promoMovieCard: PropTypes.shape({
     promoMovie: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired,
       releaseDate: PropTypes.number.isRequired,
       poster: PropTypes.string.isRequired,
       cover: PropTypes.string.isRequired,
     }),
+    isFavorite: PropTypes.bool.isRequired,
   }),
-  onPlayClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-  }).isRequired,
-  onLoginClick: PropTypes.func.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   promoMovieCard: getPromoMovie(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onPlayClick(movie) {
-    dispatch(ActionCreator.chooseMovieToWatch(movie));
+  onMyListClick(movieId, status, isPromoMovie) {
+    dispatch(Operations.changeFlagIsFavorite(movieId, status, isPromoMovie));
   },
-  onLoginClick(evt) {
-    evt.preventDefault();
-    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
-  }
 });
 
 export {PromoMovie};

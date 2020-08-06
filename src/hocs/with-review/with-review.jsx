@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import {Review} from "../../const";
 import {connect} from 'react-redux';
 import {Operations as DataOperations} from "../../reducer/data/data";
-import {getMovies, getReviewPostingError} from "../../reducer/data/selectors";
+import {getIsError, getMovies} from "../../reducer/data/selectors";
 import {getActiveMovie} from "../../reducer/states/selectors";
 import {getReviewPosting} from "../../reducer/data/selectors";
-import {getMovieById} from "../../utils";
+import {ActionCreatorByData} from "../../reducer/data/data";
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
     constructor(props) {
       super(props);
 
-      const {activeMovieId, movies} = this.props;
+      const {movie} = this.props;
 
-      this.activeMovie = getMovieById(movies, activeMovieId);
+      this.activeMovie = movie;
 
       this.state = {
         rating: 5,
@@ -24,9 +24,15 @@ const withReview = (Component) => {
         isReviewLengthError: false,
       };
 
+      this._handleFormChange = this._handleFormChange.bind(this);
       this._handleSubmitClick = this._handleSubmitClick.bind(this);
       this._handleReviewChange = this._handleReviewChange.bind(this);
       this._handleRatingChange = this._handleRatingChange.bind(this);
+    }
+
+    _handleFormChange() {
+      const {clearError} = this.props;
+      clearError();
     }
 
     _handleRatingChange(evt) {
@@ -46,7 +52,7 @@ const withReview = (Component) => {
     }
 
     _handleSubmitClick(evt) {
-      const {activeMovieId, onReviewSubmit} = this.props;
+      const {movie, onReviewSubmit} = this.props;
 
       const review = {
         rating: this.state.rating,
@@ -54,7 +60,7 @@ const withReview = (Component) => {
       };
 
       evt.preventDefault();
-      onReviewSubmit(activeMovieId, review);
+      onReviewSubmit(movie.promoMovie.id, review);
     }
 
     render() {
@@ -62,6 +68,7 @@ const withReview = (Component) => {
         <Component
           {...this.props}
           activeMovie={this.activeMovie}
+          onFormChange={this._handleFormChange}
           onSubmitClick={this._handleSubmitClick}
           onRatingChange={this._handleRatingChange}
           onReviewChange={this._handleReviewChange}
@@ -93,10 +100,29 @@ const withReview = (Component) => {
           starring: PropTypes.array.isRequired,
         })
     ),
+    movie: PropTypes.shape({
+      promoMovie: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.number.isRequired,
+        poster: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        previewVideo: PropTypes.string.isRequired,
+      }),
+      rating: PropTypes.number.isRequired,
+      ratingLevel: PropTypes.string.isRequired,
+      ratingCount: PropTypes.number.isRequired,
+      runTime: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      director: PropTypes.string.isRequired,
+      starring: PropTypes.array.isRequired,
+    }),
     isReviewPosting: PropTypes.bool.isRequired,
-    isReviewPostingError: PropTypes.bool.isRequired,
     onReviewSubmit: PropTypes.func.isRequired,
     activeMovieId: PropTypes.number.isRequired,
+    isError: PropTypes.bool.isRequired,
+    clearError: PropTypes.func.isRequired,
   };
 
   const mapStateToProps = (state) => {
@@ -104,13 +130,17 @@ const withReview = (Component) => {
       activeMovieId: getActiveMovie(state),
       movies: getMovies(state),
       isReviewPosting: getReviewPosting(state),
-      isReviewPostingError: getReviewPostingError(state),
+      isError: getIsError(state),
     };
   };
 
   const mapDispatchToProps = (dispatch) => ({
     onReviewSubmit(movieId, review) {
       dispatch(DataOperations.postReview(movieId, review));
+    },
+
+    clearError() {
+      dispatch(ActionCreatorByData.clearError());
     },
   });
 

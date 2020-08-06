@@ -56,6 +56,7 @@ export const CurrentPage = {
   LOGIN: `LOGIN`,
   PLAYER: `PLAYER`,
   ADD_REVIEW: `ADD_REVIEW`,
+  MY_LIST: `MY_LISTt`,
 };
 
 export const Review = {
@@ -68,4 +69,13 @@ export const TEXTAREA_BACKGROUNDCOLOR = `rgba(0, 0, 0, 0.15)`;
 export const reviewSubmitButton = {
   post: `Post`,
   posting: `Posting...`,
+};
+
+export const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  MOVIE: `/films`,
+  REVIEW: `/films/:id/review`,
+  PLAYER: `/films/:id/player`,
 };

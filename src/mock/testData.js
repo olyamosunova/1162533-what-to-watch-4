@@ -21,6 +21,7 @@ const movie = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
     `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+  isFavorite: true,
 };
 
 const Movies = [
@@ -45,6 +46,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -67,6 +69,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: true,
   },
   {
     promoMovie: {
@@ -89,6 +92,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -111,6 +115,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -133,6 +138,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -155,6 +161,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -178,6 +185,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -200,6 +208,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -222,6 +231,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
   {
     promoMovie: {
@@ -244,6 +254,7 @@ const Movies = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Willem Dafoe`, `Saoirse Ronan`,
       `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`],
+    isFavorite: false,
   },
 ];
 

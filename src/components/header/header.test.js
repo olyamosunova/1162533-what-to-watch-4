@@ -1,7 +1,25 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
+import {Router} from 'react-router-dom';
+import history from '../../history';
 import Header from './header.jsx';
+import configureStore from "redux-mock-store";
+import NameSpace from "../../reducer/name-space";
+import {Provider} from "react-redux";
+
+const mockStore = configureStore([]);
+
+const store = mockStore({
+  [NameSpace.USER]: {
+    authorizationStatus: `NO_AUTH`,
+    userData: {
+      id: 0,
+      email: ``,
+      name: ``,
+      avatarUrl: ``,
+    }
+  },
+});
 
 const userData = {
   id: 1,
@@ -13,21 +31,19 @@ const userData = {
 describe(`Header`, () => {
   it(`Should render correctly when is main page and user signed in`, () => {
     const tree = renderer
-      .create(<Header
-        authorizationStatus={``}
-        userData={userData}
-      />)
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`Should render correctly when is main page and user is not signed in`, () => {
-    const tree = renderer
-      .create(<Header
-        authorizationStatus={``}
-        userData={userData}
-      />)
+      .create(
+          <Router history={history}>
+            <Provider store={store}>
+              <Header
+                authorizationStatus={``}
+                userData={userData}
+              />
+            </Provider>
+          </Router>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
       .toJSON();
 
     expect(tree).toMatchSnapshot();
