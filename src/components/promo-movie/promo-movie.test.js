@@ -25,9 +25,7 @@ it(`Should PromoMovie render correctly`, () => {
     .create(
         <Router history={history}>
           <Provider store={store}>
-            <PromoMovie
-              onPlayClick={() => {}}
-            />
+            <PromoMovie />
           </Provider>
         </Router>, {
           createNodeMock: ()=>{
