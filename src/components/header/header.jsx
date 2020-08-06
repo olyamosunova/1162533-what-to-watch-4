@@ -53,7 +53,7 @@ Header.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  currentPage: PropTypes.string.isRequired,
+  currentPage: PropTypes.string,
   children: PropTypes.node,
 };
 

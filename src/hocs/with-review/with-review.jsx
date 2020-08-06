@@ -6,16 +6,15 @@ import {Operations as DataOperations} from "../../reducer/data/data";
 import {getMovies, getReviewPostingError} from "../../reducer/data/selectors";
 import {getActiveMovie} from "../../reducer/states/selectors";
 import {getReviewPosting} from "../../reducer/data/selectors";
-import {getMovieById} from "../../utils";
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
     constructor(props) {
       super(props);
 
-      const {activeMovieId, movies} = this.props;
+      const {movie} = this.props;
 
-      this.activeMovie = getMovieById(movies, activeMovieId);
+      this.activeMovie = movie;
 
       this.state = {
         rating: 5,
@@ -46,7 +45,7 @@ const withReview = (Component) => {
     }
 
     _handleSubmitClick(evt) {
-      const {activeMovieId, onReviewSubmit} = this.props;
+      const {movie, onReviewSubmit} = this.props;
 
       const review = {
         rating: this.state.rating,
@@ -54,7 +53,7 @@ const withReview = (Component) => {
       };
 
       evt.preventDefault();
-      onReviewSubmit(activeMovieId, review);
+      onReviewSubmit(movie.promoMovie.id, review);
     }
 
     render() {
@@ -93,6 +92,24 @@ const withReview = (Component) => {
           starring: PropTypes.array.isRequired,
         })
     ),
+    movie: PropTypes.shape({
+      promoMovie: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.number.isRequired,
+        poster: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        previewVideo: PropTypes.string.isRequired,
+      }),
+      rating: PropTypes.number.isRequired,
+      ratingLevel: PropTypes.string.isRequired,
+      ratingCount: PropTypes.number.isRequired,
+      runTime: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      director: PropTypes.string.isRequired,
+      starring: PropTypes.array.isRequired,
+    }),
     isReviewPosting: PropTypes.bool.isRequired,
     isReviewPostingError: PropTypes.bool.isRequired,
     onReviewSubmit: PropTypes.func.isRequired,

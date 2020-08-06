@@ -1,7 +1,6 @@
 import {extend} from "../../utils";
 import {createMovie, createReview} from "../../adapters/adapters";
-import {ActionCreator} from "../states/states";
-import {CurrentPage} from "../../const";
+import history from "../../history";
 
 const initialState = {
   movies: [],
@@ -175,7 +174,7 @@ const Operations = {
       })
       .then(() => {
         dispatch(Operations.loadReviews(movieId));
-        dispatch(ActionCreator.changePage(CurrentPage.DETAIL));
+        history.goBack();
       })
       .catch(() => {
         dispatch(ActionCreatorByData.checkReviewPosting(false));

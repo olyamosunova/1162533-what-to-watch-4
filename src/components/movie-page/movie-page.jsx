@@ -14,6 +14,8 @@ import {AuthorizationStatus} from "../../const";
 import MyListButton from "../my-list-button/my-list-button.jsx";
 import {Operations} from "../../reducer/data/data";
 import {getCurrentPage} from "../../reducer/states/selectors";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const";
 
 const SIMILAR_FILM_COUNT = 4;
 
@@ -42,23 +44,19 @@ class MoviePage extends PureComponent {
       onPlayClick,
       reviews,
       isSignedIn,
-      onAddReviewClick,
       onMyListClick,
       currentPage,
-      loadMovie
     } = this.props;
 
     const {promoMovie, backgroundColor, isFavorite} = movie;
     const {id, title, genre, releaseDate, poster, cover} = promoMovie;
 
     const addReviewButton = (
-      <a
-        href="add-review.html"
-        className="btn movie-card__button"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onAddReviewClick();
-        }}>Add review</a>
+      <Link
+        to={`${AppRoute.MOVIE}/${id}/review`}
+        className="btn movie-card__button">
+        Add review
+      </Link>
     );
 
     const getSimilarMovies = (currentGenre, films, currentId) => {
@@ -229,11 +227,10 @@ MoviePage.propTypes = {
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  onAddReviewClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   onMyListClick: PropTypes.func.isRequired,
   currentPage: PropTypes.string.isRequired,
-  loadMovie: PropTypes.string.isRequired,
+  loadMovie: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -248,9 +245,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(movie) {
     dispatch(ActionCreator.chooseMovieToWatch(movie));
-  },
-  onAddReviewClick() {
-    dispatch(ActionCreator.addReview());
   },
   onMyListClick(movieId, status, isPromoMovie) {
     dispatch(Operations.changeFlagIsFavorite(movieId, status, isPromoMovie));

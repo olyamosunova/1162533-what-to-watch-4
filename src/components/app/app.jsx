@@ -68,6 +68,13 @@ const App = (props) => {
     }
   };
 
+  const renderAddReview = (match) => {
+    const id = Number(match.params.id);
+    return (
+      <AddReviewWrapped movie={getMovieById(movies, id)}/>
+    );
+  };
+
   const renderMoviePage = (match) => {
     const id = Number(match.params.id);
     return (
@@ -90,10 +97,8 @@ const App = (props) => {
             </Route>
             <PrivateRoute
               exact
-              path={AppRoute.REVIEW}
-              render={() => {
-                return <AddReviewWrapped />;
-              }}
+              path={`${AppRoute.MOVIE}/:id/review`}
+              render={({match}) => renderAddReview(match)}
             />
             <PrivateRoute
               exact
