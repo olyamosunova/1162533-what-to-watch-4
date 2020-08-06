@@ -15,7 +15,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {onMovieClick, genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick} = this.props;
+    const {genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick} = this.props;
     const showedMovies = [...filteredMovies].splice(0, showedMoviesCount);
 
     const isHideShowMoreButton = showedMoviesCount >= filteredMovies.length ? true : false;
@@ -32,7 +32,6 @@ class Main extends PureComponent {
 
             <MoviesList
               movies={showedMovies}
-              onMovieClick={onMovieClick}
             />
 
             {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />}
@@ -59,7 +58,6 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  onMovieClick: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   activeGenre: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,

@@ -10,7 +10,8 @@ const GenresList = (props) => {
         return <li
           key={item}
           className={`catalog__genres-item ${activeGenre === item ? `catalog__genres-item--active` : ``}`}
-          onClick={()=>{
+          onClick={(evt)=>{
+            evt.preventDefault();
             onClick(item);
           }}
         >

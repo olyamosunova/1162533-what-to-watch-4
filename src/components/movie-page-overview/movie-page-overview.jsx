@@ -28,7 +28,7 @@ const MoviePageOverview = (props) => {
         <p className="movie-card__starring">
           <strong>
             Starring:
-            {starring.length > 4 ? starring.slice(0, 4).map((star) => star) + `and other` : starring.map((star) => star)}
+            {starring.join(`, `)}
           </strong>
         </p>
       </div>
