@@ -1,99 +1,525 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Render App 1`] = `
-<div
-  className="player"
->
-  <video
-    autoPlay={true}
-    className="player__video"
-    loop={false}
-    poster=""
-    src=""
-  />
-  <button
-    className="player__exit"
-    onClick={[Function]}
-    type="button"
-  >
-    Exit
-  </button>
-  <div
-    className="player__controls"
+Array [
+  <section
+    className="movie-card"
   >
     <div
-      className="player__controls-row"
+      className="movie-card__bg"
+    >
+      <img
+        alt="The Grand Budapest Hotel"
+        src="macbeth.jpg"
+      />
+    </div>
+    <h1
+      className="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      className="page-header movie-card__head"
     >
       <div
-        className="player__time"
+        className="logo"
       >
-        <progress
-          className="player__progress"
-          max="100"
-          value={0}
-        />
-        <div
-          className="player__toggler"
+        <a
+          className="logo__link"
+          href="/"
+          onClick={[Function]}
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="user-block"
+      >
+        <a
+          className="user-block__avatar"
+          href="/mylist"
+          onClick={[Function]}
           style={
             Object {
-              "left": "0%",
+              "display": "block",
             }
           }
         >
-          Toggler
+          <img
+            alt="asdasd"
+            height="63"
+            src="https://4.react.pages.academy/wtw/asda.jpg"
+            width="63"
+          />
+        </a>
+      </div>
+    </header>
+    <div
+      className="movie-card__wrap"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster"
+        >
+          <img
+            alt="Macbeth"
+            height="327"
+            src="macbeth.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          className="movie-card__desc"
+        >
+          <h2
+            className="movie-card__title"
+          >
+            Macbeth
+          </h2>
+          <p
+            className="movie-card__meta"
+          >
+            <span
+              className="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              className="movie-card__year"
+            >
+              2015
+            </span>
+          </p>
+          <div
+            className="movie-card__buttons"
+          >
+            <button
+              className="btn btn--play movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlinkHref="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              className="btn btn--list movie-card__button"
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlinkHref="#add"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-      <div
-        className="player__time-value"
-      >
-        00:00:00
-      </div>
     </div>
-    <div
-      className="player__controls-row"
+  </section>,
+  <div
+    className="page-content"
+  >
+    <section
+      className="catalog"
     >
-      <button
-        className="player__play"
-        onClick={[Function]}
-        type="button"
+      <h2
+        className="catalog__title visually-hidden"
       >
-        <svg
-          height="21"
-          viewBox="0 0 14 21"
-          width="14"
+        Catalog
+      </h2>
+      <ul
+        className="catalog__genres-list"
+      >
+        <li
+          className="catalog__genres-item catalog__genres-item--active"
+          onClick={[Function]}
         >
-          <use
-            xlinkHref="#pause"
-          />
-        </svg>
-        <span>
-          Pause
-        </span>
-      </button>
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            All genres
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Fantasy
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Music
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Drama
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Comedy
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Vestern
+          </a>
+        </li>
+      </ul>
       <div
-        className="player__name"
+        className="catalog__movies-list"
       >
-        Transpotting
-      </div>
-      <button
-        className="player__full-screen"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          height="27"
-          viewBox="0 0 27 27"
-          width="27"
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
-          <use
-            xlinkHref="#full-screen"
-          />
-        </svg>
-        <span>
-          Full screen
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
+          <a
+            className="small-movie-card__link"
+            href="/films/1"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Fantastic Beasts: The Crimes of Grindelwald
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/2"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Bohemian Rhapsody
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/3"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Macbeth
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/4"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Aviator
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/5"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              We need to talk about Kevin
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/6"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              What We Do in the Shadows
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/7"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Revenant
+            </h3>
+          </a>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/8"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                height="100%"
+                poster=""
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                />
+              </video>
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              Johnny English
+            </h3>
+          </a>
+        </article>
+      </div>
+      <div
+        className="catalog__more"
+      >
+        <button
+          className="catalog__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Show more
+        </button>
+      </div>
+    </section>
+    <footer
+      className="page-footer"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          className="logo__link logo__link--light"
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>,
+]
 `;

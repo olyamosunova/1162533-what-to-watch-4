@@ -12,7 +12,8 @@ exports[`SignIn Should render correctly when AuthError 1`] = `
     >
       <a
         className="logo__link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -36,6 +37,7 @@ exports[`SignIn Should render correctly when AuthError 1`] = `
     >
       Sign in
     </h1>
+    
   </header>
   <div
     className="sign-in user-page__content"
@@ -145,7 +147,8 @@ exports[`SignIn Should render correctly when no AuthError 1`] = `
     >
       <a
         className="logo__link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -169,6 +172,7 @@ exports[`SignIn Should render correctly when no AuthError 1`] = `
     >
       Sign in
     </h1>
+    
   </header>
   <div
     className="sign-in user-page__content"

@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {Operations} from "../../reducer/data/data";
 import BigVideoPlayer from "../big-video-player/big-video-player.jsx";
 import withPlayer from "../../hocs/with-player/with-player.jsx";
-import {getFilteredMovies, getGenres, getIsLoading, getMovies} from "../../reducer/data/selectors";
+import {getFilteredMovies, getGenres, getIsError, getIsLoading, getMovies} from "../../reducer/data/selectors";
 import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from "../sign-in/sign-in.jsx";
 import AddReview from "../add-review/add-review.jsx";
@@ -27,7 +27,16 @@ const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 
 const App = (props) => {
-  const {movies, isLoading, filteredMovies, genres, login, loadMovies, authorizationStatus} = props;
+  const {movies, isLoading, isError, filteredMovies, genres, login, loadMovies, authorizationStatus} = props;
+
+  const renderMainPage = () => {
+    return !isError ?
+      <Main
+        filteredMovies={filteredMovies}
+        genres={genres}
+      />
+      : <div>404 not found</div>;
+  };
 
   const renderAddReview = (match) => {
     const id = Number(match.params.id);
@@ -57,12 +66,11 @@ const App = (props) => {
           history={history}
         >
           <Switch>
-            <Route exact path={AppRoute.ROOT}>
-              <Main
-                filteredMovies={filteredMovies}
-                genres={genres}
-              />
-            </Route>
+            <Route
+              exact
+              path={AppRoute.ROOT}
+              render={renderMainPage}
+            />
             <Route
               exact path={AppRoute.LOGIN}
               render={() => {
@@ -150,6 +158,7 @@ App.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   loadMovies: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -158,6 +167,7 @@ const mapStateToProps = (state) => ({
   genres: getGenres(state),
   isLoading: getIsLoading(state),
   authorizationStatus: getAuthorizationStatus(state),
+  isError: getIsError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

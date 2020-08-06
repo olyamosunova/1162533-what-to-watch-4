@@ -30,11 +30,8 @@ export const getFilteredMovies = createSelector(
     });
 
 export const getReviewPosting = (state) => state[NameSpace.DATA].isReviewPosting;
-
 export const getReviewPostingError = (state) => state[NameSpace.DATA].isReviewPostingError;
-
-export const getFavoriteMovies = (state) => {
-  return state[NameSpace.DATA].favoriteMovies;
-};
-
+export const getFavoriteMovies = (state) => state[NameSpace.DATA].favoriteMovies;
 export const getIsLoading = (state) => state[NameSpace.DATA].isLoading;
+export const getIsError = (state) => state[NameSpace.DATA].isError;
+export const getIsCheck = (state) => state[NameSpace.DATA].isCheck;

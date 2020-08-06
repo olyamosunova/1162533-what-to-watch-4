@@ -8,10 +8,11 @@ const AddReview = (props) => {
 
   const {
     movie,
+    isError,
     isReviewPosting,
-    isReviewPostingError,
     onSubmitClick,
     onRatingChange,
+    onFormChange,
     onReviewChange,
     isSubmitDisabled,
     isReviewLengthError
@@ -65,6 +66,7 @@ const AddReview = (props) => {
           action="#"
           className="add-review__form"
           onSubmit={onSubmitClick}
+          onChange={onFormChange}
         >
           <div className="rating">
             <div
@@ -121,7 +123,7 @@ const AddReview = (props) => {
         <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>The length of the text should not be less than 50 characters and not be more than 400.</p>
         }
 
-        {isReviewPostingError &&
+        {isError &&
         <p style={{color: `red`, textShadow: `1px 1px 2px black, 0 0 1em red`}}>Error while submitting form data. Please, try again later.</p>
         }
 
@@ -152,12 +154,13 @@ AddReview.propTypes = {
     starring: PropTypes.array.isRequired,
   }),
   isReviewPosting: PropTypes.bool.isRequired,
-  isReviewPostingError: PropTypes.bool.isRequired,
   onSubmitClick: PropTypes.func.isRequired,
+  onFormChange: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewChange: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
   isReviewLengthError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 export default AddReview;

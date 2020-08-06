@@ -14,8 +14,6 @@ it(`when user hover movie card`, () => {
   const smallMovieCard = shallow(
       <SmallMovieCard
         movie={movie}
-        onMovieClick={() => {
-        }}
         isPlaying={false}
         onMouseEnter={onMouseEnter}
         onMouseLeave={() => {}}
@@ -27,14 +25,12 @@ it(`when user hover movie card`, () => {
   expect(onMouseEnter).toHaveBeenCalledTimes(1);
 });
 
-it(`when user leave movie card`, ()=>{
+it(`when user leave movie card`, ()=> {
   const onMouseLeave = jest.fn();
 
   const movieCard = shallow(
       <SmallMovieCard
         movie={movie}
-        onMovieClick={() => {
-        }}
         isPlaying={false}
         onMouseEnter={() => {}}
         onMouseLeave={onMouseLeave}
@@ -45,22 +41,4 @@ it(`when user leave movie card`, ()=>{
   card.simulate(`mouseleave`);
 
   expect(onMouseLeave).toHaveBeenCalledTimes(1);
-});
-
-it(`when user click title movie card`, () => {
-  const onMovieClick = jest.fn();
-
-  const smallMovieCard = shallow(
-      <SmallMovieCard
-        movie={movie}
-        onMovieClick={onMovieClick}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        isPlaying={false}
-      />
-  );
-
-  smallMovieCard.find(`.small-movie-card__link`).simulate(`click`);
-
-  expect(onMovieClick.mock.calls[0][0]).toBe(movie.promoMovie.id);
 });

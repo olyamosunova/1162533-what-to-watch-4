@@ -3,17 +3,33 @@ import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-import {Movies, genres} from "../../mock/testData";
-import {GenreNames} from "../../const";
+import {Movies, movie, genres} from "../../mock/testData";
+import {AuthorizationStatus, GenreNames} from "../../const";
+import NameSpace from "../../reducer/name-space";
 
 const mockStore = configureStore([]);
 
 it(`Render App`, () => {
   const store = mockStore({
-    activeGenre: GenreNames.ALL,
+    [NameSpace.DATA]: {
+      movies: Movies,
+      promoMovieCard: movie,
+    },
+    [NameSpace.STATES]: {
+      activeGenre: GenreNames.ALL,
+      showedMoviesCount: 8,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.AUTH,
+      userData: {
+        id: 1,
+        email: `sadas@gmail.com`,
+        name: `asdasd`,
+        avatarUrl: `https://4.react.pages.academy/wtw/asda.jpg`,
+      }
+    },
     filteredMovies: Movies,
     genres,
-    activeMovie: -1,
     showedMoviesCount: 8,
     playingMovie: Movies[0],
     authorizationStatus: `NO_AUTH`,
@@ -23,13 +39,16 @@ it(`Render App`, () => {
     .create(
         <Provider store={store}>
           <App
+            movies={Movies}
             filteredMovies={Movies}
             genres={genres}
-            activeMovie={-1}
-            onMovieClick={() => {}}
             playingMovie={Movies[0]}
             authorizationStatus={`NO_AUTH`}
             login={() => {}}
+            isLoading={false}
+            loadMovies={() => {}}
+            isError={false}
+            routeProps={{match: {params: {id: 123456}, isExact: true, path: ``, url: ``}}}
           />
         </Provider>, {
           createNodeMock: ()=>{

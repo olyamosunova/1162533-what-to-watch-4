@@ -4,10 +4,9 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/states/states";
 import {getPromoMovie} from "../../reducer/data/selectors";
 import Header from "../header/header.jsx";
-import {getCurrentPage} from "../../reducer/states/selectors";
 
 const PromoMovie = (props) => {
-  const {promoMovieCard, onPlayClick, currentPage} = props;
+  const {promoMovieCard, onPlayClick} = props;
   const {promoMovie} = promoMovieCard;
   const {title, genre, releaseDate, cover, poster} = promoMovie;
   return (
@@ -18,7 +17,7 @@ const PromoMovie = (props) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header currentPage={currentPage} />
+      <Header />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -71,12 +70,10 @@ PromoMovie.propTypes = {
     }),
   }),
   onPlayClick: PropTypes.func.isRequired,
-  currentPage: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   promoMovieCard: getPromoMovie(state),
-  currentPage: getCurrentPage(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

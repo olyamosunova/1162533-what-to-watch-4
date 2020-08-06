@@ -12,7 +12,6 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../const";
 import MyListButton from "../my-list-button/my-list-button.jsx";
 import {Operations} from "../../reducer/data/data";
-import {getCurrentPage} from "../../reducer/states/selectors";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 
@@ -42,8 +41,7 @@ class MoviePage extends PureComponent {
       activeTab,
       reviews,
       isSignedIn,
-      onMyListClick,
-      currentPage,
+      onMyListClick
     } = this.props;
 
     const {promoMovie, backgroundColor, isFavorite} = movie;
@@ -95,7 +93,7 @@ class MoviePage extends PureComponent {
 
             <h1 className="visually-hidden">WTW</h1>
 
-            <Header currentPage={currentPage} />
+            <Header />
 
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
@@ -222,7 +220,6 @@ MoviePage.propTypes = {
   activeTab: PropTypes.string.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   onMyListClick: PropTypes.func.isRequired,
-  currentPage: PropTypes.string.isRequired,
   loadMovie: PropTypes.func.isRequired,
 };
 
@@ -231,7 +228,6 @@ const mapStateToProps = (state) => {
     movies: getMovies(state),
     reviews: getReviews(state),
     isSignedIn: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
-    currentPage: getCurrentPage(state),
   };
 };
 
