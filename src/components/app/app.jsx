@@ -78,7 +78,14 @@ const App = (props) => {
   const renderMoviePage = (match) => {
     const id = Number(match.params.id);
     return (
-      <MoviePageWrapped movies={movies} movie={getMovieById(movies, id)}/>
+      <MoviePageWrapped movie={getMovieById(movies, id)}/>
+    );
+  };
+
+  const renderVideoPlayer = (match) => {
+    const id = Number(match.params.id);
+    return (
+      <BigVideoPlayerWrapped movie={getMovieById(movies, id)}/>
     );
   };
 
@@ -111,6 +118,10 @@ const App = (props) => {
             <Route
               exact path={`${AppRoute.MOVIE}/:id`}
               render={({match}) => renderMoviePage(match)}
+            />
+            <Route
+              exact path={`${AppRoute.MOVIE}/:id/player`}
+              render={({match}) => renderVideoPlayer(match)}
             />
             <Route>
               <div>404 not found</div>

@@ -7,7 +7,6 @@ import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 import Header from "../header/header.jsx";
 import {TabsName} from "../../const";
-import {ActionCreator} from "../../reducer/states/states";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../const";
@@ -41,7 +40,6 @@ class MoviePage extends PureComponent {
       movies,
       renderTabs,
       activeTab,
-      onPlayClick,
       reviews,
       isSignedIn,
       onMyListClick,
@@ -108,18 +106,14 @@ class MoviePage extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button
+                  <Link
                     className="btn btn--play movie-card__button"
-                    type="button"
-                    onClick={() => {
-                      onPlayClick(movie);
-                    }}
-                  >
+                    to={`${AppRoute.MOVIE}/${id}/player`}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
                     <span>Play</span>
-                  </button>
+                  </Link>
                   <MyListButton id={id} isFavorite={isFavorite} onMyListClick={onMyListClick} />
                   {isSignedIn && addReviewButton}
                 </div>
@@ -226,7 +220,6 @@ MoviePage.propTypes = {
       })),
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   onMyListClick: PropTypes.func.isRequired,
   currentPage: PropTypes.string.isRequired,
@@ -243,9 +236,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onPlayClick(movie) {
-    dispatch(ActionCreator.chooseMovieToWatch(movie));
-  },
   onMyListClick(movieId, status, isPromoMovie) {
     dispatch(Operations.changeFlagIsFavorite(movieId, status, isPromoMovie));
   },

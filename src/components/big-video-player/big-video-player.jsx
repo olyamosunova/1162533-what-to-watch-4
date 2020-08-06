@@ -1,7 +1,5 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/states/states";
 
 class BigVideoPlayer extends PureComponent {
   constructor(props) {
@@ -116,11 +114,4 @@ BigVideoPlayer.propTypes = {
   isFullScreenMode: PropTypes.bool.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onExitClick() {
-    dispatch(ActionCreator.chooseMovieToWatch(null));
-  }
-});
-
-export {BigVideoPlayer};
-export default connect(null, mapDispatchToProps)(BigVideoPlayer);
+export default BigVideoPlayer;

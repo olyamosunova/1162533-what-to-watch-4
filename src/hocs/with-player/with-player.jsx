@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import history from "../../history";
 
 const withPlayer = (Component) =>{
   class WithPlayer extends PureComponent {
@@ -84,6 +85,7 @@ const withPlayer = (Component) =>{
         isPlaying={isPlaying}
         progress={progress}
         timeLeft={timeLeft}
+        onExitClick={() => history.goBack()}
         onPlayClick={this.handlePlayClick}
         onPauseClick={this.handlePauseClick}
         onFullScreenClick={this.handleFullScreenClick}
