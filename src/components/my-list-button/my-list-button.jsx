@@ -1,5 +1,10 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {connect} from "react-redux";
+import {AuthorizationStatus} from "../../const";
+import {AppRoute} from "../../const";
+import history from "../../history";
 
 const REMOVE_FROM_MY_LIST = 0;
 const ADD_TO_MY_LIST = 1;
@@ -12,11 +17,13 @@ class MyListButton extends PureComponent {
   }
 
   handleMyListClick() {
-    const {isFavorite, id, onMyListClick, isPromoMovie} = this.props;
+    const {isFavorite, id, onMyListClick, isPromoMovie, authorizationStatus} = this.props;
 
     const status = isFavorite ? REMOVE_FROM_MY_LIST : ADD_TO_MY_LIST;
 
-    onMyListClick(id, status, isPromoMovie);
+    return (authorizationStatus === AuthorizationStatus.AUTH
+      ? onMyListClick(id, status, isPromoMovie)
+      : history.push(AppRoute.LOGIN));
   }
 
   render() {
@@ -41,7 +48,12 @@ MyListButton.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
   onMyListClick: PropTypes.func.isRequired,
-  isPromoMovie: PropTypes.bool
+  isPromoMovie: PropTypes.bool,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-export default MyListButton;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+export default connect(mapStateToProps)(MyListButton);
