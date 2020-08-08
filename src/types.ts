@@ -10,6 +10,7 @@ export interface MovieInterface {
   },
   backgroundColor: string,
   previewImage: string,
+  videoLink: string,
   rating: number,
   ratingLevel: string,
   ratingCount: number,

@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import {Main} from "./main";
-import {genres, Movies, movie} from "../../mock/testData";
+import {genres, Movies, movie, emptyFunction} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
@@ -41,8 +41,8 @@ it(`Should Main render correctly`, () => {
               genres={genres}
               filteredMovies={Movies}
               showedMoviesCount={8}
-              onClick={() => {}}
-              onShowMoreButtonClick={()=>{}}
+              onClick={emptyFunction}
+              onShowMoreButtonClick={emptyFunction}
             />
           </Provider>
         </Router>, {

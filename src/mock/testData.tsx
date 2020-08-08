@@ -1,6 +1,8 @@
-const genres = [`Drama`, `Comedy`, `Western`];
+import {MovieInterface, ReviewInterface} from "../types";
 
-const movie = {
+export const genres = [`Drama`, `Comedy`, `Western`];
+
+export const movie: MovieInterface = {
   promoMovie: {
     id: 1,
     title: `Macbeth`,
@@ -24,7 +26,7 @@ const movie = {
   isFavorite: true,
 };
 
-const Movies = [
+export const Movies: Array<MovieInterface> = [
   {
     promoMovie: {
       id: 1,
@@ -258,7 +260,7 @@ const Movies = [
   },
 ];
 
-const reviews = [{
+export const reviews: Array<ReviewInterface> = [{
   id: 1,
   message: ``,
   rating: 8.9,
@@ -266,11 +268,13 @@ const reviews = [{
   date: ``,
 }];
 
-const userData = {
+export const userData = {
   id: 0,
   email: `vesan@mail.ru`,
   name: `Lola`,
   avatarUrl: ``,
 };
 
-export {movie, Movies, reviews, genres, userData};
+export const emptyFunction = () => {
+  // function for tests
+};

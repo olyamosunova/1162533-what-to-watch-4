@@ -1,10 +1,10 @@
-import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import {configure, shallow} from "enzyme";
+import * as Adapter from 'enzyme-adapter-react-16';
 import SmallMovieCard from "./small-movie-card";
-import {movie} from "../../mock/testData";
+import {movie, emptyFunction} from "../../mock/testData";
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
 
@@ -16,7 +16,7 @@ it(`when user hover movie card`, () => {
         movie={movie}
         isPlaying={false}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={() => {}}
+        onMouseLeave={emptyFunction}
       />
   );
 
@@ -32,7 +32,7 @@ it(`when user leave movie card`, ()=> {
       <SmallMovieCard
         movie={movie}
         isPlaying={false}
-        onMouseEnter={() => {}}
+        onMouseEnter={emptyFunction}
         onMouseLeave={onMouseLeave}
       />
   );

@@ -1,14 +1,14 @@
-import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import {configure, mount} from "enzyme";
+import * as Adapter from 'enzyme-adapter-react-16';
 import BigVideoPlayer from "./big-video-player";
-import {Movies} from "../../mock/testData";
+import {Movies, emptyFunction} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
 const mockStore = configureStore([]);
 
-Enzyme.configure({
+configure({
   adapter: new Adapter()
 });
 
@@ -22,14 +22,13 @@ it(`Callback onPauseClick are working`, () => {
   const bigVideoPlayer = mount(
       <Provider store={store}>
         <BigVideoPlayer
-          onExitClick={()=>{}}
+          onExitClick={emptyFunction}
           isPlaying={false}
           progress={0}
           timeLeft={`01:00:00`}
           onPlayClick={onPlayClick}
-          onPauseClick={()=>{}}
-          onFullScreenClick={()=>{}}
-          isFullScreenMode={true}
+          onPauseClick={emptyFunction}
+          onFullScreenClick={emptyFunction}
         >
           <video />
         </BigVideoPlayer>

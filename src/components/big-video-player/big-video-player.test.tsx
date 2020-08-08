@@ -1,9 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import BigVideoPlayer from "./big-video-player";
 import configureStore from "redux-mock-store";
 import {GenreNames} from "../../const";
-import {Movies, genres} from "../../mock/testData";
+import {Movies, genres, emptyFunction} from "../../mock/testData";
 import {Provider} from "react-redux";
 
 const mockStore = configureStore([]);
@@ -22,14 +22,13 @@ it(`render BigVideoPlayer with video play`, () => {
     .create(
         <Provider store={store}>
           <BigVideoPlayer
-            onExitClick={()=>{}}
+            onExitClick={emptyFunction}
             isPlaying={true}
             progress={0}
             timeLeft={`01:00:00`}
-            onPlayClick={()=>{}}
-            onPauseClick={()=>{}}
-            onFullScreenClick={()=>{}}
-            isFullScreenMode={false}
+            onPlayClick={emptyFunction}
+            onPauseClick={emptyFunction}
+            onFullScreenClick={emptyFunction}
           >
             <video />
           </BigVideoPlayer>
@@ -56,14 +55,13 @@ it(`render BigVideoPlayer with video pause`, () => {
     .create(
         <Provider store={store}>
           <BigVideoPlayer
-            onExitClick={()=>{}}
+            onExitClick={emptyFunction}
             isPlaying={false}
             progress={0}
             timeLeft={`01:00:00`}
-            onPlayClick={()=>{}}
-            onPauseClick={()=>{}}
-            onFullScreenClick={()=>{}}
-            isFullScreenMode={false}
+            onPlayClick={emptyFunction}
+            onPauseClick={emptyFunction}
+            onFullScreenClick={emptyFunction}
           >
             <video />
           </BigVideoPlayer>

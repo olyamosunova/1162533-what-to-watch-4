@@ -1,9 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import SmallMovieCard from "./small-movie-card";
-import {movie} from "../../mock/testData";
+import {movie, emptyFunction} from "../../mock/testData";
 
 it(`Should SmallMovieCard render correctly`, () => {
   const tree = renderer
@@ -12,8 +12,8 @@ it(`Should SmallMovieCard render correctly`, () => {
           <SmallMovieCard
             movie={movie}
             isPlaying={false}
-            onMouseEnter={() => {}}
-            onMouseLeave={() => {}} />
+            onMouseEnter={emptyFunction}
+            onMouseLeave={emptyFunction} />
         </Router>, {
           createNodeMock: () => {
             return {};

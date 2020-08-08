@@ -1,11 +1,12 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import NameSpace from '../../reducer/name-space';
 import SignIn from './sign-in';
+import {emptyFunction} from "../../mock/testData";
 
 describe(`SignIn`, () => {
   const mockStore = configureStore([]);
@@ -28,7 +29,7 @@ describe(`SignIn`, () => {
           <Router history={history}>
             <Provider store={store}>
               <SignIn
-                onSubmit={() => {}}
+                onSubmit={emptyFunction}
               />
             </Provider>
           </Router>, {
@@ -60,7 +61,7 @@ describe(`SignIn`, () => {
           <Router history={history}>
             <Provider store={store}>
               <SignIn
-                onSubmit={() => {}}
+                onSubmit={emptyFunction}
               />
             </Provider>
           </Router>, {

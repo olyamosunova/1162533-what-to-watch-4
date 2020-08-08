@@ -1,5 +1,5 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import AddReview from "./add-review";
 import {movie} from "../../mock/testData";
 import {Provider} from 'react-redux';
@@ -8,6 +8,7 @@ import {Router} from 'react-router-dom';
 import NameSpace from "../../reducer/name-space";
 import configureStore from 'redux-mock-store';
 import {AuthorizationStatus} from "../../const";
+import {emptyFunction} from "../../mock/testData";
 
 const mockStore = configureStore([]);
 
@@ -32,10 +33,10 @@ it(`render AddReview`, () => {
             <AddReview
               movie={movie}
               isReviewPosting={false}
-              onSubmitClick={() => {}}
-              onFormChange={() => {}}
-              onRatingChange={() => {}}
-              onReviewChange={() => {}}
+              onSubmitClick={emptyFunction}
+              onFormChange={emptyFunction}
+              onRatingChange={emptyFunction}
+              onReviewChange={emptyFunction}
               isSubmitDisabled={true}
               isReviewLengthError={false}
               isError={false}

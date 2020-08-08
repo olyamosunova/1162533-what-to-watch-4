@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {MoviePage} from "./movie-page.js";
-import {movie, Movies, userData} from "../../mock/testData";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
+import {MoviePage} from "./movie-page";
+import {movie, Movies, reviews, emptyFunction} from "../../mock/testData";
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {Provider} from 'react-redux';
@@ -33,16 +33,12 @@ it(`Should MoviePage render correctly`, () => {
             <MoviePage
               movie={movie}
               movies={Movies}
-              onMovieClick={() => {}}
-              renderTabs={() => {}}
+              reviews={reviews}
+              renderTabs={emptyFunction}
               activeTab={`Overview`}
-              authorizationStatus={`NO_AUTH`}
-              userData={userData}
-              onLoginClick={() => {}}
               isSignedIn={true}
-              onAddReviewClick={() => {}}
-              onMyListClick={() => {}}
-              loadMovie={() => {}}
+              onMyListClick={emptyFunction}
+              loadMovie={emptyFunction}
             />
           </Provider>
         </Router>, {

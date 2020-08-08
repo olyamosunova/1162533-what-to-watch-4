@@ -1,5 +1,5 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import MoviePageOverview from "./movie-page-overview";
 import {movie} from "../../mock/testData";
 

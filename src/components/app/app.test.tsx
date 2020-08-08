@@ -1,9 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from 'react-test-renderer';
 import {App} from "./app";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-import {Movies, movie, genres} from "../../mock/testData";
+import {Movies, movie, genres, emptyFunction} from "../../mock/testData";
 import {AuthorizationStatus, GenreNames} from "../../const";
 import NameSpace from "../../reducer/name-space";
 
@@ -42,13 +42,11 @@ it(`Render App`, () => {
             movies={Movies}
             filteredMovies={Movies}
             genres={genres}
-            playingMovie={Movies[0]}
             authorizationStatus={`NO_AUTH`}
-            login={() => {}}
+            login={emptyFunction}
             isLoading={false}
-            loadMovies={() => {}}
+            loadMovies={emptyFunction}
             isError={false}
-            routeProps={{match: {params: {id: 123456}, isExact: true, path: ``, url: ``}}}
           />
         </Provider>, {
           createNodeMock: ()=>{

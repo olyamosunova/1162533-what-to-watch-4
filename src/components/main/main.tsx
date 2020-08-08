@@ -14,13 +14,6 @@ interface Props {
   activeGenre: string;
   onClick(activeGenre: string): void;
   filteredMovies: Array<MovieInterface>;
-  rating: number;
-  ratingLevel: string;
-  ratingCount: number;
-  runTime: number;
-  description: string;
-  director: string;
-  starring: string[];
   showedMoviesCount: number;
   onShowMoreButtonClick(): void;
 }
