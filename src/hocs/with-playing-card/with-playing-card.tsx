@@ -1,7 +1,21 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
+import {Subtract} from "utility-types";
+
+interface State {
+  isPlaying: boolean;
+}
+
+interface InjectingProps {
+  isPlaying: boolean;
+  onMouseEnter(): void;
+  onMouseLeave(): void;
+}
 
 const withPlayingCard = (Component) => {
-  class WithActiveItem extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithActiveItem extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 

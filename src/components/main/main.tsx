@@ -1,15 +1,31 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import MoviesList from "../movies-list/movies-list.js";
-import GenresList from "../genres-list/genres-list.js";
-import ShowMoreButton from "../show-more-button/show-more-button.js";
+import * as React from 'react';
+import MoviesList from "../movies-list/movies-list";
+import GenresList from "../genres-list/genres-list";
+import ShowMoreButton from "../show-more-button/show-more-button";
 import {ActionCreator} from "../../reducer/states/states";
 import {connect} from "react-redux";
 import {getGenres, getFilteredMovies} from "../../reducer/data/selectors";
 import {getActiveGenre, getShowedMoviesCount} from "../../reducer/states/selectors";
-import PromoMovie from "../promo-movie/promo-movie.js";
+import PromoMovie from "../promo-movie/promo-movie";
+import {MovieInterface} from "../../types";
 
-class Main extends PureComponent {
+interface Props {
+  genres: string[],
+  activeGenre: string,
+  onClick(activeGenre: string): void,
+  filteredMovies: Array<MovieInterface>
+  rating: number,
+  ratingLevel: string,
+  ratingCount: number,
+  runTime: number,
+  description: string,
+  director: string,
+  starring: string[],
+  showedMoviesCount: number,
+  onShowMoreButtonClick(): void,
+}
+
+class Main extends React.PureComponent<Props, {}>{
   constructor(props) {
     super(props);
   }
@@ -56,34 +72,6 @@ class Main extends PureComponent {
     );
   }
 }
-
-Main.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  filteredMovies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  showedMoviesCount: PropTypes.number.isRequired,
-  onShowMoreButtonClick: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   activeGenre: getActiveGenre(state),

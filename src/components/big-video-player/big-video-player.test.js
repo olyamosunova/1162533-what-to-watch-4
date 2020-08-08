@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import BigVideoPlayer from "./big-video-player.jsx";
+import BigVideoPlayer from "./big-video-player";
 import configureStore from "redux-mock-store";
 import {GenreNames} from "../../const";
 import {Movies, genres} from "../../mock/testData";

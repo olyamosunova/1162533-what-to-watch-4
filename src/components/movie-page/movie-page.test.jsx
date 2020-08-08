@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MoviePage} from "./movie-page.jsx";
+import {MoviePage} from "./movie-page.js";
 import {movie, Movies, userData} from "../../mock/testData";
 import {Router} from 'react-router-dom';
 import history from '../../history';

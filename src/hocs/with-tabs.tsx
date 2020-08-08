@@ -1,8 +1,20 @@
-import React, {PureComponent} from 'react';
-import Tabs from "../components/tabs/tabs.js";
+import * as React from "react";
+import {Subtract} from 'utility-types';
+import Tabs from "../components/tabs/tabs";
+
+interface InjectingProps {
+  onTabClick(): void;
+}
+
+interface State {
+  activeTab: string;
+}
 
 const withTabs = (Component) => {
-  class WithTabs extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithTabs extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -32,8 +44,6 @@ const withTabs = (Component) => {
       />;
     }
   }
-
-  WithTabs.propTypes = {};
 
   return WithTabs;
 };

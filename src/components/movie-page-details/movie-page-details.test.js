@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviePageDetails from "./movie-page-details.jsx";
+import MoviePageDetails from "./movie-page-details";
 import {movie} from "../../mock/testData";
 
 it(`Should MoviePageDetails render correctly`, () => {

@@ -1,5 +1,4 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {Review} from "../../const";
 import {connect} from 'react-redux';
 import {Operations as DataOperations} from "../../reducer/data/data";
@@ -7,15 +6,33 @@ import {getIsError, getMovies} from "../../reducer/data/selectors";
 import {getActiveMovie} from "../../reducer/states/selectors";
 import {getReviewPosting} from "../../reducer/data/selectors";
 import {ActionCreatorByData} from "../../reducer/data/data";
+import {MovieInterface} from "../../types";
+import {Subtract} from "utility-types";
+
+interface State {
+  rating: number,
+  comment: string,
+  isSubmitDisabled: boolean,
+  isReviewLengthError: boolean,
+}
+
+interface InjectingProps {
+  movie: MovieInterface,
+  movies: Array<MovieInterface>,
+  isReviewPosting: boolean,
+  onReviewSubmit(movieId: number, review: {
+    rating: number;
+    comment: string;
+  }): void,
+  activeMovieId: number
+  isError: boolean,
+  clearError(): void,
+}
 
 const withReview = (Component) => {
-  class WithReview extends PureComponent {
+  class WithReview extends React.PureComponent<InjectingProps, State> {
     constructor(props) {
       super(props);
-
-      const {movie} = this.props;
-
-      this.activeMovie = movie;
 
       this.state = {
         rating: 5,
@@ -64,10 +81,12 @@ const withReview = (Component) => {
     }
 
     render() {
+      const {movie} = this.props;
+
       return (
         <Component
           {...this.props}
-          activeMovie={this.activeMovie}
+          activeMovie={movie}
           onFormChange={this._handleFormChange}
           onSubmitClick={this._handleSubmitClick}
           onRatingChange={this._handleRatingChange}
@@ -78,52 +97,6 @@ const withReview = (Component) => {
       );
     }
   }
-
-  WithReview.propTypes = {
-    movies: PropTypes.arrayOf(
-        PropTypes.shape({
-          promoMovie: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            genre: PropTypes.string.isRequired,
-            releaseDate: PropTypes.number.isRequired,
-            poster: PropTypes.string.isRequired,
-            cover: PropTypes.string.isRequired,
-            previewVideo: PropTypes.string.isRequired,
-          }),
-          rating: PropTypes.number.isRequired,
-          ratingLevel: PropTypes.string.isRequired,
-          ratingCount: PropTypes.number.isRequired,
-          runTime: PropTypes.number.isRequired,
-          description: PropTypes.string.isRequired,
-          director: PropTypes.string.isRequired,
-          starring: PropTypes.array.isRequired,
-        })
-    ),
-    movie: PropTypes.shape({
-      promoMovie: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseDate: PropTypes.number.isRequired,
-        poster: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        previewVideo: PropTypes.string.isRequired,
-      }),
-      rating: PropTypes.number.isRequired,
-      ratingLevel: PropTypes.string.isRequired,
-      ratingCount: PropTypes.number.isRequired,
-      runTime: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      starring: PropTypes.array.isRequired,
-    }),
-    isReviewPosting: PropTypes.bool.isRequired,
-    onReviewSubmit: PropTypes.func.isRequired,
-    activeMovieId: PropTypes.number.isRequired,
-    isError: PropTypes.bool.isRequired,
-    clearError: PropTypes.func.isRequired,
-  };
 
   const mapStateToProps = (state) => {
     return {

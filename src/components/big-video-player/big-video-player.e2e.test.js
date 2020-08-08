@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import BigVideoPlayer from "./big-video-player.jsx";
+import BigVideoPlayer from "./big-video-player";
 import {Movies} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";

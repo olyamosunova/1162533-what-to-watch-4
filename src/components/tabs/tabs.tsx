@@ -1,11 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {TABS} from "../../const";
 
-const Tabs = (props) => {
-  const _renderTab = () => {
-    const {activeTab, onTabClick} = props;
+interface Props {
+  activeTab: string,
+  onTabClick(tab: string): void
+}
 
+const Tabs: React.FC<Props> = ({
+  activeTab,
+  onTabClick
+}: Props) => {
+  const _renderTab = () => {
     return TABS.map((tab, i) => (
       <li
         className={`movie-nav__item ${activeTab === tab ? `movie-nav__item--active` : ``}`}
@@ -28,11 +33,6 @@ const Tabs = (props) => {
       </ul>
     </nav>
   );
-};
-
-Tabs.propTypes = {
-  activeTab: PropTypes.string.isRequired,
-  onTabClick: PropTypes.func.isRequired
 };
 
 export default Tabs;

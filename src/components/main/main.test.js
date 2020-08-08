@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Main} from "./main.jsx";
+import {Main} from "./main";
 import {genres, Movies, movie} from "../../mock/testData";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";

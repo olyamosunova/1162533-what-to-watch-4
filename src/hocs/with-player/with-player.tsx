@@ -1,19 +1,34 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Subtract} from "utility-types";
 import history from "../../history";
+import {MovieInterface} from "../../types";
 
-const withPlayer = (Component) =>{
-  class WithPlayer extends PureComponent {
+interface State {
+  isPlaying: boolean,
+  progress: number,
+  timeLeft: string,
+}
+
+interface InjectingProps {
+  movie: MovieInterface;
+}
+
+const withPlayer = (Component) => {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithPlayer extends React.PureComponent<T, State> {
+    private videoRef: React.RefObject<HTMLVideoElement>;
+
     constructor(props) {
       super(props);
 
-      this._videoRef = React.createRef();
+      this.videoRef = React.createRef();
 
       this.state = {
         isPlaying: true,
         progress: 0,
         timeLeft: `00:00:00`,
-        isFullScreenMode: false,
       };
 
       this.handlePlayClick = this.handlePlayClick.bind(this);
@@ -33,14 +48,12 @@ const withPlayer = (Component) =>{
       });
     }
 
-    handleFullScreenClick() {
-      this.setState((prevState)=>({
-        isFullScreenMode: !prevState.isFullScreenMode,
-      }));
+    private handleFullScreenClick() {
+      this.videoRef.current.requestFullscreen();
     }
 
     componentDidMount() {
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
 
       video.onloadedmetadata = () => {
         video.ontimeupdate = () =>
@@ -52,14 +65,14 @@ const withPlayer = (Component) =>{
     }
 
     componentWillUnmount() {
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
       video.onloadedmetadata = null;
       video.ontimeupdate = null;
     }
 
     componentDidUpdate() {
       const {isPlaying} = this.state;
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
 
       if (isPlaying && !video.ended) {
         video.play();
@@ -76,7 +89,7 @@ const withPlayer = (Component) =>{
     }
 
     render() {
-      const {isPlaying, progress, timeLeft, isFullScreenMode} = this.state;
+      const {isPlaying, progress, timeLeft} = this.state;
       const {movie} = this.props;
       const {videoLink, previewImage} = movie;
 
@@ -89,7 +102,6 @@ const withPlayer = (Component) =>{
         onPlayClick={this.handlePlayClick}
         onPauseClick={this.handlePauseClick}
         onFullScreenClick={this.handleFullScreenClick}
-        isFullScreenMode={isFullScreenMode}
       >
         <video
           src={videoLink}
@@ -97,34 +109,11 @@ const withPlayer = (Component) =>{
           poster={previewImage}
           autoPlay={true}
           loop={false}
-          ref={this._videoRef}
+          ref={this.videoRef}
         />
       </Component>;
     }
   }
-
-  WithPlayer.propTypes = {
-    movie: PropTypes.shape({
-      promoMovie: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseDate: PropTypes.number.isRequired,
-        poster: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        previewVideo: PropTypes.string.isRequired,
-      }),
-      previewImage: PropTypes.string.isRequired,
-      videoLink: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      ratingLevel: PropTypes.string.isRequired,
-      ratingCount: PropTypes.number.isRequired,
-      runTime: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      starring: PropTypes.array.isRequired,
-    }).isRequired,
-  };
 
   return WithPlayer;
 };

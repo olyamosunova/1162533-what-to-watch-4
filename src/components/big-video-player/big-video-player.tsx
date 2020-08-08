@@ -1,39 +1,29 @@
-import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 
-class BigVideoPlayer extends PureComponent {
-  constructor(props) {
-    super(props);
+interface Props {
+  children: React.ReactNode,
+  progress: number,
+  timeLeft: string,
+  isPlaying: boolean,
+  onExitClick(): void,
+  onPlayClick(): void,
+  onPauseClick(): void,
+  onFullScreenClick(): void,
+}
 
-    this.playerRef = createRef();
-
-    this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
-  }
-
-  handleFullScreenClick() {
-    const {onFullScreenClick} = this.props;
-    onFullScreenClick();
-  }
-
-  componentDidUpdate(prevProps) {
-    const {isFullScreenMode} = this.props;
-    const player = this.playerRef.current;
-
-    if (this.props.isFullScreenMode !== prevProps.isFullScreenMode) {
-      if (isFullScreenMode) {
-        player.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-  }
-
-  render() {
-    const {isPlaying, progress, timeLeft, children, onPlayClick, onPauseClick, onExitClick} = this.props;
-
-    return <div
+const MoviePlayer: React.FC<Props> = ({
+  children,
+  progress,
+  timeLeft,
+  isPlaying,
+  onExitClick,
+  onPlayClick,
+  onPauseClick,
+  onFullScreenClick,
+}: Props) => {
+  return (
+    <div
       className="player"
-      ref={this.playerRef}
     >
       {children}
 
@@ -88,7 +78,7 @@ class BigVideoPlayer extends PureComponent {
           <button
             type="button"
             className="player__full-screen"
-            onClick={this.handleFullScreenClick}
+            onClick={onFullScreenClick}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
@@ -98,20 +88,7 @@ class BigVideoPlayer extends PureComponent {
         </div>
       </div>
 
-    </div>;
-  }
-}
-
-BigVideoPlayer.propTypes = {
-  children: PropTypes.node.isRequired,
-  progress: PropTypes.number.isRequired,
-  timeLeft: PropTypes.string,
-  isPlaying: PropTypes.bool.isRequired,
-  onExitClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
-  onPauseClick: PropTypes.func.isRequired,
-  onFullScreenClick: PropTypes.func.isRequired,
-  isFullScreenMode: PropTypes.bool.isRequired,
+    </div>);
 };
 
-export default BigVideoPlayer;
+export default MoviePlayer;

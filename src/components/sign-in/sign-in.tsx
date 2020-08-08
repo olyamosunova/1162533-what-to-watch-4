@@ -1,14 +1,25 @@
-import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
-import Header from "../header/header.js";
-import {CurrentPage} from "../../const";
+import * as React from "react";
+import {Link} from "react-router-dom";
 
-class SignIn extends PureComponent {
+import {CurrentPage, AppRoute} from "../../const";
+import Header from "../header/header";
+
+interface Props {
+  onSubmit(userData: {
+    login: string;
+    password: string;
+  }): void;
+}
+
+class SignIn extends React.PureComponent<Props, {}>{
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
-    this.loginRef = createRef();
-    this.passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -55,11 +66,13 @@ class SignIn extends PureComponent {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            {<Link
+              className="logo__link logo__link--light"
+              to={AppRoute.ROOT}>
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>}
           </div>
 
           <div className="copyright">
@@ -70,9 +83,5 @@ class SignIn extends PureComponent {
     );
   }
 }
-
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SignIn;

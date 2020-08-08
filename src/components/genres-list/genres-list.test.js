@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import GenresList from "./genres-list.jsx";
+import GenresList from "./genres-list";
 import {GenreNames} from "./../../const.js";
 import {genres} from "../../mock/testData";
 

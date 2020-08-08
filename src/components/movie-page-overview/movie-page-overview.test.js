@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviePageOverview from "./movie-page-overview.jsx";
+import MoviePageOverview from "./movie-page-overview";
 import {movie} from "../../mock/testData";
 
 it(`Should MoviePageOverview render correctly`, () => {

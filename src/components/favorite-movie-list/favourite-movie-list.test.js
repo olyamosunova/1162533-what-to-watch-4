@@ -4,7 +4,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {Movies} from "../../mock/testData";
 import NameSpace from '../../reducer/name-space';
-import FavoriteMovieList from "./favorite-movie-list.jsx";
+import FavoriteMovieList from "./favorite-movie-list";
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {AuthorizationStatus} from "../../const";

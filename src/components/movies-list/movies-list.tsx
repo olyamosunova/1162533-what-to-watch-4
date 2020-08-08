@@ -1,13 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import SmallMovieCard from "../small-movie-card/small-movie-card.js";
-import withPlayingCard from "../../hocs/with-playing-card/with-playing-card.js";
-
+import * as React from "react";
+import SmallMovieCard from "../small-movie-card/small-movie-card";
+import withPlayingCard from "../../hocs/with-playing-card/with-playing-card";
 const SmallMovieCardWrapped = withPlayingCard(SmallMovieCard);
+import {MovieInterface} from "../../types";
 
-const MoviesList = (props) => {
-  const {movies} = props;
+interface Props {
+  movies: Array<MovieInterface>,
+}
 
+const MoviesList: React.FC<Props> = ({
+  movies
+}: Props) => {
   return (
     <div className="catalog__movies-list">
       {movies.map((movie) => (
@@ -18,29 +21,6 @@ const MoviesList = (props) => {
       ))}
     </div>
   );
-};
-
-MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-      })
-  ).isRequired,
 };
 
 export default MoviesList;

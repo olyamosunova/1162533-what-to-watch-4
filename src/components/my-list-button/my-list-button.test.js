@@ -7,7 +7,7 @@ import NameSpace from '../../reducer/name-space';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {AuthorizationStatus} from "../../const";
-import MyListButton from "./my-list-button.jsx";
+import MyListButton from "./my-list-button";
 
 const mockStore = configureStore([]);
 

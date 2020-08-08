@@ -1,12 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {AuthorizationStatus, CurrentPage} from "../../const";
-import {Link} from "react-router-dom";
-import {AppRoute} from "../../const";
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import * as React from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-const Header = (props) => {
+import {AuthorizationStatus, CurrentPage, AppRoute} from "../../const";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
+import {UserDataInterface} from "../../types";
+
+interface Props {
+  authorizationStatus: string,
+  userData: UserDataInterface,
+  currentPage: string,
+  children?: React.ReactNode,
+}
+
+const Header: React.FC<Props> = (props: Props) => {
   const {authorizationStatus, userData, currentPage} = props;
 
   const headerTitle = (currentPage === CurrentPage.MY_LIST || currentPage === CurrentPage.LOGIN) ? `user-page__head` : `movie-card__head`;
@@ -48,18 +55,6 @@ const Header = (props) => {
 
     </header>
   );
-};
-
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-  }).isRequired,
-  currentPage: PropTypes.string,
-  children: PropTypes.node,
 };
 
 const mapStateToProps = (state) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import VideoPlayer from './video-player.jsx';
+import VideoPlayer from './video-player';
 
 const video = {
   poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,

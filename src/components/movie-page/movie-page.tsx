@@ -1,23 +1,34 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import {connect} from "react-redux";
-import MoviesList from "../movies-list/movies-list.js";
-import MoviePageOverview from "../movie-page-overview/movie-page-overview.js";
-import MoviePageDetails from "../movie-page-details/movie-page-details.js";
-import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.js";
-import Header from "../header/header.js";
+import MoviesList from "../movies-list/movies-list";
+import MoviePageOverview from "../movie-page-overview/movie-page-overview";
+import MoviePageDetails from "../movie-page-details/movie-page-details";
+import MoviePageReviews from "../movie-page-reviews/movie-page-reviews";
+import Header from "../header/header";
 import {TabsName} from "../../const";
 import {getMovies, getReviews} from "../../reducer/data/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../const";
-import MyListButton from "../my-list-button/my-list-button.js";
+import MyListButton from "../my-list-button/my-list-button";
 import {Operations} from "../../reducer/data/data";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
+import {MovieInterface, ReviewInterface} from "../../types";
 
 const SIMILAR_FILM_COUNT = 4;
 
-class MoviePage extends PureComponent {
+interface Props {
+  movie: MovieInterface,
+  movies: Array<MovieInterface>
+  reviews: Array<ReviewInterface>,
+  renderTabs(): void,
+  activeTab: string,
+  isSignedIn: boolean,
+  onMyListClick(): void,
+  loadMovie(movie: MovieInterface): void,
+}
+
+class MoviePage extends React.PureComponent<Props, {}>{
   constructor(props) {
     super(props);
   }
@@ -31,7 +42,6 @@ class MoviePage extends PureComponent {
     const {movie, loadMovie} = this.props;
     loadMovie(movie);
   }
-
 
   render() {
     const {
@@ -143,7 +153,6 @@ class MoviePage extends PureComponent {
 
             <MoviesList
               movies={getSimilarMovies(genre, movies, movie.promoMovie.id)}
-              genre={genre}
             />
           </section>
 
@@ -165,63 +174,6 @@ class MoviePage extends PureComponent {
     );
   }
 }
-
-MoviePage.propTypes = {
-  movie: PropTypes.shape({
-    promoMovie: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      previewVideo: PropTypes.string.isRequired,
-    }),
-    backgroundColor: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    ratingLevel: PropTypes.string.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-  }),
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        backgroundColor: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-      })),
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        message: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })),
-  renderTabs: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  isSignedIn: PropTypes.bool.isRequired,
-  onMyListClick: PropTypes.func.isRequired,
-  loadMovie: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => {
   return {

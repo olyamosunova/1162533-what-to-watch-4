@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import NameSpace from '../../reducer/name-space';
-import SignIn from './sign-in.jsx';
+import SignIn from './sign-in';
 
 describe(`SignIn`, () => {
   const mockStore = configureStore([]);

@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {formatDateTime, formatReviewDate} from "../../utils";
+import {ReviewInterface} from "../../types";
 
-const MoviePageReviews = (props) => {
+interface Props {
+  reviews: Array<ReviewInterface>
+}
+
+const MoviePageReviews: React.FC<Props> = (props: Props) => {
   const {reviews} = props;
 
   const _renderReviews = () => {
@@ -31,17 +35,6 @@ const MoviePageReviews = (props) => {
       </div>
     </div>
   );
-};
-
-MoviePageReviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        message: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })),
 };
 
 export default MoviePageReviews;

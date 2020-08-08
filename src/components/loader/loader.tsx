@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactLoading from "react-loading";
 
-const Loader = () => {
+const Loader: React.FC = () => {
   const loaderStyles = {
     display: `flex`,
     width: `100%`,

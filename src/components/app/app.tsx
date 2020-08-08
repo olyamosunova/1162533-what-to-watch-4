@@ -1,33 +1,54 @@
-import React from "react";
+import * as React from 'react';
 import {Route, Switch, Router, Redirect} from "react-router-dom";
-import PropTypes from "prop-types";
-import Main from "../main/main.js";
-import MoviePage from "../movie-page/movie-page.js";
-import withTabs from "../../hocs/with-tabs.js";
 import {connect} from "react-redux";
-import {Operations} from "../../reducer/data/data";
-import BigVideoPlayer from "../big-video-player/big-video-player.js";
-import withPlayer from "../../hocs/with-player/with-player.js";
-import {getFilteredMovies, getGenres, getIsError, getIsLoading, getMovies} from "../../reducer/data/selectors";
-import {Operations as UserOperations} from "../../reducer/user/user";
-import SignIn from "../sign-in/sign-in.js";
-import AddReview from "../add-review/add-review.js";
-import withReview from "../../hocs/with-review/with-review.js";
+import PrivateRoute from "../private-route/private-route";
 import history from "../../history";
+import {MovieInterface} from "../../types";
+
 import {AppRoute} from "../../const";
-import PrivateRoute from "../private-route/private-route.js";
-import FavoriteMovieList from "../favorite-movie-list/favorite-movie-list.js";
 import {getMovieById} from "../../utils";
-import Loader from "../loader/loader.js";
+import {Operations} from "../../reducer/data/data";
+import {getFilteredMovies, getGenres, getIsError, getIsLoading, getMovies} from "../../reducer/data/selectors";
+import {AuthorizationStatus, Operations as UserOperations} from "../../reducer/user/user";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
-import {AuthorizationStatus} from "../../reducer/user/user";
+
+import Main from "../main/main";
+import MoviePage from "../movie-page/movie-page";
+import BigVideoPlayer from "../big-video-player/big-video-player";
+import SignIn from "../sign-in/sign-in";
+import FavoriteMovieList from "../favorite-movie-list/favorite-movie-list";
+import AddReview from "../add-review/add-review";
+import Loader from "../loader/loader";
+
+import withTabs from "../../hocs/with-tabs";
+import withPlayer from "../../hocs/with-player/with-player";
+import withReview from "../../hocs/with-review/with-review";
 
 const BigVideoPlayerWrapped = withPlayer(BigVideoPlayer);
 const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 
-const App = (props) => {
-  const {movies, isLoading, isError, filteredMovies, genres, login, loadMovies, authorizationStatus} = props;
+interface Props {
+  movies: Array<MovieInterface>,
+  filteredMovies: Array<MovieInterface>,
+  genres: string[],
+  authorizationStatus: string,
+  isLoading: boolean,
+  isError: boolean,
+  login(authData: {}): void,
+  loadMovies(): void,
+}
+
+const App: React.FC<Props> = ({
+  movies,
+  filteredMovies,
+  isLoading,
+  isError,
+  genres,
+  authorizationStatus,
+  login,
+  loadMovies
+}: Props) => {
 
   const renderMainPage = () => {
     return !isError ?
@@ -110,55 +131,6 @@ const App = (props) => {
         : <Loader />}
     </React.Fragment>
   );
-};
-
-App.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  filteredMovies: PropTypes.arrayOf(
-      PropTypes.shape({
-        promoMovie: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          genre: PropTypes.string.isRequired,
-          releaseDate: PropTypes.number.isRequired,
-          poster: PropTypes.string.isRequired,
-          cover: PropTypes.string.isRequired,
-          previewVideo: PropTypes.string.isRequired,
-        }),
-        rating: PropTypes.number.isRequired,
-        ratingLevel: PropTypes.string.isRequired,
-        ratingCount: PropTypes.number.isRequired,
-        runTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  login: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  loadMovies: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

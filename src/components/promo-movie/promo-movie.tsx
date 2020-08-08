@@ -1,15 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {getPromoMovie} from "../../reducer/data/selectors";
-import Header from "../header/header.js";
+import Header from "../header/header";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 import {Operations} from "../../reducer/data/data";
-import MyListButton from "../my-list-button/my-list-button.js";
+import MyListButton from "../my-list-button/my-list-button";
+import {MovieInterface} from "../../types";
 
-const PromoMovie = (props) => {
-  const {promoMovieCard, onMyListClick} = props;
+interface Props {
+  promoMovieCard: MovieInterface,
+  onMyListClick(): void,
+}
+
+const PromoMovie: React.FC<Props> = ({
+  promoMovieCard,
+  onMyListClick
+}: Props) => {
   const {promoMovie, isFavorite} = promoMovieCard;
   const {id, title, genre, releaseDate, cover, poster} = promoMovie;
   return (
@@ -51,21 +58,6 @@ const PromoMovie = (props) => {
       </div>
     </section>
   );
-};
-
-PromoMovie.propTypes = {
-  promoMovieCard: PropTypes.shape({
-    promoMovie: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-    }),
-    isFavorite: PropTypes.bool.isRequired,
-  }),
-  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

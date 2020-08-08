@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import AddReview from "./add-review.jsx";
+import AddReview from "./add-review";
 import {movie} from "../../mock/testData";
 import {Provider} from 'react-redux';
 import history from '../../history';

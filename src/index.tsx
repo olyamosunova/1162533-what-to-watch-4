@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import App from "./components/app/app.js";
+import App from "./components/app/app";
 import reducer from "./reducer/reducer";
 import thunk from "redux-thunk";
 import {createAPI} from "./api/api";

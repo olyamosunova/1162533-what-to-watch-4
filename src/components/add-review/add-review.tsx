@@ -1,22 +1,32 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {TEXTAREA_BACKGROUNDCOLOR, Review, reviewSubmitButton, AppRoute} from "../../const";
-import Header from "../header/header.js";
+import Header from "../header/header";
 import {Link} from "react-router-dom";
+import {MovieInterface} from "../../types";
 
-const AddReview = (props) => {
+interface Props {
+  movie: MovieInterface,
+  isReviewPosting: boolean,
+  isSubmitDisabled: boolean,
+  isReviewLengthError: boolean,
+  isError: boolean,
+  onSubmitClick(): void,
+  onFormChange(): void,
+  onRatingChange(): void,
+  onReviewChange(): void,
+}
 
-  const {
-    movie,
-    isError,
-    isReviewPosting,
-    onSubmitClick,
-    onRatingChange,
-    onFormChange,
-    onReviewChange,
-    isSubmitDisabled,
-    isReviewLengthError
-  } = props;
+const AddReview: React.FC<Props> = ({
+   movie,
+  isError,
+  isReviewPosting,
+  onSubmitClick,
+  onRatingChange,
+  onFormChange,
+  onReviewChange,
+  isSubmitDisabled,
+  isReviewLengthError
+  }: Props) => {
 
   const RATINGS_QUANTITY = 5;
   const isRadioDisabled = isReviewPosting ? true : false;
@@ -131,36 +141,6 @@ const AddReview = (props) => {
 
     </section>
   );
-};
-
-AddReview.propTypes = {
-  movie: PropTypes.shape({
-    promoMovie: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      previewVideo: PropTypes.string.isRequired,
-    }),
-    backgroundColor: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    ratingLevel: PropTypes.string.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    runTime: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired,
-  }),
-  isReviewPosting: PropTypes.bool.isRequired,
-  onSubmitClick: PropTypes.func.isRequired,
-  onFormChange: PropTypes.func.isRequired,
-  onRatingChange: PropTypes.func.isRequired,
-  onReviewChange: PropTypes.func.isRequired,
-  isSubmitDisabled: PropTypes.bool.isRequired,
-  isReviewLengthError: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
 };
 
 export default AddReview;
