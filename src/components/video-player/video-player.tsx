@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 interface Props {
-  isPlaying: boolean,
-  previewVideo: string,
-  poster: string,
+  isPlaying: boolean;
+  previewVideo: string;
+  poster: string;
 }
 
-class VideoPlayer extends React.PureComponent<Props, {}>{
+class VideoPlayer extends React.PureComponent<Props, {} > {
   private videoRef: React.RefObject<HTMLVideoElement>;
   private videoTimer: NodeJS.Timeout;
 

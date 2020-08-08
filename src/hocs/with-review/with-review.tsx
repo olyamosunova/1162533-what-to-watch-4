@@ -7,26 +7,25 @@ import {getActiveMovie} from "../../reducer/states/selectors";
 import {getReviewPosting} from "../../reducer/data/selectors";
 import {ActionCreatorByData} from "../../reducer/data/data";
 import {MovieInterface} from "../../types";
-import {Subtract} from "utility-types";
 
 interface State {
-  rating: number,
-  comment: string,
-  isSubmitDisabled: boolean,
-  isReviewLengthError: boolean,
+  rating: number;
+  comment: string;
+  isSubmitDisabled: boolean;
+  isReviewLengthError: boolean;
 }
 
 interface InjectingProps {
-  movie: MovieInterface,
-  movies: Array<MovieInterface>,
-  isReviewPosting: boolean,
+  movie: MovieInterface;
+  movies: Array<MovieInterface>;
+  isReviewPosting: boolean;
   onReviewSubmit(movieId: number, review: {
     rating: number;
     comment: string;
-  }): void,
-  activeMovieId: number
-  isError: boolean,
-  clearError(): void,
+  }): void;
+  activeMovieId: number;
+  isError: boolean;
+  clearError(): void;
 }
 
 const withReview = (Component) => {

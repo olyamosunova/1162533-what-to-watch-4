@@ -5,7 +5,7 @@ const SmallMovieCardWrapped = withPlayingCard(SmallMovieCard);
 import {MovieInterface} from "../../types";
 
 interface Props {
-  movies: Array<MovieInterface>,
+  movies: Array<MovieInterface>;
 }
 
 const MoviesList: React.FC<Props> = ({

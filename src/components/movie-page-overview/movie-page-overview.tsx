@@ -2,7 +2,7 @@ import * as React from "react";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  movie: MovieInterface,
+  movie: MovieInterface;
 }
 
 const MoviePageOverview: React.FC<Props> = (props: Props) => {

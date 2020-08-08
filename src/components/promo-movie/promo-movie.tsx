@@ -9,8 +9,8 @@ import MyListButton from "../my-list-button/my-list-button";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  promoMovieCard: MovieInterface,
-  onMyListClick(): void,
+  promoMovieCard: MovieInterface;
+  onMyListClick(): void;
 }
 
 const PromoMovie: React.FC<Props> = ({

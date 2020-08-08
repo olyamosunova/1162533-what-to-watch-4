@@ -18,17 +18,17 @@ import {MovieInterface, ReviewInterface} from "../../types";
 const SIMILAR_FILM_COUNT = 4;
 
 interface Props {
-  movie: MovieInterface,
-  movies: Array<MovieInterface>
-  reviews: Array<ReviewInterface>,
-  renderTabs(): void,
-  activeTab: string,
-  isSignedIn: boolean,
-  onMyListClick(): void,
-  loadMovie(movie: MovieInterface): void,
+  movie: MovieInterface;
+  movies: Array<MovieInterface>;
+  reviews: Array<ReviewInterface>;
+  renderTabs(): void;
+  activeTab: string;
+  isSignedIn: boolean;
+  onMyListClick(): void;
+  loadMovie(movie: MovieInterface): void;
 }
 
-class MoviePage extends React.PureComponent<Props, {}>{
+class MoviePage extends React.PureComponent<Props, {} > {
   constructor(props) {
     super(props);
   }

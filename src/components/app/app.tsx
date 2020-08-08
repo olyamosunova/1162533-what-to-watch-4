@@ -29,14 +29,14 @@ const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 
 interface Props {
-  movies: Array<MovieInterface>,
-  filteredMovies: Array<MovieInterface>,
-  genres: string[],
-  authorizationStatus: string,
-  isLoading: boolean,
-  isError: boolean,
-  login(authData: {}): void,
-  loadMovies(): void,
+  movies: Array<MovieInterface>;
+  filteredMovies: Array<MovieInterface>;
+  genres: string[];
+  authorizationStatus: string;
+  isLoading: boolean;
+  isError: boolean;
+  login(authData: {}): void;
+  loadMovies(): void;
 }
 
 const App: React.FC<Props> = ({

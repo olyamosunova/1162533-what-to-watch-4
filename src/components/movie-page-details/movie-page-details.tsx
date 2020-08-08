@@ -3,7 +3,7 @@ import {formatMovieDuration} from "../../utils";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  movie: MovieInterface,
+  movie: MovieInterface;
 }
 
 const MoviePageDetails: React.FC<Props> = (props: Props) => {

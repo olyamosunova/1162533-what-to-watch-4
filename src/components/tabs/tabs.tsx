@@ -2,8 +2,8 @@ import * as React from "react";
 import {TABS} from "../../const";
 
 interface Props {
-  activeTab: string,
-  onTabClick(tab: string): void
+  activeTab: string;
+  onTabClick(tab: string): void;
 }
 
 const Tabs: React.FC<Props> = ({

@@ -4,9 +4,9 @@ import history from "../../history";
 import {MovieInterface} from "../../types";
 
 interface State {
-  isPlaying: boolean,
-  progress: number,
-  timeLeft: string,
+  isPlaying: boolean;
+  progress: number;
+  timeLeft: string;
 }
 
 interface InjectingProps {

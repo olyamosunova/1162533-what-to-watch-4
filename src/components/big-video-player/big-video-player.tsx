@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 interface Props {
-  children: React.ReactNode,
-  progress: number,
-  timeLeft: string,
-  isPlaying: boolean,
-  onExitClick(): void,
-  onPlayClick(): void,
-  onPauseClick(): void,
-  onFullScreenClick(): void,
+  children: React.ReactNode;
+  progress: number;
+  timeLeft: string;
+  isPlaying: boolean;
+  onExitClick(): void;
+  onPlayClick(): void;
+  onPauseClick(): void;
+  onFullScreenClick(): void;
 }
 
 const MoviePlayer: React.FC<Props> = ({

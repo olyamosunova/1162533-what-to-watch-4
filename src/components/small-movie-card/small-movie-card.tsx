@@ -5,10 +5,10 @@ import {Link} from "react-router-dom";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  movie: MovieInterface
-  isPlaying: boolean,
-  onMouseEnter(): void,
-  onMouseLeave(): void,
+  movie: MovieInterface;
+  isPlaying: boolean;
+  onMouseEnter(): void;
+  onMouseLeave(): void;
 }
 
 const SmallMovieCard: React.FC<Props> = ({

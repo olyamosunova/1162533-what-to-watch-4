@@ -11,7 +11,7 @@ interface Props {
   }): void;
 }
 
-class SignIn extends React.PureComponent<Props, {}>{
+class SignIn extends React.PureComponent<Props, {} > {
   private loginRef: React.RefObject<HTMLInputElement>;
   private passwordRef: React.RefObject<HTMLInputElement>;
 

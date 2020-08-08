@@ -7,10 +7,10 @@ import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors"
 import {UserDataInterface} from "../../types";
 
 interface Props {
-  authorizationStatus: string,
-  userData: UserDataInterface,
-  currentPage: string,
-  children?: React.ReactNode,
+  authorizationStatus: string;
+  userData: UserDataInterface;
+  currentPage: string;
+  children?: React.ReactNode;
 }
 
 const Header: React.FC<Props> = (props: Props) => {

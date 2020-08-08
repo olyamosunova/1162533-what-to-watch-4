@@ -10,22 +10,22 @@ import PromoMovie from "../promo-movie/promo-movie";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  genres: string[],
-  activeGenre: string,
-  onClick(activeGenre: string): void,
-  filteredMovies: Array<MovieInterface>
-  rating: number,
-  ratingLevel: string,
-  ratingCount: number,
-  runTime: number,
-  description: string,
-  director: string,
-  starring: string[],
-  showedMoviesCount: number,
-  onShowMoreButtonClick(): void,
+  genres: string[];
+  activeGenre: string;
+  onClick(activeGenre: string): void;
+  filteredMovies: Array<MovieInterface>;
+  rating: number;
+  ratingLevel: string;
+  ratingCount: number;
+  runTime: number;
+  description: string;
+  director: string;
+  starring: string[];
+  showedMoviesCount: number;
+  onShowMoreButtonClick(): void;
 }
 
-class Main extends React.PureComponent<Props, {}>{
+class Main extends React.PureComponent<Props, {} > {
   constructor(props) {
     super(props);
   }

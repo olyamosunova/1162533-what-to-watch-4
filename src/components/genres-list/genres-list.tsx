@@ -1,9 +1,9 @@
 import * as React from "react";
 
 interface Props {
-  genres: string[],
-  activeGenre: string,
-  onClick(item: string): void,
+  genres: string[];
+  activeGenre: string;
+  onClick(item: string): void;
 }
 
 const GenresList: React.FC<Props> = (props: Props) => {

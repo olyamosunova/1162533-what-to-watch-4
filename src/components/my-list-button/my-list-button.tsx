@@ -9,14 +9,14 @@ const REMOVE_FROM_MY_LIST = 0;
 const ADD_TO_MY_LIST = 1;
 
 interface Props {
-  isFavorite: boolean,
-  id: number,
-  onMyListClick(id: number, status: number, isPromoMovie: boolean): void,
-  isPromoMovie: boolean,
-  authorizationStatus: string
+  isFavorite: boolean;
+  id: number;
+  onMyListClick(id: number, status: number, isPromoMovie: boolean): void;
+  isPromoMovie: boolean;
+  authorizationStatus: string;
 }
 
-class MyListButton extends React.PureComponent<Props, {}>{
+class MyListButton extends React.PureComponent<Props, {} > {
   constructor(props) {
     super(props);
 

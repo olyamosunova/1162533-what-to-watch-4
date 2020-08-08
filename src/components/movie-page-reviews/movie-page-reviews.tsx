@@ -3,7 +3,7 @@ import {formatDateTime, formatReviewDate} from "../../utils";
 import {ReviewInterface} from "../../types";
 
 interface Props {
-  reviews: Array<ReviewInterface>
+  reviews: Array<ReviewInterface>;
 }
 
 const MoviePageReviews: React.FC<Props> = (props: Props) => {

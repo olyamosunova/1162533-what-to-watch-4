@@ -12,7 +12,7 @@ import MoviesList from "../movies-list/movies-list";
 import Header from "../header/header";
 
 interface Props {
-  favoriteMovies: Array<MovieInterface>,
+  favoriteMovies: Array<MovieInterface>;
 }
 
 const FavoriteMovieList: React.FC<Props> = (props: Props) => {

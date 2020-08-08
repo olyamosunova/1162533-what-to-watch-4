@@ -5,19 +5,19 @@ import {Link} from "react-router-dom";
 import {MovieInterface} from "../../types";
 
 interface Props {
-  movie: MovieInterface,
-  isReviewPosting: boolean,
-  isSubmitDisabled: boolean,
-  isReviewLengthError: boolean,
-  isError: boolean,
-  onSubmitClick(): void,
-  onFormChange(): void,
-  onRatingChange(): void,
-  onReviewChange(): void,
+  movie: MovieInterface;
+  isReviewPosting: boolean;
+  isSubmitDisabled: boolean;
+  isReviewLengthError: boolean;
+  isError: boolean;
+  onSubmitClick(): void;
+  onFormChange(): void;
+  onRatingChange(): void;
+  onReviewChange(): void;
 }
 
 const AddReview: React.FC<Props> = ({
-   movie,
+  movie,
   isError,
   isReviewPosting,
   onSubmitClick,
@@ -26,8 +26,7 @@ const AddReview: React.FC<Props> = ({
   onReviewChange,
   isSubmitDisabled,
   isReviewLengthError
-  }: Props) => {
-
+}: Props) => {
   const RATINGS_QUANTITY = 5;
   const isRadioDisabled = isReviewPosting ? true : false;
 
