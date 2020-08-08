@@ -18,53 +18,53 @@ interface Props {
   onShowMoreButtonClick(): void;
 }
 
-class Main extends React.PureComponent<Props, {} > {
-  constructor(props) {
-    super(props);
-  }
+const Main: React.FC<Props> = ({
+  genres,
+  activeGenre,
+  onClick,
+  filteredMovies,
+  showedMoviesCount,
+  onShowMoreButtonClick,
+}: Props) => {
+  const showedMovies = [...filteredMovies].splice(0, showedMoviesCount);
 
-  render() {
-    const {genres, activeGenre, onClick, filteredMovies, showedMoviesCount, onShowMoreButtonClick} = this.props;
-    const showedMovies = [...filteredMovies].splice(0, showedMoviesCount);
+  const isHideShowMoreButton = showedMoviesCount >= filteredMovies.length ? true : false;
 
-    const isHideShowMoreButton = showedMoviesCount >= filteredMovies.length ? true : false;
+  return (
+    <React.Fragment>
+      <PromoMovie />
 
-    return (
-      <React.Fragment>
-        <PromoMovie />
+      <div className="page-content">
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="page-content">
-          <section className="catalog">
-            <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <GenresList genres={genres} activeGenre={activeGenre} onClick={onClick} />
 
-            <GenresList genres={genres} activeGenre={activeGenre} onClick={onClick} />
+          <MoviesList
+            movies={showedMovies}
+          />
 
-            <MoviesList
-              movies={showedMovies}
-            />
+          {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />}
 
-            {isHideShowMoreButton ? null : <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />}
+        </section>
 
-          </section>
+        <footer className="page-footer">
+          <div className="logo">
+            <a className="logo__link logo__link--light">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </a>
+          </div>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <a className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
-        </div>
-      </React.Fragment>
-    );
-  }
-}
+          <div className="copyright">
+            <p>© 2019 What to watch Ltd.</p>
+          </div>
+        </footer>
+      </div>
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = (state) => ({
   activeGenre: getActiveGenre(state),
