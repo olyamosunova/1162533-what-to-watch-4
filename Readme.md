@@ -1,6 +1,6 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
-* Июнь - Август 2020
+* Июнь - Август 2020 Обучение
 
 * Студент: [Ольга Мосунова](https://up.htmlacademy.ru/react/4/user/1162533).
 * Наставник: [Александр Белокур](https://up.htmlacademy.ru/react/4/user/256757).
