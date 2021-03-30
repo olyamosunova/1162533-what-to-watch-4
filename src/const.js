@@ -72,10 +72,10 @@ export const reviewSubmitButton = {
 };
 
 export const AppRoute = {
-  ROOT: `/`,
-  LOGIN: `/login`,
-  MY_LIST: `/mylist`,
-  MOVIE: `/films`,
-  REVIEW: `/films/:id/review`,
-  PLAYER: `/films/:id/player`,
+  ROOT: `/1162533-what-to-watch-4`,
+  LOGIN: `/1162533-what-to-watch-4/login`,
+  MY_LIST: `/1162533-what-to-watch-4/mylist`,
+  MOVIE: `/1162533-what-to-watch-4/films`,
+  REVIEW: `/1162533-what-to-watch-4/films/:id/review`,
+  PLAYER: `/1162533-what-to-watch-4/films/:id/player`,
 };
