@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Личный проект «Что посмотреть» от HTML Academy",
+  "homepage": "http://olyamosunova.github.io/1162533-what-to-watch-4",
   "scripts": {
     "eslint": "npm run eslint.js && npm run eslint.ts",
     "eslint.js": "eslint --ext .jsx --ext .js src/",
@@ -10,7 +11,8 @@
     "test": "npm run eslint && npm run test.jest",
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
-    "test.jest": "jest"
+    "test.jest": "jest",
+    "deploy": "gh-pages -d public"
   },
   "devDependencies": {
     "@babel/core": "7.10.2",
@@ -47,7 +49,7 @@
     "node": "10"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "axios": "^0.21.1",
     "history": "4.10.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
